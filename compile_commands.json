@@ -1,0 +1,36 @@
+[
+ {
+  "directory": "/home/alex/CODING/HIVE/second_circle/push_swap",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-c",
+   "srcs/main.c",
+   "-o",
+   "srcs/main.o",
+   "-Iincludes",
+   "-I.",
+   "-Ilibftprintf"
+  ],
+  "file": "srcs/main.c"
+ },
+ {
+  "directory": "/home/alex/CODING/HIVE/second_circle/push_swap",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-c",
+   "srcs/utils.c",
+   "-o",
+   "srcs/utils.o",
+   "-Iincludes",
+   "-I.",
+   "-Ilibftprintf"
+  ],
+  "file": "srcs/utils.c"
+ }
+]

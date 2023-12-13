@@ -6,28 +6,27 @@
 /*   By: apyykone <apyykone@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 12:42:35 by apyykone          #+#    #+#             */
-/*   Updated: 2023/12/13 16:04:28 by apyykone         ###   ########.fr       */
+/*   Updated: 2023/12/13 23:33:03 by apyykone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
+# define TRUE 1
+# define FALSE 0
 
-
-
-# include <stdlib.h>
 # include "../libftprintf/libft/libft.h"
 # include "../libftprintf/mandatory/ft_printf.h"
 # include <stdio.h>
+# include <stdlib.h>
 
 typedef struct s_stackinfo
 {
-	t_list *stack;
-	int	len;
+	t_list	*stack;
+	int		stack_len;
+}			t_stackinfo;
 
-}t_stackinfo;
-
-int ft_swap_stack(t_stackinfo *info);
-int ft_rotate_stack(t_stackinfo *info, int reverse);
+int			ft_swap_stack(t_stackinfo *info);
+void		ft_rotate_stack(t_stackinfo *info, int reverse);
 
 #endif
