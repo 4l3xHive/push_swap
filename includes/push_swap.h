@@ -28,5 +28,6 @@ typedef struct s_stackinfo
 
 int			ft_swap_stack(t_stackinfo *info);
 void		ft_rotate_stack(t_stackinfo *info, int reverse);
-
+void		ft_push_stack(t_list **a, t_list **b, int push_a);
+void		ft_printstack(t_list *stack);
 #endif

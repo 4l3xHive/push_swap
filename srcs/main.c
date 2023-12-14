@@ -12,8 +12,6 @@
 
 #include "push_swap.h"
 
-void	ft_printstack(t_list *stack);
-
 void	ft_exit_error(const char *err_msg, int exit_val)
 {
 	if (exit_val == EXIT_FAILURE)
@@ -66,7 +64,7 @@ t_list	*ft_init_list(int *nums, int arg_len, int *list_len)
 	return (first);
 }
 
-void	ft_init_stack(char **av, t_stackinfo *info)
+void	ft_init_stack_a(char **av, t_stackinfo *info)
 {
 	int	arg_len;
 	int	*nums;
@@ -94,18 +92,27 @@ int	main(int ac, char **av)
 {
 	t_stackinfo	a_stack;
 	t_stackinfo	b_stack;
+	int			tst;
+	int			tst2;
 
+	tst2 = 55;
+	tst = 69;
 	if (ac == 2)
 	{
-		ft_init_stack(av, &a_stack);
+		ft_init_stack_a(av, &a_stack);
+		b_stack.stack = ft_lstnew(&tst);
+		ft_lstadd_back(&b_stack.stack, ft_lstnew(&tst2));
+		// ft_push_stack(&a_stack.stack, &b_stack.stack, TRUE);
 		ft_printstack(a_stack.stack);
-		// ft_swap_stack(&a_stack);
-		ft_rotate_stack(&a_stack, FALSE);
 		printf("\n\n");
+		ft_printstack(b_stack.stack);
+		// ft_swap_stack(&a_stack);
+		// ft_rotate_stack(&a_stack, FALSE);
+		/*printf("\n\n");
 		ft_printstack(a_stack.stack);
 		ft_rotate_stack(&a_stack, TRUE);
 		printf("\n\n");
-		ft_printstack(a_stack.stack);
+		ft_printstack(a_stack.stack);*/
 	}
 	// list = ft_convert_args(av);
 }

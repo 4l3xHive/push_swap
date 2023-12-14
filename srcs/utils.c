@@ -26,6 +26,24 @@ int	ft_swap_stack(t_stackinfo *info)
 	return (0);
 }
 
+void	ft_push_stack(t_list **a, t_list **b, int push_a)
+{
+	t_list	*temp;
+
+	if (push_a && b)
+	{
+		temp = (*b)->next;
+		ft_lstadd_front(a, *b);
+		(*b) = temp;
+	}
+	else if (!push_a && a)
+	{
+		temp = (*a)->next;
+		ft_lstadd_front(b, *a);
+		(*a) = temp;
+	}
+}
+
 // Rotates the stack either way
 void	ft_rotate_stack(t_stackinfo *info, int reverse)
 {
@@ -55,32 +73,3 @@ void	ft_rotate_stack(t_stackinfo *info, int reverse)
 		}
 	}
 }
-/* PROTO FOR REVERSE IN SAME FUNCTION !!
-int	ft_rotate_stack(t_stackinfo *info, int reverse)
-{
-	t_list  *first;
-	t_list  *second;
-	void    *tmp_c;
-	(void)reverse;
-
-	if (info->len > 1)
-	{
-		first = info->stack;
-		second = first->next;
-		if (reverse)
-		{
-			first = ft_lstlast(info->stack);
-			second = info->stack;
-		}
-		while (second)
-		{
-			tmp_c = first->content;
-			first->content = second->content;
-			second->content = tmp_c;
-			second = second->next;
-			first = first->next;
-		}
-
-	}
-	return (0);
-	}*/
