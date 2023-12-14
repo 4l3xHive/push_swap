@@ -6,7 +6,7 @@
 /*   By: apyykone <apyykone@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 12:42:07 by apyykone          #+#    #+#             */
-/*   Updated: 2023/12/14 00:08:26 by apyykone         ###   ########.fr       */
+/*   Updated: 2023/12/15 01:52:36 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,30 @@ void	ft_init_stack_a(char **av, t_stackinfo *info)
 		ft_exit_error("Error: parsing arguments!\n", EXIT_FAILURE);
 }
 
-void	ft_printstack(t_list *stack)
+void	ft_printstack(t_list *stack1, t_list *stack2)
 {
-	t_list	*curr;
+	t_list	*curr1;
+	t_list	*curr2;
 
-	curr = stack;
-	while (curr)
+
+	curr2 = stack2;
+	curr1 = stack1;
+
+	while (curr1 || curr2)
 	{
-		printf("%d\n", *(int *)curr->content);
-		curr = curr->next;
+		if (curr1)
+		{
+			ft_printf("%d", *(int *)curr1->content);
+			curr1 = curr1->next;
+		}
+		if (curr2)
+		{
+			ft_printf("      %d", *(int *)curr2->content);
+			curr2 = curr2->next;
+		}
+		write(1, "\n", 1);
 	}
+	ft_printf("|a|    |b|");
 }
 
 int	main(int ac, char **av)
@@ -103,9 +117,10 @@ int	main(int ac, char **av)
 		b_stack.stack = ft_lstnew(&tst);
 		ft_lstadd_back(&b_stack.stack, ft_lstnew(&tst2));
 		// ft_push_stack(&a_stack.stack, &b_stack.stack, TRUE);
-		ft_printstack(a_stack.stack);
+		ft_printstack(a_stack.stack, b_stack.stack);
 		printf("\n\n");
-		ft_printstack(b_stack.stack);
+		ft_push_stack(&a_stack.stack, &b_stack.stack, FALSE);
+		ft_printstack(a_stack.stack, b_stack.stack);
 		// ft_swap_stack(&a_stack);
 		// ft_rotate_stack(&a_stack, FALSE);
 		/*printf("\n\n");

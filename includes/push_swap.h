@@ -6,7 +6,7 @@
 /*   By: apyykone <apyykone@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 12:42:35 by apyykone          #+#    #+#             */
-/*   Updated: 2023/12/13 23:33:03 by apyykone         ###   ########.fr       */
+/*   Updated: 2023/12/15 01:45:44 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ typedef struct s_stackinfo
 int			ft_swap_stack(t_stackinfo *info);
 void		ft_rotate_stack(t_stackinfo *info, int reverse);
 void		ft_push_stack(t_list **a, t_list **b, int push_a);
-void		ft_printstack(t_list *stack);
+void		ft_printstack(t_list *stack1, t_list *stack2);
 #endif
