@@ -6,22 +6,52 @@
 /*   By: apyykone <apyykone@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 15:30:45 by apyykone          #+#    #+#             */
-/*   Updated: 2023/12/15 01:32:24 by alex             ###   ########.fr       */
+/*   Updated: 2023/12/16 15:31:18 by apyykone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+int ft_freeall(char **split, int split_i, t_stackinfo *info)
+{
+	size_t	i;
+
+	i = 0;
+	if (split)
+	{
+		while (i < split_i)
+			free(split[i++]);
+		free(split);
+	}
+	if (info->nums)
+		free(info->nums);
+	if (info->stack)
+		ft_lstclear(&info->stack, free);
+	return (-1);
+}
+
+// Checks that if the stack is sorted
+int ft_is_stack_sorted(t_list *stack)
+{
+	while (stack->next)
+	{
+		if (*(int *)stack->content > *(int *)stack->next->content)
+			return (FALSE);
+		stack = stack->next;
+	}	
+	return (TRUE);
+}
+
 // Swaps the top of the stack
-int	ft_swap_stack(t_stackinfo *info)
+int	ft_swap_stack(t_list *stack)
 {
 	void	*temp;
 
-	if (info->stack_len > 1)
+	if (stack->next != NULL)
 	{
-		temp = info->stack->content;
-		info->stack->content = info->stack->next->content;
-		info->stack->next->content = temp;
+		temp = stack->content;
+		stack->content = stack->next->content;
+		stack->next->content = temp;
 	}
 	return (0);
 }
