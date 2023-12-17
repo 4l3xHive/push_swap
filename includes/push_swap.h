@@ -22,15 +22,16 @@
 
 typedef struct s_stackinfo
 {
-	t_list		*stack;
-	size_t		stack_len;
-	int			*nums;
+	t_list	*stack;
+	size_t	stack_len;
+	int		*nums;
 }			t_stackinfo;
 
 int			ft_swap_stack(t_list *stack);
 void		ft_rotate_stack(t_stackinfo *info, int reverse);
 void		ft_push_stack(t_list **a, t_list **b, int push_a);
 void		ft_printstack(t_list *stack1, t_list *stack2);
-int 		ft_is_stack_sorted(t_list *stack);
-int 		ft_freeall(char **split, int split_i, t_stackinfo *info);
+int			ft_is_stack_sorted(t_list *stack);
+int			ft_freeall(char **split, size_t split_i, t_stackinfo *a,
+				t_stackinfo *b);
 #endif

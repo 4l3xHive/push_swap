@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int ft_freeall(char **split, int split_i, t_stackinfo *info)
+int	ft_freeall(char **split, size_t split_i, t_stackinfo *a, t_stackinfo *b)
 {
 	size_t	i;
 
@@ -23,22 +23,28 @@ int ft_freeall(char **split, int split_i, t_stackinfo *info)
 			free(split[i++]);
 		free(split);
 	}
-	if (info->nums)
-		free(info->nums);
-	if (info->stack)
-		ft_lstclear(&info->stack, free);
+	if (a)
+	{
+		free(a->nums);
+		ft_lstclear(&a->stack, NULL);
+	}
+	if (b)
+	{
+		free(b->nums);
+		ft_lstclear(&b->stack, NULL);
+	}
 	return (-1);
 }
 
 // Checks that if the stack is sorted
-int ft_is_stack_sorted(t_list *stack)
+int	ft_is_stack_sorted(t_list *stack)
 {
 	while (stack->next)
 	{
 		if (*(int *)stack->content > *(int *)stack->next->content)
 			return (FALSE);
 		stack = stack->next;
-	}	
+	}
 	return (TRUE);
 }
 
@@ -102,4 +108,28 @@ void	ft_rotate_stack(t_stackinfo *info, int reverse)
 			tail = tail->next;
 		}
 	}
+}
+
+void	ft_printstack(t_list *a, t_list *b)
+{
+	t_list *curr1;
+	t_list *curr2;
+
+	curr2 = b;
+	curr1 = a;
+	while (curr1 || curr2)
+	{
+		if (curr1)
+		{
+			ft_printf("%d", *(int *)curr1->content);
+			curr1 = curr1->next;
+		}
+		if (curr2)
+		{
+			ft_printf("      %d", *(int *)curr2->content);
+			curr2 = curr2->next;
+		}
+		write(1, "\n", 1);
+	}
+	ft_printf("|a|    |b|");
 }

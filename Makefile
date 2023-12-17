@@ -18,6 +18,9 @@ $(NAME) : $(OBJS)
 		@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME) ${INCLUDE}
 		@printf "\033[0;32mpush_swap succesfully compiled!\n\e[0m"
 
+debug: $(OBJS)
+	$(CC) -g $^ $(LIBS) -o push_gdb $(INCLUDE)
+
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@ ${INCLUDE}
 
@@ -27,7 +30,7 @@ clean :
 
 fclean : clean
 		@make fclean -C libftprintf
-		@${RM} $(NAME)
+		@${RM} $(NAME) push_gdb
 		@printf "\033[0;31m Succesfully cleaned the project!\n\e[0m"
 
 re : fclean all
