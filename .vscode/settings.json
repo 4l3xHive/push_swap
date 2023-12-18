@@ -1,6 +1,9 @@
 {
     "files.associations": {
         "stdio.h": "c",
-        "cstdlib": "c"
+        "cstdlib": "c",
+        "ft_printf.h": "c",
+        "random": "c",
+        "push_swap.h": "c"
     }
 }

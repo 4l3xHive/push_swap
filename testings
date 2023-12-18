@@ -1,0 +1,18 @@
+// DO THE QSORT YOUR OWN
+/*qsort(a_stack.nums, a_stack.stack_len, sizeof(int), compare);
+for (size_t i = 0; i < a_stack.stack_len; i++)
+{
+	printf("%d  ", a_stack.nums[i]);
+}
+// ft_firstcheck(&a_stack);
+// ft_create_indices(a_stack);
+// b_stack.stack = ft_lstnew(&tst);
+// ft_lstadd_back(&b_stack.stack, ft_lstnew(&tst2));
+// ft_push_stack(&a_stack.stack, &b_stack.stack, TRUE);
+// ft_printstack(a_stack.stack, b_stack.stack);
+// ft_printstack(a_stack.stack, b_stack.stack);*/
+
+int	ft_int_compare(const void *a, const void *b)
+{
+	return (*(int *)a - *(int *)b);
+}

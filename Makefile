@@ -1,7 +1,10 @@
 NAME = push_swap
 LIBS = ./libftprintf/libftprintf.a  ./libftprintf/libft/libft.a
 SRC_FILES =	main.c \
-			utils.c 
+			actions.c \
+			error_free_init.c \
+			sort_3_5_.c \
+			utils.c \
 
 SRC_DIR = srcs/
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
