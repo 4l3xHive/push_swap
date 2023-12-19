@@ -43,25 +43,29 @@ int	ft_swap(t_list *stack, int swap_a, int swap_both)
 	return (0);
 }
 
-int	ft_push(t_list **a, t_list **b, int push_a)
+int	ft_push(t_stackinfo *a, t_stackinfo *b, int push_a)
 {
 	t_list	*temp;
+	int 	action;
 
-	if (push_a && b)
+	action = 0;
+	if (push_a && b->stack)
 	{
-		temp = (*b)->next;
-		ft_lstadd_front(a, *b);
-		(*b) = temp;
-		return (ft_print_action(pa));
+		temp = b->stack->next;
+		ft_lstadd_front(&a->stack, b->stack);
+		b->stack = temp;
+		action = pa;
 	}
-	else if (!push_a && a)
+	else if (!push_a && a->stack)
 	{
-		temp = (*a)->next;
-		ft_lstadd_front(b, *a);
-		(*a) = temp;
-		return (ft_print_action(pb));
+		temp = a->stack->next;
+		ft_lstadd_front(&b->stack, a->stack);
+		a->stack = temp;
+		action = pb;
 	}
-	return (0);
+	a->stack_len = ft_lstsize(a->stack);
+	b->stack_len = ft_lstsize(b->stack);
+	return (ft_print_action(action));
 }
 
 // Rotates the stack either way
@@ -89,6 +93,5 @@ int	ft_rotate(t_list *stack, int reverse, int rotate_a)
 		head = head->next;
 		tail = tail->next;
 	}
-	//ft_printstack(stack, NULL);
 	return (ft_print_action(ft_rotate_val(reverse, rotate_a)));
 }

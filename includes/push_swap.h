@@ -52,10 +52,10 @@ typedef struct s_stackinfo
 // MAIN ACTIONS
 int			ft_swap(t_list *stack, int swap_a, int swap_both);
 int			ft_rotate(t_list *stack, int reverse, int rotate_a);
-int			ft_push(t_list **a, t_list **b, int push_a);
+int			ft_push(t_stackinfo *a, t_stackinfo *b, int push_a);
 int			ft_is_stack_sorted(t_list *stack);
 void		ft_sort_3(t_stackinfo *a);
-// int			ft_sort_5(t_list *a);
+void		ft_sort_5(t_stackinfo *a, t_stackinfo *b);
 // UTILS
 int			ft_intcmp(const void *a, const void *b);
 void		ft_printstack(t_list *stack1, t_list *stack2);

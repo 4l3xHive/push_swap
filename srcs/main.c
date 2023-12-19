@@ -23,15 +23,16 @@ static void	ft_init_a(char **av, t_stackinfo *a)
 		ft_exit("ERROR: already sorted!\n", a, NULL, 0);
 }
 
+/*
 static void	ft_start_sorting(t_stackinfo *a, t_stackinfo *b)
 {
 	if (a->stack_len == 2)
 		ft_exit(NULL, a, b, ft_swap(a->stack, TRUE, FALSE));
 	if (a->stack_len == 3)
 		ft_sort_3(a);
-	// if (a->stack_len == 5)
-	//	ft_exit(NULL, a, b, ft_sort_5(a->stack));
-}
+	if (a->stack_len == 5)
+		ft_sort_5(a, b);
+}*/
 
 int	main(int ac, char **av)
 {
@@ -42,25 +43,14 @@ int	main(int ac, char **av)
 	if (ac == 2)
 	{
 		ft_init_a(av, &a);
-		ft_start_sorting(&a, &b);
-
-
+		ft_push(&a, &b, FALSE);
+		ft_push(&a, &b, FALSE);
+		printf("len a %lu len b %lu\n\n", a.stack_len, b.stack_len);
+		ft_push(&a,&b, TRUE);
+		//ft_start_sorting(&a, &b);
 		ft_printstack(a.stack, b.stack);
-
 		ft_freeall(NULL, 0, &a, &b);
 	}
-	/* list = ft_convert_args(av);
-	if ((numbers_in_stack_a[1] == 2) && (stack_a[0] > stack_a[1]))
-		rotate_stack_a(stack_a, numbers_in_stack_a);
-	else if (numbers_in_stack_a[1] == 3)
-		sort_3_numbers(stack_a, numbers_in_stack_a);
-	else if (numbers_in_stack_a[1] == 5)
-		sort_5_numbers(stack_a, stack_b, numbers_in_stack_a,
-			numbers_in_stack_b);
-	else
-		sort_beyond_3_and_5_numbers(stack_a, stack_b, numbers_in_stack_a,
-			numbers_in_stack_b);
-*/
 	return (0);
 }
 

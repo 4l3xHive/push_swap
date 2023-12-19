@@ -42,7 +42,7 @@ int	ft_print_action(int val)
 {
 	char	*action;
 
-	action = NULL;
+	action = "";
 	if (val & sa)
 		action = "sa\n";
 	else if (val & sb)
@@ -89,5 +89,5 @@ void	ft_printstack(t_list *a, t_list *b)
 		}
 		write(1, "\n", 1);
 	}
-	ft_printf("|a|    |b|");
+	ft_printf("|a|    |b|\n");
 }

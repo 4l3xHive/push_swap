@@ -12,6 +12,7 @@
 
 #include "push_swap.h"
 
+// SORT IF THERE IS 3 NUMBERS 
 void	ft_sort_3(t_stackinfo *a)
 {
 	t_list	*first;
@@ -46,7 +47,8 @@ void	ft_sort_3(t_stackinfo *a)
 		ft_exit(NULL, a, NULL, ft_rotate(first, TRUE, TRUE) + pf_check);
 }
 
-/* SORT 5
+
+/*
 void	rotate_stack_a_radix(long *stack_a, int *numbers_in_stack_a)
 {
 	rotate_stack_a(stack_a, numbers_in_stack_a);
@@ -112,7 +114,7 @@ void	second_stack(long *stack_a, long *stack_b, int *numbers_in_stack_a,
 		parameters(stack_a, stack_b, numbers_in_stack_a, numbers_in_stack_b);
 }
 
-void	sort_5_numbers(long *stack_a, long *stack_b, int *numbers_in_stack_a,
+void	ft_sort_5(long *stack_a, long *stack_b, int *numbers_in_stack_a,
 		int *numbers_in_stack_b)
 {
 	push_stack_b(stack_a, stack_b, numbers_in_stack_a, numbers_in_stack_b);
