@@ -68,10 +68,10 @@ int	ft_init_stack_a(t_stackinfo *a)
 }
 
 /* Need to create diff vals for error checking in printf in upper levels works as a callback also if there is pf_callback enabled*/
-void	ft_exit(const char *err_msg, t_stackinfo *a, t_stackinfo *b, int pf)
+void	ft_exit(char *err_msg, t_stackinfo *a, t_stackinfo *b, int pf)
 {
 	if (pf == pf_err || pf == -1)
-		err_msg = "ERROR: printf failed !";
+		err_msg = "ERROR: printf failed in some of the actions !!";
 	if (pf == pf_success || pf == pf_success1 || pf == pf_success2)
 		return ;
 	ft_freeall(NULL, 0, a, b);

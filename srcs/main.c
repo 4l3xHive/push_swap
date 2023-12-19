@@ -23,7 +23,7 @@ static void	ft_init_a(char **av, t_stackinfo *a)
 		ft_exit("ERROR: already sorted!\n", a, NULL, 0);
 }
 
-/*
+
 static void	ft_start_sorting(t_stackinfo *a, t_stackinfo *b)
 {
 	if (a->stack_len == 2)
@@ -32,7 +32,7 @@ static void	ft_start_sorting(t_stackinfo *a, t_stackinfo *b)
 		ft_sort_3(a);
 	if (a->stack_len == 5)
 		ft_sort_5(a, b);
-}*/
+}
 
 int	main(int ac, char **av)
 {
@@ -43,12 +43,8 @@ int	main(int ac, char **av)
 	if (ac == 2)
 	{
 		ft_init_a(av, &a);
-		ft_push(&a, &b, FALSE);
-		ft_push(&a, &b, FALSE);
-		printf("len a %lu len b %lu\n\n", a.stack_len, b.stack_len);
 		ft_push(&a,&b, TRUE);
-		//ft_start_sorting(&a, &b);
-		ft_printstack(a.stack, b.stack);
+		ft_start_sorting(&a, &b);
 		ft_freeall(NULL, 0, &a, &b);
 	}
 	return (0);

@@ -30,7 +30,7 @@ void	ft_sort_3(t_stackinfo *a)
 	if (ft_intcmp(first->content, second->content) && ft_intcmp(second->content,
 			third->content) && ft_intcmp(first->content, third->content))
 	{
-		ft_exit(NULL, a, NULL, ft_swap(first, TRUE, FALSE) + pf_check);
+		ft_exit(NULL , a, NULL, ft_swap(first, TRUE, FALSE) + pf_check);
 		ft_exit(NULL, a, NULL, ft_rotate(first, TRUE, TRUE) + pf_check);
 	}
 	if (ft_intcmp(first->content, second->content) && ft_intcmp(third->content,
@@ -48,7 +48,7 @@ void	ft_sort_3(t_stackinfo *a)
 }
 
 
-/*
+
 void	rotate_stack_a_radix(long *stack_a, int *numbers_in_stack_a)
 {
 	rotate_stack_a(stack_a, numbers_in_stack_a);
@@ -61,16 +61,20 @@ void	reverse_rotate_stack_a_radix(long *stack_a, int *numbers_in_stack_a)
 	reverse_rotate_stack_a(stack_a, numbers_in_stack_a);
 }
 
-void	first_stack(long *stack_a, long *stack_b, int *numbers_in_stack_a,
-		int *numbers_in_stack_b)
+void	first_stack(t_stackinfo *a, t_stackinfo *b)
 {
-	if (stack_b[0] < stack_a[0])
-		push_stack_a(stack_a, stack_b, numbers_in_stack_a, numbers_in_stack_b);
-	else if ((stack_b[0] > stack_a[0]) && (stack_b[0] < stack_a[1]))
+	t_list *a_s;
+	t_list *b_s;
+
+	a_s = a->stack;
+	b_s = b->stack;
+	if (ft_intcmp(a_s->content, b_s->content))
+		ft_exit(NULL, ft_push(a, b, TRUE);
+	else if (ft_intcmp(b_s->content, a_s->content) && ft_intcmp(b_s->content, a_s->next->content))
 	{
-		rotate_stack_a(stack_a, numbers_in_stack_a);
-		push_stack_a(stack_a, stack_b, numbers_in_stack_a, numbers_in_stack_b);
-		reverse_rotate_stack_a(stack_a, numbers_in_stack_a);
+		ft_rotate(a_s, FALSE, TRUE);
+		ft_push(a, b, TRUE);
+		ft_rotate(a_s, TRUE, TRUE);
 	}
 	else if ((stack_b[0] > stack_a[1]) && (stack_b[0] < stack_a[2]))
 	{
@@ -114,19 +118,19 @@ void	second_stack(long *stack_a, long *stack_b, int *numbers_in_stack_a,
 		parameters(stack_a, stack_b, numbers_in_stack_a, numbers_in_stack_b);
 }
 
-void	ft_sort_5(long *stack_a, long *stack_b, int *numbers_in_stack_a,
-		int *numbers_in_stack_b)
+void	ft_sort_5(t_stackinfo *a, t_stackinfo *b)
 {
-	push_stack_b(stack_a, stack_b, numbers_in_stack_a, numbers_in_stack_b);
-	push_stack_b(stack_a, stack_b, numbers_in_stack_a, numbers_in_stack_b);
-	sort_3_numbers(stack_a, numbers_in_stack_a);
-	while (*numbers_in_stack_b != 0)
+	ft_push(a, b, FALSE);
+	ft_push(a, b, FALSE);
+	ft_sort_3(a);
+	ft_printstack(a->stack, b->stack);
+
+	while (b->stack_len != 0)
 	{
-		if (numbers_in_stack_a[1] == 3)
-			first_stack(stack_a, stack_b, numbers_in_stack_a,
-				numbers_in_stack_b);
-		else if (numbers_in_stack_a[1] == 4)
-			second_stack(stack_a, stack_b, numbers_in_stack_a,
-				numbers_in_stack_b);
+		if (a->stack_len == 3)
+			first_stack(a, b);
+		else if (a->stack_len == 4)
+			second_stack(a, b);
 	}
-}*/
+
+}
