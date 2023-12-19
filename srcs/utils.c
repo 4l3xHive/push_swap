@@ -42,6 +42,7 @@ int	ft_print_action(int val)
 {
 	char	*action;
 
+	action = NULL;
 	if (val & sa)
 		action = "sa\n";
 	else if (val & sb)

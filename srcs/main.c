@@ -43,6 +43,10 @@ int	main(int ac, char **av)
 	{
 		ft_init_a(av, &a);
 		ft_start_sorting(&a, &b);
+
+
+		ft_printstack(a.stack, b.stack);
+
 		ft_freeall(NULL, 0, &a, &b);
 	}
 	/* list = ft_convert_args(av);

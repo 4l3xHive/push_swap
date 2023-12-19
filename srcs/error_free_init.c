@@ -72,11 +72,8 @@ void	ft_exit(const char *err_msg, t_stackinfo *a, t_stackinfo *b, int pf)
 {
 	if (pf == pf_err || pf == -1)
 		err_msg = "ERROR: printf failed !";
-	if (pf == pf_callback1 || pf == pf_callback2)
-	{
-		printf("HELLLO \n\n");
+	if (pf == pf_success || pf == pf_success1 || pf == pf_success2)
 		return ;
-	}
 	ft_freeall(NULL, 0, a, b);
 	if (err_msg)
 	{

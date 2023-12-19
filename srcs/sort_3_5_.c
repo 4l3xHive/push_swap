@@ -21,9 +21,11 @@ void	ft_sort_3(t_stackinfo *a)
 	first = a->stack;
 	second = first->next;
 	third = first->next->next;
+
 	if (ft_intcmp(first->content, second->content) && ft_intcmp(third->content,
 			second->content) && ft_intcmp(third->content, first->content))
 		ft_exit(NULL, a, NULL, ft_swap(first, TRUE, FALSE) + pf_check);
+	
 	if (ft_intcmp(first->content, second->content) && ft_intcmp(second->content,
 			third->content) && ft_intcmp(first->content, third->content))
 	{

@@ -24,7 +24,7 @@ int	ft_is_stack_sorted(t_list *stack)
 	return (TRUE);
 }
 
-// Swaps the top of the stack
+// Swaps the first 2 of the stack
 int	ft_swap(t_list *stack, int swap_a, int swap_both)
 {
 	void	*temp;
@@ -89,5 +89,6 @@ int	ft_rotate(t_list *stack, int reverse, int rotate_a)
 		head = head->next;
 		tail = tail->next;
 	}
+	//ft_printstack(stack, NULL);
 	return (ft_print_action(ft_rotate_val(reverse, rotate_a)));
 }
