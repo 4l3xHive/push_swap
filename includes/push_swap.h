@@ -17,9 +17,9 @@
 
 # include "../libftprintf/libft/libft.h"
 # include "../libftprintf/mandatory/ft_printf.h"
+# include <limits.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <limits.h>
 
 enum		e_action
 {
@@ -41,18 +41,17 @@ enum		e_action
 	rrr = 1024,
 };
 
-typedef struct s_indexcheck
+typedef struct s_index
 {
-	int smallest_content;
-	int smallest_index;
-    int current_index;
-}t_index;
-
+	int		largest_content;
+	int		largest_index;
+	int		i;
+}			t_index;
 
 typedef struct s_stackinfo
 {
 	t_list	*stack;
-	size_t	stack_len;
+	size_t	curr_stack_len;
 	int		*nums;
 }			t_stackinfo;
 
@@ -69,7 +68,8 @@ void		ft_printstack(t_list *stack1, t_list *stack2);
 int			ft_rotate_val(int reverse, int rotate_a);
 int			ft_print_action(int val);
 // CLEANUP
-void		ft_freeall(char **split, size_t split_i, t_stackinfo *a, t_stackinfo *b);
+void		ft_freeall(char **split, size_t split_i, t_stackinfo *a,
+				t_stackinfo *b);
 void		ft_exit(const char *err_msg, t_stackinfo *a, t_stackinfo *b,
 				int pf);
 // INITS    t_stackinfo  a = {0} ??

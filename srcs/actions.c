@@ -12,23 +12,11 @@
 
 #include "push_swap.h"
 
-// Checks that if the stack is sorted
-int	ft_is_stack_sorted(t_list *stack)
-{
-	while (stack->next)
-	{
-		if (*(int *)stack->content > *(int *)stack->next->content)
-			return (FALSE);
-		stack = stack->next;
-	}
-	return (TRUE);
-}
-
 // Swaps the first 2 of the stack
 int	ft_swap(t_stackinfo *info, int swap_a, int swap_both)
 {
 	void	*temp;
-	t_list *stack;
+	t_list	*stack;
 
 	stack = info->stack;
 	if (stack->next != NULL)
@@ -65,8 +53,8 @@ int	ft_push(t_stackinfo *a, t_stackinfo *b, int push_a)
 		a->stack = temp;
 		action = pb;
 	}
-	a->stack_len = ft_lstsize(a->stack);
-	b->stack_len = ft_lstsize(b->stack);
+	a->curr_stack_len = ft_lstsize(a->stack);
+	b->curr_stack_len = ft_lstsize(b->stack);
 	return (ft_print_action(action));
 }
 
@@ -96,4 +84,44 @@ int	ft_rotate(t_stackinfo *info, int reverse, int rotate_a)
 		tail = tail->next;
 	}
 	return (ft_print_action(ft_rotate_val(reverse, rotate_a)));
+}
+
+int	ft_print_action(int val)
+{
+	if (val & sa)
+		return (ft_printf("sa\n"));
+	else if (val & sb)
+		return (ft_printf("sb\n"));
+	else if (val & ss)
+		return (ft_printf("ss\n"));
+	else if (val & pa)
+		return (ft_printf("pa\n"));
+	else if (val & pb)
+		return (ft_printf("pb\n"));
+	else if (val & ra)
+		return (ft_printf("ra\n"));
+	else if (val & rb)
+		return (ft_printf("rb\n"));
+	else if (val & rr)
+		return (ft_printf("rr\n"));
+	else if (val & rra)
+		return (ft_printf("rra\n"));
+	else if (val & rrb)
+		return (ft_printf("rrb\n"));
+	else if (val & rrr)
+		return (ft_printf("rrr\n"));
+	return (ft_printf("\n"));
+}
+
+int	ft_rotate_val(int reverse, int rotate_a)
+{
+	if (!reverse && rotate_a)
+		return (ra);
+	else if (reverse && rotate_a)
+		return (rra);
+	else if (!reverse && !rotate_a)
+		return (rb);
+	else if (reverse && !rotate_a)
+		return (rrb);
+	return (0);
 }

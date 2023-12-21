@@ -23,11 +23,11 @@ static void	ft_init_a(char **av, t_stackinfo *a)
 
 static void	ft_start_sorting(t_stackinfo *a, t_stackinfo *b)
 {
-	if (a->stack_len == 2)
+	if (a->curr_stack_len == 2)
 		ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE));
-	if (a->stack_len == 3)
+	if (a->curr_stack_len == 3)
 		ft_sort_3(a);
-	if (a->stack_len == 5)
+	if (a->curr_stack_len == 5)
 		ft_sort_5(a, b);
 }
 
@@ -40,7 +40,6 @@ int	main(int ac, char **av)
 	if (ac == 2)
 	{
 		ft_init_a(av, &a);
-		//ft_printstack(a.stack, b.stack);
 		ft_start_sorting(&a, &b);
 		printf("\n\n");
 		ft_freeall(NULL, 0, &a, &b);

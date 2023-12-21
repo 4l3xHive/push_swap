@@ -14,60 +14,20 @@
 
 int	ft_intcmp(const void *a, const void *b)
 {
-	int	res;
-
-	res = *(int *)a - *(int *)b;
-	if (res > 0)
-		return (1);
-	return (0);
+	return(*(int *)a - *(int *)b);
 }
-
-int	ft_rotate_val(int reverse, int rotate_a)
+// Checks that if the stack is sorted
+int	ft_is_stack_sorted(t_list *stack)
 {
-	int	val;
-
-	val = 0;
-	if (!reverse && rotate_a)
-		val = ra;
-	else if (reverse && rotate_a)
-		val = rra;
-	else if (!reverse && !rotate_a)
-		val = rb;
-	else if (reverse && !rotate_a)
-		val = rrb;
-	return (val);
+	while (stack->next)
+	{
+		if (*(int *)stack->content > *(int *)stack->next->content)
+			return (FALSE);
+		stack = stack->next;
+	}
+	return (TRUE);
 }
-
-int	ft_print_action(int val)
-{
-	char	*action;
-
-	action = "";
-	if (val & sa)
-		action = "sa\n";
-	else if (val & sb)
-		action = "sb\n";
-	else if (val & ss)
-		action = "ss\n";
-	else if (val & pa)
-		action = "pa\n";
-	else if (val & pb)
-		action = "pb\n";
-	else if (val & ra)
-		action = "ra\n";
-	else if (val & rb)
-		action = "rb\n";
-	else if (val & rr)
-		action = "rr\n";
-	else if (val & rra)
-		action = "rra\n";
-	else if (val & rrb)
-		action = "rrb\n";
-	else if (val & rrr)
-		action = "rrr\n";
-	return (ft_printf("%s", action));
-}
-
+// prints bnoth sta
 void	ft_printstack(t_list *a, t_list *b)
 {
 	t_list *curr1;
