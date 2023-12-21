@@ -43,10 +43,10 @@ int	ft_swap(t_list *stack, int swap_a, int swap_both)
 	return (0);
 }
 
-int	ft_push(t_stackinfo *a, t_stackinfo *b, int push_a)
+int	ft_push(t_stackinfo *a, t_stackinfo *b, t_list **curr, int push_a)
 {
 	t_list	*temp;
-	int 	action;
+	int		action;
 
 	action = 0;
 	if (push_a && b->stack)
@@ -55,6 +55,8 @@ int	ft_push(t_stackinfo *a, t_stackinfo *b, int push_a)
 		ft_lstadd_front(&a->stack, b->stack);
 		b->stack = temp;
 		action = pa;
+		if (curr)
+			*curr = a->stack;
 	}
 	else if (!push_a && a->stack)
 	{
@@ -62,6 +64,8 @@ int	ft_push(t_stackinfo *a, t_stackinfo *b, int push_a)
 		ft_lstadd_front(&b->stack, a->stack);
 		a->stack = temp;
 		action = pb;
+		if (curr)
+			*curr = b->stack;
 	}
 	a->stack_len = ft_lstsize(a->stack);
 	b->stack_len = ft_lstsize(b->stack);

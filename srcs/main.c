@@ -15,14 +15,11 @@
 /* Init a stack with given arguments */
 static void	ft_init_a(char **av, t_stackinfo *a)
 {
-	if (ft_check_args(av, a) == ERROR)
-		ft_exit("ERROR: Checking args!\n", NULL, NULL, 0);
-	if (ft_init_stack_a(a) == ERROR)
-		ft_exit("ERROR: Init a stack!\n", a, NULL, 0);
+	ft_check_args(av, a);
+	ft_init_stack_a(a);
 	if (ft_is_stack_sorted(a->stack))
 		ft_exit("ERROR: already sorted!\n", a, NULL, 0);
 }
-
 
 static void	ft_start_sorting(t_stackinfo *a, t_stackinfo *b)
 {
@@ -43,28 +40,11 @@ int	main(int ac, char **av)
 	if (ac == 2)
 	{
 		ft_init_a(av, &a);
-		ft_push(&a,&b, TRUE);
+		ft_printstack(a.stack, b.stack);
 		ft_start_sorting(&a, &b);
+		printf("\n\n");
+		ft_printstack(a.stack, b.stack);
 		ft_freeall(NULL, 0, &a, &b);
 	}
 	return (0);
 }
-
-/*
-int	ft_firstcheck(t_stackinfo *info)
-{
-	t_stackinfo	a;
-	t_stackinfo	b;
-	t_list		*stack;
-	t_list		*last;
-
-	stack = info->stack;
-	last = ft_lstlast(stack);
-	if (info->stack_len >= 2)
-	{
-		if (*(int *)stack->content > *(int *)stack->next->content)
-			ft_swap_stack(stack);
-	}
-	return (FALSE);
-}
-*/

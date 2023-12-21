@@ -22,7 +22,7 @@ void	ft_null_init(t_stackinfo *a, t_stackinfo *b)
 	b->stack_len = 0;
 }
 /* Converts arguments to ints*/
-int	ft_check_args(char **av, t_stackinfo *a)
+void	ft_check_args(char **av, t_stackinfo *a)
 {
 	size_t	i;
 	char	**split_nums;
@@ -30,13 +30,13 @@ int	ft_check_args(char **av, t_stackinfo *a)
 	i = 0;
 	split_nums = ft_split(av[1], ' ');
 	if (!split_nums)
-		return (-1);
+		ft_exit("Error: Splitting args failed!\n", a, NULL, 0);
 	while (split_nums[i])
 		i++;
 	a->stack_len = i;
 	a->nums = (int *)malloc(sizeof(int) * i);
 	if (a->nums == NULL)
-		return (ft_freeall(split_nums, i, NULL, NULL));
+		ft_exit("Error: args allocation failed!\n", a, NULL, 0);
 	i = 0;
 	while (split_nums[i])
 	{
@@ -44,10 +44,9 @@ int	ft_check_args(char **av, t_stackinfo *a)
 		i++;
 	}
 	ft_freeall(split_nums, i, NULL, NULL);
-	return (0);
 }
 /*Inits the linkedlist stack for a*/
-int	ft_init_stack_a(t_stackinfo *a)
+void	ft_init_stack_a(t_stackinfo *a)
 {
 	size_t	i;
 	t_list	*temp;
@@ -60,15 +59,14 @@ int	ft_init_stack_a(t_stackinfo *a)
 		{
 			temp = ft_lstnew(&a->nums[i++]);
 			if (!temp)
-				return (ft_freeall(NULL, 0, a, NULL));
+				ft_exit("Error: allocation failed init stack a!\n", a, NULL, 0);
 			ft_lstadd_back(&a->stack, temp);
 		}
 	}
-	return (0);
 }
 
 /* Need to create diff vals for error checking in printf in upper levels works as a callback also if there is pf_callback enabled*/
-void	ft_exit(char *err_msg, t_stackinfo *a, t_stackinfo *b, int pf)
+void	ft_exit(const char *err_msg, t_stackinfo *a, t_stackinfo *b, int pf)
 {
 	if (pf == pf_err || pf == -1)
 		err_msg = "ERROR: printf failed in some of the actions !!";
@@ -80,7 +78,7 @@ void	ft_exit(char *err_msg, t_stackinfo *a, t_stackinfo *b, int pf)
 		ft_putstr_fd((char *)err_msg, STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
-	ft_putstr_fd("\n", STDOUT_FILENO);
+	ft_putstr_fd("Success Exit!\n", STDOUT_FILENO);
 	exit(EXIT_SUCCESS);
 }
 

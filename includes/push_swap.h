@@ -12,8 +12,6 @@
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-# define ERROR 1
-# define SUCCESS 0
 # define TRUE 1
 # define FALSE 0
 
@@ -52,7 +50,7 @@ typedef struct s_stackinfo
 // MAIN ACTIONS
 int			ft_swap(t_list *stack, int swap_a, int swap_both);
 int			ft_rotate(t_list *stack, int reverse, int rotate_a);
-int			ft_push(t_stackinfo *a, t_stackinfo *b, int push_a);
+int			ft_push(t_stackinfo *a, t_stackinfo *b, t_list **curr, int push_a);
 int			ft_is_stack_sorted(t_list *stack);
 void		ft_sort_3(t_stackinfo *a);
 void		ft_sort_5(t_stackinfo *a, t_stackinfo *b);
@@ -65,9 +63,9 @@ int			ft_print_action(int val);
 int			ft_freeall(char **split, size_t split_i, t_stackinfo *a,
 				t_stackinfo *b);
 void		ft_exit(const char *err_msg, t_stackinfo *a, t_stackinfo *b,
-				int err);
+				int pf);
 // INITS    t_stackinfo  a = {0} ??
-int			ft_check_args(char **av, t_stackinfo *info);
-int			ft_init_stack_a(t_stackinfo *a);
+void		ft_check_args(char **av, t_stackinfo *a);
+void		ft_init_stack_a(t_stackinfo *a);
 void		ft_null_init(t_stackinfo *a, t_stackinfo *b);
 #endif
