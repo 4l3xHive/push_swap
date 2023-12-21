@@ -12,14 +12,24 @@
 
 #include "push_swap.h"
 
-void	ft_null_init(t_stackinfo *a, t_stackinfo *b)
+/* Init both main structures*/
+void	ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i)
 {
-	a->nums = NULL;
-	a->stack = NULL;
-	a->stack_len = 0;
-	b->stack = NULL;
-	b->nums = NULL;
-	b->stack_len = 0;
+	if (!i)
+	{
+		a->nums = NULL;
+		a->stack = NULL;
+		a->stack_len = 0;
+		b->stack = NULL;
+		b->nums = NULL;
+		b->stack_len = 0;
+	}
+	else if (i)
+	{
+		i->current_index = 0;
+		i->smallest_content = INT_MAX;
+		i->current_index = -1;
+	}
 }
 /* Converts arguments to ints*/
 void	ft_check_args(char **av, t_stackinfo *a)
@@ -82,15 +92,12 @@ void	ft_exit(const char *err_msg, t_stackinfo *a, t_stackinfo *b, int pf)
 	exit(EXIT_SUCCESS);
 }
 
-int	ft_freeall(char **split, size_t split_i, t_stackinfo *a, t_stackinfo *b)
+void	ft_freeall(char **split, size_t split_i, t_stackinfo *a, t_stackinfo *b)
 {
-	size_t	i;
-
-	i = 0;
 	if (split)
 	{
-		while (i < split_i)
-			free(split[i++]);
+		while (split_i)
+			free(split[split_i--]);
 		free(split);
 	}
 	if (a)
@@ -103,5 +110,4 @@ int	ft_freeall(char **split, size_t split_i, t_stackinfo *a, t_stackinfo *b)
 		free(b->nums);
 		ft_lstclear(&b->stack, NULL);
 	}
-	return (1);
 }

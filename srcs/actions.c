@@ -25,10 +25,12 @@ int	ft_is_stack_sorted(t_list *stack)
 }
 
 // Swaps the first 2 of the stack
-int	ft_swap(t_list *stack, int swap_a, int swap_both)
+int	ft_swap(t_stackinfo *info, int swap_a, int swap_both)
 {
 	void	*temp;
+	t_list *stack;
 
+	stack = info->stack;
 	if (stack->next != NULL)
 	{
 		temp = stack->content;
@@ -43,7 +45,7 @@ int	ft_swap(t_list *stack, int swap_a, int swap_both)
 	return (0);
 }
 
-int	ft_push(t_stackinfo *a, t_stackinfo *b, t_list **curr, int push_a)
+int	ft_push(t_stackinfo *a, t_stackinfo *b, int push_a)
 {
 	t_list	*temp;
 	int		action;
@@ -55,8 +57,6 @@ int	ft_push(t_stackinfo *a, t_stackinfo *b, t_list **curr, int push_a)
 		ft_lstadd_front(&a->stack, b->stack);
 		b->stack = temp;
 		action = pa;
-		if (curr)
-			*curr = a->stack;
 	}
 	else if (!push_a && a->stack)
 	{
@@ -64,8 +64,6 @@ int	ft_push(t_stackinfo *a, t_stackinfo *b, t_list **curr, int push_a)
 		ft_lstadd_front(&b->stack, a->stack);
 		a->stack = temp;
 		action = pb;
-		if (curr)
-			*curr = b->stack;
 	}
 	a->stack_len = ft_lstsize(a->stack);
 	b->stack_len = ft_lstsize(b->stack);
@@ -73,13 +71,13 @@ int	ft_push(t_stackinfo *a, t_stackinfo *b, t_list **curr, int push_a)
 }
 
 // Rotates the stack either way
-int	ft_rotate(t_list *stack, int reverse, int rotate_a)
+int	ft_rotate(t_stackinfo *info, int reverse, int rotate_a)
 {
 	t_list	*tail;
 	t_list	*head;
 	void	*tmp_c;
 
-	tail = stack;
+	tail = info->stack;
 	if (reverse)
 	{
 		head = ft_lstlast(tail);

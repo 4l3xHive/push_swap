@@ -24,7 +24,7 @@ static void	ft_init_a(char **av, t_stackinfo *a)
 static void	ft_start_sorting(t_stackinfo *a, t_stackinfo *b)
 {
 	if (a->stack_len == 2)
-		ft_exit(NULL, a, b, ft_swap(a->stack, TRUE, FALSE));
+		ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE));
 	if (a->stack_len == 3)
 		ft_sort_3(a);
 	if (a->stack_len == 5)
@@ -36,14 +36,13 @@ int	main(int ac, char **av)
 	t_stackinfo	a;
 	t_stackinfo	b;
 
-	ft_null_init(&a, &b);
+	ft_init_all(&a, &b, NULL);
 	if (ac == 2)
 	{
 		ft_init_a(av, &a);
-		ft_printstack(a.stack, b.stack);
+		//ft_printstack(a.stack, b.stack);
 		ft_start_sorting(&a, &b);
 		printf("\n\n");
-		ft_printstack(a.stack, b.stack);
 		ft_freeall(NULL, 0, &a, &b);
 	}
 	return (0);

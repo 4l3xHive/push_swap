@@ -24,25 +24,25 @@ void	ft_sort_3(t_stackinfo *a)
 	third = first->next->next;
 	if (ft_intcmp(first->content, second->content) && ft_intcmp(third->content,
 			second->content) && ft_intcmp(third->content, first->content))
-		ft_exit(NULL, a, NULL, ft_swap(first, TRUE, FALSE) + pf_check);
+		ft_exit(NULL, a, NULL, ft_swap(a, TRUE, FALSE) + pf_check);
 	if (ft_intcmp(first->content, second->content) && ft_intcmp(second->content,
 			third->content) && ft_intcmp(first->content, third->content))
 	{
-		ft_exit(NULL, a, NULL, ft_swap(first, TRUE, FALSE) + pf_check);
-		ft_exit(NULL, a, NULL, ft_rotate(first, TRUE, TRUE) + pf_check);
+		ft_exit(NULL, a, NULL, ft_swap(a, TRUE, FALSE) + pf_check);
+		ft_exit(NULL, a, NULL, ft_rotate(a, TRUE, TRUE) + pf_check);
 	}
 	if (ft_intcmp(first->content, second->content) && ft_intcmp(third->content,
 			second->content) && ft_intcmp(first->content, third->content))
-		ft_rotate(first, FALSE, TRUE);
+		ft_rotate(a, FALSE, TRUE);
 	if (ft_intcmp(first->content, second->content) && ft_intcmp(second->content,
 			third->content) && ft_intcmp(first->content, third->content))
 	{
-		ft_exit(NULL, a, NULL, ft_swap(first, TRUE, FALSE) + pf_check);
-		ft_exit(NULL, a, NULL, ft_rotate(first, FALSE, TRUE) + pf_check);
+		ft_exit(NULL, a, NULL, ft_swap(a, TRUE, FALSE) + pf_check);
+		ft_exit(NULL, a, NULL, ft_rotate(a, FALSE, TRUE) + pf_check);
 	}
 	if (ft_intcmp(first->content, second->content) && ft_intcmp(second->content,
 			third->content) && ft_intcmp(first->content, third->content))
-		ft_exit(NULL, a, NULL, ft_rotate(first, TRUE, TRUE) + pf_check);
+		ft_exit(NULL, a, NULL, ft_rotate(a, TRUE, TRUE) + pf_check);
 }
 
 // Rotates stack 2times in choosed direction
@@ -51,97 +51,57 @@ void	ft_rotate_stack_radix(t_stackinfo *a, t_stackinfo *b, int rotate_a,
 {
 	if (rotate_a)
 	{
-		ft_exit(NULL, a, b, ft_rotate(a->stack, rev, TRUE) + pf_check);
-		ft_exit(NULL, a, b, ft_rotate(a->stack, rev, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(a, rev, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(a, rev, TRUE) + pf_check);
 	}
 	else
 	{
-		ft_exit(NULL, a, b, ft_rotate(b->stack, rev, FALSE) + pf_check);
-		ft_exit(NULL, a, b, ft_rotate(b->stack, rev, FALSE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(b, rev, FALSE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(b, rev, FALSE) + pf_check);
 	}
 }
 
-void	first_stack(t_stackinfo *a, t_stackinfo *b)
+void ft_push_smallest_to_b(t_stackinfo *a, t_stackinfo *b)
 {
-	t_list	*a_s;
-	t_list	*b_s;
+    t_list 	*current;
+	t_index i;
 
-	a_s = a->stack;
-	b_s = b->stack;
-	if (ft_intcmp(a_s->content, b_s->content))
-		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
-	else if (ft_intcmp(b_s->content, a_s->content) && ft_intcmp(b_s->content,
-			a_s->next->content))
+	ft_init_all(NULL, NULL, &i);
+    current = a->stack;
+    while (current)
 	{
-		ft_exit(NULL, a, b, ft_rotate(a_s, FALSE, TRUE) + pf_check);
-		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
-		ft_exit(NULL, a, b, ft_rotate(a_s, TRUE, TRUE) + pf_check);
-	}
-	else if ((ft_intcmp(b_s->content, a_s->next->content))
-		&& ft_intcmp(b_s->content, a_s->next->next->content))
+        if (ft_intcmp(&i.smallest_content, current->content))
+		{
+            i.smallest_content = *(int *)current->content;
+            i.smallest_index = i.current_index;
+        }
+        current = current->next;
+        i.current_index++;
+    }
+    while (ft_intcmp(a->stack->content, &i.smallest_content) != 0)
 	{
-		ft_exit(NULL, a, b, ft_rotate(a_s, TRUE, TRUE) + pf_check);
-		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
-		ft_rotate_stack_radix(a, b, TRUE, TRUE);
-	}
-	else if (ft_intcmp(b_s->content, a_s->next->next->content))
-	{
-		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
-		ft_exit(NULL, a, b, ft_rotate(a_s, FALSE, TRUE) + pf_check);
-	}
+		if (i.smallest_index == 1)
+			ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
+        else if (i.smallest_index == 2)
+		{
+			ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+			ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
+		}
+        else
+            ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+    }
+	ft_exit(NULL, a, b, ft_push(a, b, FALSE) + pf_check);
 }
 
-void	second_stack(t_stackinfo *a, t_stackinfo *b)
-{
-	t_list	*a_s;
-	t_list	*b_s;
-
-	a_s = a->stack;
-	b_s = b->stack;
-	{
-		if (ft_intcmp(a_s->content, b_s->content))
-			ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
-		else if ((ft_intcmp(b_s->content, a_s->content))
-			&& (ft_intcmp(a_s->next->content, b_s->content)))
-		{
-			ft_exit(NULL, a, b, ft_rotate(a_s, FALSE, TRUE));
-			ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE));
-			ft_exit(NULL, a, b, ft_rotate(a_s, TRUE, TRUE));
-		}
-		else if ((ft_intcmp(b_s->content, a_s->next->content))
-			&& (ft_intcmp(a_s->next->next->content, b_s->content)))
-		{
-			ft_exit(NULL, a, b, ft_rotate(a_s, FALSE, TRUE));
-			ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE));
-			ft_exit(NULL, a, b, ft_swap(a_s, TRUE, FALSE));
-			ft_exit(NULL, a, b, ft_rotate(a_s, TRUE, TRUE));
-		}
-		else if (ft_intcmp(a_s->next->next->content, b_s->content)
-			&& (ft_intcmp(b_s->content, a_s->next->next->next->content)))
-		{
-			ft_exit(NULL, a, b, ft_rotate(a_s, TRUE, TRUE));
-			ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE));
-			ft_rotate_stack_radix(a, b, TRUE, FALSE);
-		}
-		else if (ft_intcmp(b_s->content, a_s->next->next->next->content))
-		{
-			ft_printstack(a_s, b_s);
-			ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
-			ft_exit(NULL, a, b, ft_rotate(a_s, FALSE, TRUE) + pf_check);
-		}
-	}
-}
+/* Push 2 from a to b && sort a & swap b && push back!*/
 void	ft_sort_5(t_stackinfo *a, t_stackinfo *b)
 {
-	ft_push(a, b, NULL, FALSE);
-	ft_push(a, b, NULL, FALSE);
+	ft_push_smallest_to_b(a, b);
+	ft_push_smallest_to_b(a, b);
 	ft_sort_3(a);
-	// ft_printstack(a->stack, b->stack);
-	while (b->stack_len != 0)
-	{
-		if (a->stack_len == 3)
-			first_stack(a, b);
-		else if (a->stack_len == 4)
-			second_stack(a, b);
-	}
+	if (ft_intcmp(b->stack->next->content, b->stack->content))
+		ft_exit(NULL, a, b, ft_swap(b, FALSE, FALSE) + pf_check);
+	ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
+	ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
+	ft_printstack(a->stack, b->stack);
 }

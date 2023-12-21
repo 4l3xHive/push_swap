@@ -5,6 +5,7 @@
         "ft_printf.h": "c",
         "random": "c",
         "push_swap.h": "c",
-        "beyond_5_3_sort_insp": "c"
+        "beyond_5_3_sort_insp": "c",
+        "old": "c"
     }
 }

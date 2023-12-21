@@ -19,6 +19,7 @@
 # include "../libftprintf/mandatory/ft_printf.h"
 # include <stdio.h>
 # include <stdlib.h>
+# include <limits.h>
 
 enum		e_action
 {
@@ -40,6 +41,14 @@ enum		e_action
 	rrr = 1024,
 };
 
+typedef struct s_indexcheck
+{
+	int smallest_content;
+	int smallest_index;
+    int current_index;
+}t_index;
+
+
 typedef struct s_stackinfo
 {
 	t_list	*stack;
@@ -48,9 +57,9 @@ typedef struct s_stackinfo
 }			t_stackinfo;
 
 // MAIN ACTIONS
-int			ft_swap(t_list *stack, int swap_a, int swap_both);
-int			ft_rotate(t_list *stack, int reverse, int rotate_a);
-int			ft_push(t_stackinfo *a, t_stackinfo *b, t_list **curr, int push_a);
+int			ft_swap(t_stackinfo *info, int swap_a, int swap_both);
+int			ft_rotate(t_stackinfo *info, int reverse, int rotate_a);
+int			ft_push(t_stackinfo *a, t_stackinfo *b, int push_a);
 int			ft_is_stack_sorted(t_list *stack);
 void		ft_sort_3(t_stackinfo *a);
 void		ft_sort_5(t_stackinfo *a, t_stackinfo *b);
@@ -60,12 +69,11 @@ void		ft_printstack(t_list *stack1, t_list *stack2);
 int			ft_rotate_val(int reverse, int rotate_a);
 int			ft_print_action(int val);
 // CLEANUP
-int			ft_freeall(char **split, size_t split_i, t_stackinfo *a,
-				t_stackinfo *b);
+void		ft_freeall(char **split, size_t split_i, t_stackinfo *a, t_stackinfo *b);
 void		ft_exit(const char *err_msg, t_stackinfo *a, t_stackinfo *b,
 				int pf);
 // INITS    t_stackinfo  a = {0} ??
 void		ft_check_args(char **av, t_stackinfo *a);
 void		ft_init_stack_a(t_stackinfo *a);
-void		ft_null_init(t_stackinfo *a, t_stackinfo *b);
+void		ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i);
 #endif
