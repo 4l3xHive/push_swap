@@ -61,27 +61,34 @@ int	ft_push(t_stackinfo *a, t_stackinfo *b, int push_a)
 // Rotates the stack either way
 int	ft_rotate(t_stackinfo *info, int reverse, int rotate_a)
 {
-	t_list	*tail;
-	t_list	*head;
+	t_list	*current;
 	void	*tmp_c;
+	t_list	*prev;
 
-	tail = info->stack;
+	current = ft_lstlast(info->stack);
+	tmp_c = current->content;
 	if (reverse)
 	{
-		head = ft_lstlast(tail);
-		tmp_c = head->content;
-		head->content = tail->content;
-		tail->content = tmp_c;
-		tail = tail->next;
+		while (current != info->stack)
+		{
+			prev = info->stack;
+			while (prev->next != current)
+				prev = prev->next;
+			current->content = prev->content;
+			current = prev;
+		}
+		info->stack->content = tmp_c;
 	}
-	head = tail->next;
-	while (head)
+	else
 	{
-		tmp_c = tail->content;
-		tail->content = head->content;
-		head->content = tmp_c;
-		head = head->next;
-		tail = tail->next;
+		tmp_c = info->stack->content;
+		current = info->stack;
+		while (current->next != NULL)
+		{
+			current->content = current->next->content;
+			current = current->next;
+		}
+		current->content = tmp_c;
 	}
 	return (ft_print_action(ft_rotate_val(reverse, rotate_a)));
 }

@@ -32,8 +32,8 @@ void	ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i, t_sort3 *c)
 	}
 	if (c && a)
 	{
-	 	c->first = *(int *)(a->stack->content);
-    	c->second = *(int *)(a->stack->next->content);
+		c->first = *(int *)(a->stack->content);
+		c->second = *(int *)(a->stack->next->content);
 		c->third = *(int *)(a->stack->next->next->content);
 	}
 }

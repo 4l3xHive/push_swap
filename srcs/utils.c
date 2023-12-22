@@ -14,7 +14,7 @@
 
 int	ft_intcmp(const void *a, const void *b)
 {
-	return(*(int *)a - *(int *)b);
+	return (*(int *)a - *(int *)b);
 }
 // Checks that if the stack is sorted
 int	ft_is_stack_sorted(t_list *stack)

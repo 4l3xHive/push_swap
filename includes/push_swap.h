@@ -43,18 +43,18 @@ enum		e_action
 
 typedef struct s_index
 {
-	int			smallest_content;
-	size_t		smallest_index;
-	size_t		i;
+	int		smallest_content;
+	size_t	smallest_index;
+	size_t	i;
 
 }			t_index;
 
 typedef struct s_sort3
 {
-	int first;
-    int second;
-    int third;
-}t_sort3;
+	int		first;
+	int		second;
+	int		third;
+}			t_sort3;
 
 typedef struct s_stackinfo
 {

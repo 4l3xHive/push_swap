@@ -27,7 +27,7 @@ static void	ft_start_sorting(t_stackinfo *a, t_stackinfo *b)
 		ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE));
 	if (a->curr_stack_len == 3)
 		ft_sort_3(a, b);
-	else 
+	else
 		ft_sort_stack(a, b);
 }
 
