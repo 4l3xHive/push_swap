@@ -44,7 +44,7 @@ enum		e_action
 typedef struct s_index
 {
 	int		smallest_content;
-	size_t	smallest_index;
+	ssize_t	smallest_index;
 	size_t	i;
 
 }			t_index;

@@ -99,7 +99,6 @@ void	ft_exit(const char *err_msg, t_stackinfo *a, t_stackinfo *b, int pf)
 		ft_putstr_fd((char *)err_msg, STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
-	ft_putstr_fd("Success Exit!\n", STDOUT_FILENO);
 	exit(EXIT_SUCCESS);
 }
 

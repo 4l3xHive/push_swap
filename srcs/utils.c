@@ -22,6 +22,10 @@ int	ft_str_isdigit(const char *str)
 	size_t	i;
 
 	i = 0;
+	if (str[i] == '-')
+		i++;
+	if (str[i] == '\0')
+		return (FALSE);
 	while (str[i])
 	{
 		if (ft_isdigit(str[i++]) == FALSE)

@@ -41,7 +41,6 @@ int	main(int ac, char **av)
 	{
 		ft_init_a(av, &a);
 		ft_start_sorting(&a, &b);
-		printf("\n\n");
 		ft_freeall(NULL, 0, &a, &b);
 	}
 	return (0);
