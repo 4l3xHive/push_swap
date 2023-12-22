@@ -51,17 +51,18 @@ void	ft_check_args(char **av, t_stackinfo *a)
 	while (split_nums[i])
 		i++;
 	a->curr_stack_len = i;
-	a->curr_stack_len = i;
 	a->nums = (int *)malloc(sizeof(int) * i);
 	if (a->nums == NULL)
 		ft_exit("Error: args allocation failed!\n", a, NULL, 0);
 	i = 0;
-	while (split_nums[i])
+	while (split_nums[i] && ft_str_isdigit(split_nums[i]))
 	{
 		a->nums[i] = ft_atoi(split_nums[i]);
 		i++;
 	}
-	ft_freeall(split_nums, i, NULL, NULL);
+	ft_freeall(split_nums, (long)a->curr_stack_len, NULL, NULL);
+	if (i != a->curr_stack_len)
+		ft_exit("ERROR: Arguments need to be valid digits!\n", a, NULL, 0);
 }
 
 /*Inits the linkedlist stack for a*/
@@ -102,11 +103,11 @@ void	ft_exit(const char *err_msg, t_stackinfo *a, t_stackinfo *b, int pf)
 	exit(EXIT_SUCCESS);
 }
 
-void	ft_freeall(char **split, size_t split_i, t_stackinfo *a, t_stackinfo *b)
+void	ft_freeall(char **split, long split_i, t_stackinfo *a, t_stackinfo *b)
 {
 	if (split)
 	{
-		while (split_i)
+		while (split_i >= 0)
 			free(split[split_i--]);
 		free(split);
 	}

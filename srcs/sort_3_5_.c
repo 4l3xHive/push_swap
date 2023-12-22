@@ -12,35 +12,47 @@
 
 #include "push_swap.h"
 
+static void	ft_check_equals(t_stackinfo *a, t_stackinfo *b, t_sort3 *c)
+{
+	if (c->first == c->second && c->second < c->third)
+		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+	else if (c->first == c->second && c->second > c->third)
+		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+	else if (c->second == c->third && c->first < c->second)
+		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+	else if (c->second == c->third && c->first > c->second)
+		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+}
+
 void	ft_sort_3(t_stackinfo *a, t_stackinfo *b)
 {
 	t_sort3	c;
 
 	ft_init_all(a, NULL, NULL, &c);
 	if (c.first > c.second && c.second > c.third)
-	{ // Case: c, b, a
+	{
 		ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
 		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
 	}
-	else if (c.first > c.second && c.first < c.third) // Case: b, a, c
+	else if (c.first > c.second && c.first < c.third)
 		ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
 	else if (c.second > c.first && c.second > c.third && c.first < c.third)
-	{ // Case: a, c, b
+	{
 		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
 		ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
 	}
 	else if (c.second < c.first && c.second < c.third && c.first > c.third)
-		// Case: c, a, b
 		ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE) + pf_check);
 	else if (c.third > c.first && c.third < c.second)
-	{ // Case: a,c, b
+	{
 		ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
 		ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE) + pf_check);
 	}
-	// No action needed for the sorted case: a, b, c
+	else
+		ft_check_equals(a, b, &c);
 }
 
-void	ft_push_smallest_to_b(t_stackinfo *a, t_stackinfo *b, size_t middle)
+static void	ft_push_smallest_to_b(t_stackinfo *a, t_stackinfo *b, size_t middle)
 {
 	t_list	*current;
 	t_index	i;

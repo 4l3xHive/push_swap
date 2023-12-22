@@ -10,7 +10,7 @@ SRC_DIR = srcs/
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJS = ${SRCS:.c=.o}
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra
+CFLAGS		= -g -Wall -Werror -Wextra
 INCLUDE = -Iincludes -I. -Ilibftprintf
 RM = rm -rf
 

@@ -16,6 +16,20 @@ int	ft_intcmp(const void *a, const void *b)
 {
 	return (*(int *)a - *(int *)b);
 }
+
+int	ft_str_isdigit(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (ft_isdigit(str[i++]) == FALSE)
+			return (FALSE);
+	}
+	return (TRUE);
+}
+
 // Checks that if the stack is sorted
 int	ft_is_stack_sorted(t_list *stack)
 {

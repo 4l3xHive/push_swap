@@ -75,8 +75,9 @@ int			ft_intcmp(const void *a, const void *b);
 void		ft_printstack(t_list *stack1, t_list *stack2);
 int			ft_rotate_val(int reverse, int rotate_a);
 int			ft_print_action(int val);
+int			ft_str_isdigit(const char *str);
 // CLEANUP
-void		ft_freeall(char **split, size_t split_i, t_stackinfo *a,
+void		ft_freeall(char **split, long split_i, t_stackinfo *a,
 				t_stackinfo *b);
 void		ft_exit(const char *err_msg, t_stackinfo *a, t_stackinfo *b,
 				int pf);
