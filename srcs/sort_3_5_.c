@@ -12,92 +12,74 @@
 
 #include "push_swap.h"
 
-void	ft_sort_3(t_stackinfo *a)
+void ft_sort_3(t_stackinfo *a, t_stackinfo *b)
 {
-	t_list	*s;
+	t_sort3	c;
 
-	s = a->stack;
-	if (ft_intcmp(s->content, s->next->content) > 0
-		&& ft_intcmp(s->next->next->content, s->next->content) > 0
-		&& ft_intcmp(s->next->next->content, s->content))
-		ft_exit(NULL, a, NULL, ft_swap(a, TRUE, FALSE) + pf_check);
-	if (ft_intcmp(s->content, s->next->content) > 0
-		&& ft_intcmp(s->next->content, s->next->next->content) > 0
-		&& ft_intcmp(s->content, s->next->next->content) > 0)
-	{
-		ft_exit(NULL, a, NULL, ft_swap(a, TRUE, FALSE) + pf_check);
-		ft_exit(NULL, a, NULL, ft_rotate(a, TRUE, TRUE) + pf_check);
-	}
-	 if (ft_intcmp(s->content, s->next->content) > 0
-		&& ft_intcmp(s->next->content, s->next->next->content)> 0
-		&& ft_intcmp(s->content, s->next->next->content) > 0)
-		ft_exit(NULL, a, NULL, ft_rotate(a, TRUE, TRUE) + pf_check);
+	ft_init_all(a, NULL, NULL, &c);
+    if (c.first > c.second && c.second > c.third)
+	{ // Case: c, b, a
+        ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
+        ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+    }
+	else if (c.first > c.second && c.first < c.third)// Case: b, a, c
+        ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
+    else if (c.second > c.first && c.second > c.third && c.first < c.third)
+	{ // Case: a, c, b
+        ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+        ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
+    }
+	else if (c.second < c.first && c.second < c.third && c.first > c.third) // Case: c, a, b
+        ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE) + pf_check); 
+    else if (c.third > c.first && c.third < c.second) 
+	{ // Case: a, c, b
+        ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check); // Swap first two
+        ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE) + pf_check); // Then rotate
+    }
+    // No action needed for the sorted case: a, b, c
 }
 
-// Rotates stack 2times in choosed direction
-void	ft_rotate_stack_radix(t_stackinfo *a, t_stackinfo *b, int rotate_a,
-		int rev)
+void ft_push_smallest_to_b(t_stackinfo *a, t_stackinfo *b, size_t middle)
 {
-	if (rotate_a)
-	{
-		ft_exit(NULL, a, b, ft_rotate(a, rev, TRUE) + pf_check);
-		ft_exit(NULL, a, b, ft_rotate(a, rev, TRUE) + pf_check);
-	}
-	else
-	{
-		ft_exit(NULL, a, b, ft_rotate(b, rev, FALSE) + pf_check);
-		ft_exit(NULL, a, b, ft_rotate(b, rev, FALSE) + pf_check);
-	}
-}
+    t_list *current;
+    t_index i;
 
-void	ft_push_largest_to_b(t_stackinfo *a, t_stackinfo *b)
-{
-	t_list	*current;
-	t_index	i;
-
-	ft_init_all(NULL, NULL, &i);
-	current = a->stack;
-	while (current)
+    ft_init_all(NULL, NULL, &i, NULL);
+    current = a->stack;
+    while (current)
 	{
-		if (ft_intcmp(current->content, &i.largest_content))
+        if (ft_intcmp(current->content, &i.smallest_content) < 0)
 		{
-			i.largest_content = *(int *)current->content;
-			i.largest_index = i.i;
-			printf("LARGEST C%d LARGEST I %d \n", i.largest_content,
-				i.largest_index);
-		}
-		current = current->next;
-		i.i++;
-	}
-	while (ft_intcmp(a->stack->content, &i.largest_content) != 0)
+            i.smallest_content = *(int *)current->content;
+            i.smallest_index = i.i;
+        }
+        current = current->next;
+        i.i++;
+    }
+    while (ft_intcmp(a->stack->content, &i.smallest_content) != 0)
 	{
-		if (i.largest_index == 1)
-			ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
-		else if (i.largest_index == 2)
-		{
-			ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
-			ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
-		}
-		else
-			ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
-	}
-	ft_exit(NULL, a, b, ft_push(a, b, FALSE) + pf_check);
-	ft_printstack(a->stack, b->stack);
+        if (i.smallest_index == 1) 
+            ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
+		else if (i.smallest_index < middle)
+			ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE) + pf_check);
+ 		else 
+        	ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+    }
+    ft_exit(NULL, a, b, ft_push(a, b, FALSE) + pf_check);
 }
 
 /* Sort stack of 5 */
-void	ft_sort_5(t_stackinfo *a, t_stackinfo *b)
+void	ft_sort_stack(t_stackinfo *a, t_stackinfo *b)
 {
-	size_t	full_len;
+	size_t middle_ind;
 
-	full_len = a->curr_stack_len;
-	while (a->curr_stack_len > full_len / 2)
-		ft_push_largest_to_b(a, b);
-	/*
-	if (ft_intcmp(b->stack->next->content, b->stack->content))
-		ft_exit(NULL, a, b, ft_swap(b, FALSE, FALSE) + pf_check);
-	ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
-	ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
-	ft_printstack(a->stack, b->stack);
-	*/
+	while (!ft_is_stack_sorted(a->stack) && a->curr_stack_len > 3)
+	{
+		middle_ind = a->curr_stack_len / 2 + 1;
+		ft_push_smallest_to_b(a, b, middle_ind);
+	}
+	//ft_printstack(a->stack, b->stack);
+	ft_sort_3(a, b);
+	while(b->stack)
+		ft_exit(NULL, a, b , ft_push(a, b, TRUE) + pf_check);
 }

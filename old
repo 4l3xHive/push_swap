@@ -22,26 +22,26 @@ void	ft_sort_3(t_stackinfo *a)
 	first = a->stack;
 	second = first->next;
 	third = first->next->next;
-	if (ft_isbigger(first->content, second->content) && ft_isbigger(third->content,
-			second->content) && ft_isbigger(third->content, first->content))
+	if (ft_intcmp(first->content, second->content) && ft_intcmp(third->content,
+			second->content) && ft_intcmp(third->content, first->content))
 		ft_exit(NULL, a, NULL, ft_swap(first, TRUE, FALSE) + pf_check);
-	if (ft_isbigger(first->content, second->content) && ft_isbigger(second->content,
-			third->content) && ft_isbigger(first->content, third->content))
+	if (ft_intcmp(first->content, second->content) && ft_intcmp(second->content,
+			third->content) && ft_intcmp(first->content, third->content))
 	{
 		ft_exit(NULL, a, NULL, ft_swap(first, TRUE, FALSE) + pf_check);
 		ft_exit(NULL, a, NULL, ft_rotate(first, TRUE, TRUE) + pf_check);
 	}
-	if (ft_isbigger(first->content, second->content) && ft_isbigger(third->content,
-			second->content) && ft_isbigger(first->content, third->content))
+	if (ft_intcmp(first->content, second->content) && ft_intcmp(third->content,
+			second->content) && ft_intcmp(first->content, third->content))
 		ft_rotate(first, FALSE, TRUE);
-	if (ft_isbigger(first->content, second->content) && ft_isbigger(second->content,
-			third->content) && ft_isbigger(first->content, third->content))
+	if (ft_intcmp(first->content, second->content) && ft_intcmp(second->content,
+			third->content) && ft_intcmp(first->content, third->content))
 	{
 		ft_exit(NULL, a, NULL, ft_swap(first, TRUE, FALSE) + pf_check);
 		ft_exit(NULL, a, NULL, ft_rotate(first, FALSE, TRUE) + pf_check);
 	}
-	if (ft_isbigger(first->content, second->content) && ft_isbigger(second->content,
-			third->content) && ft_isbigger(first->content, third->content))
+	if (ft_intcmp(first->content, second->content) && ft_intcmp(second->content,
+			third->content) && ft_intcmp(first->content, third->content))
 		ft_exit(NULL, a, NULL, ft_rotate(first, TRUE, TRUE) + pf_check);
 }
 
@@ -68,23 +68,23 @@ void	first_stack(t_stackinfo *a, t_stackinfo *b)
 
 	a_s = a->stack;
 	b_s = b->stack;
-	if (ft_isbigger(a_s->content, b_s->content))
+	if (ft_intcmp(a_s->content, b_s->content))
 		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
-	else if (ft_isbigger(b_s->content, a_s->content) && ft_isbigger(b_s->content,
+	else if (ft_intcmp(b_s->content, a_s->content) && ft_intcmp(b_s->content,
 			a_s->next->content))
 	{
 		ft_exit(NULL, a, b, ft_rotate(a_s, FALSE, TRUE) + pf_check);
 		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
 		ft_exit(NULL, a, b, ft_rotate(a_s, TRUE, TRUE) + pf_check);
 	}
-	else if ((ft_isbigger(b_s->content, a_s->next->content))
-		&& ft_isbigger(b_s->content, a_s->next->next->content))
+	else if ((ft_intcmp(b_s->content, a_s->next->content))
+		&& ft_intcmp(b_s->content, a_s->next->next->content))
 	{
 		ft_exit(NULL, a, b, ft_rotate(a_s, TRUE, TRUE) + pf_check);
 		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
 		ft_rotate_stack_radix(a, b, TRUE, TRUE);
 	}
-	else if (ft_isbigger(b_s->content, a_s->next->next->content))
+	else if (ft_intcmp(b_s->content, a_s->next->next->content))
 	{
 		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
 		ft_exit(NULL, a, b, ft_rotate(a_s, FALSE, TRUE) + pf_check);
@@ -98,32 +98,31 @@ void	second_stack(t_stackinfo *a, t_stackinfo *b)
 
 	a_s = a->stack;
 	b_s = b->stack;
-
-	if (ft_isbigger(a_s->content, b_s->content))
+	if (ft_intcmp(a_s->content, b_s->content))
 		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
-	else if ((ft_isbigger(b_s->content, a_s->content))
-		&& (ft_isbigger(a_s->next->content, b_s->content)))
+	else if ((ft_intcmp(b_s->content, a_s->content))
+		&& (ft_intcmp(a_s->next->content, b_s->content)))
 	{
 		ft_exit(NULL, a, b, ft_rotate(a_s, FALSE, TRUE) + pf_check);
 		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
 		ft_exit(NULL, a, b, ft_rotate(a_s, TRUE, TRUE) + pf_check);
 	}
-	else if ((ft_isbigger(b_s->content, a_s->next->content))
-		&& (ft_isbigger(a_s->next->next->content, b_s->content)))
+	else if ((ft_intcmp(b_s->content, a_s->next->content))
+		&& (ft_intcmp(a_s->next->next->content, b_s->content)))
 	{
 		ft_exit(NULL, a, b, ft_rotate(a_s, FALSE, TRUE) + pf_check);
 		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
 		ft_exit(NULL, a, b, ft_swap(a_s, TRUE, FALSE) + pf_check);
 		ft_exit(NULL, a, b, ft_rotate(a_s, TRUE, TRUE) + pf_check);
 	}
-	else if (ft_isbigger(a_s->next->next->content, b_s->content)
-		&& (ft_isbigger(b_s->content, a_s->next->next->next->content)))
+	else if (ft_intcmp(a_s->next->next->content, b_s->content)
+		&& (ft_intcmp(b_s->content, a_s->next->next->next->content)))
 	{
 		ft_exit(NULL, a, b, ft_rotate(a_s, TRUE, TRUE) + pf_check);
 		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
 		ft_rotate_stack_radix(a, b, TRUE, FALSE);
 	}
-	else if (ft_isbigger(b_s->content, a_s->next->next->next->content))
+	else if (ft_intcmp(b_s->content, a_s->next->next->next->content))
 	{
 		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
 		ft_exit(NULL, a, b, ft_rotate(a_s, FALSE, TRUE) + pf_check);
@@ -135,17 +134,14 @@ void	ft_sort_5(t_stackinfo *a, t_stackinfo *b)
 	ft_push(a, b, NULL, FALSE);
 	ft_sort_3(a);
 	// ft_printstack(a->stack, b->stack);
-	while (b->stack_len != 0)
+	while (b->curr_stack_len != 0)
 	{
-		if (a->stack_len == 3)
+		if (a->curr_stack_len == 3)
 			first_stack(a, b);
-		else if (a->stack_len == 4)
+		else if (a->curr_stack_len == 4)
 			second_stack(a, b);
 	}
 }
-
-
-
 
 int	ft_rotate(t_list *stack, int reverse, int rotate_a)
 {
@@ -174,29 +170,25 @@ int	ft_rotate(t_list *stack, int reverse, int rotate_a)
 	return (ft_print_action(ft_rotate_val(reverse, rotate_a)));
 }
 
-
-
-
-
 void	first_stack(t_stackinfo *a, t_stackinfo *b)
 {
-	if (ft_isbigger(a->stack->content, b->stack->content))
+	if (ft_intcmp(a->stack->content, b->stack->content))
 		ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
-	else if (ft_isbigger(b->stack->content, a->stack->content) && ft_isbigger(b->stack->content,
-			a->stack->next->content))
+	else if (ft_intcmp(b->stack->content, a->stack->content)
+		&& ft_intcmp(b->stack->content, a->stack->next->content))
 	{
 		ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE) + pf_check);
 		ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
 		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
 	}
-	else if ((ft_isbigger(b->stack->content, a->stack->next->content))
-		&& ft_isbigger(b->stack->content, a->stack->next->next->content))
+	else if ((ft_intcmp(b->stack->content, a->stack->next->content))
+		&& ft_intcmp(b->stack->content, a->stack->next->next->content))
 	{
 		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
 		ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
 		ft_rotate_stack_radix(a, b, TRUE, TRUE);
 	}
-	else if (ft_isbigger(b->stack->content, a->stack->next->next->content))
+	else if (ft_intcmp(b->stack->content, a->stack->next->next->content))
 	{
 		ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
 		ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE) + pf_check);
@@ -205,33 +197,95 @@ void	first_stack(t_stackinfo *a, t_stackinfo *b)
 
 void	second_stack(t_stackinfo *a, t_stackinfo *b)
 {
-	if (ft_isbigger(a->stack->content, b->stack->content))
+	if (ft_intcmp(a->stack->content, b->stack->content))
 		ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
-	else if ((ft_isbigger(b->stack->content, a->stack->content))
-		&& (ft_isbigger(a->stack->next->content, b->stack->content)))
+	else if ((ft_intcmp(b->stack->content, a->stack->content))
+		&& (ft_intcmp(a->stack->next->content, b->stack->content)))
 	{
 		ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE) + pf_check);
 		ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
 		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
 	}
-	else if ((ft_isbigger(b->stack->content, a->stack->next->content))
-		&& (ft_isbigger(a->stack->next->next->content, b->stack->content)))
+	else if ((ft_intcmp(b->stack->content, a->stack->next->content))
+		&& (ft_intcmp(a->stack->next->next->content, b->stack->content)))
 	{
 		ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE) + pf_check);
-		ft_exit(NULL, a, b, ft_push(a, b,  TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
 		ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
 		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
 	}
-	else if (ft_isbigger(a->stack->next->next->content, b->stack->content)
-		&& (ft_isbigger(b->stack->content, a->stack->next->next->next->content)))
+	else if (ft_intcmp(a->stack->next->next->content, b->stack->content)
+		&& (ft_intcmp(b->stack->content, a->stack->next->next->next->content)))
 	{
 		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
-		ft_exit(NULL, a, b, ft_push(a, b,  TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
 		ft_rotate_stack_radix(a, b, TRUE, FALSE);
 	}
-	else if (ft_isbigger(b->stack->content, a->stack->next->next->next->content))
+	else if (ft_intcmp(b->stack->content, a->stack->next->next->next->content))
 	{
 		ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
 		ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE) + pf_check);
 	}
 }
+
+void	ft_push_smallest_to_b(t_stackinfo *a, t_stackinfo *b)
+{
+	t_list *current;
+	t_index i;
+
+	ft_init_all(NULL, NULL, &i);
+	current = a->stack;
+	while (current)
+	{
+		if (ft_intcmp(&i.smallest_content, current->content))
+		{
+			i.smallest_content = *(int *)current->content;
+			i.smallest_index = i.i;
+		}
+		current = current->next;
+		i.i++;
+	}
+	while (ft_intcmp(a->stack->content, &i.smallest_content) != 0)
+	{
+		if (i.smallest_index == 1)
+			ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
+		else if (i.smallest_index == 2)
+		{
+			ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+			ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
+		}
+		else
+			ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+	}
+	ft_exit(NULL, a, b, ft_push(a, b, FALSE) + pf_check);
+}
+
+
+/*
+void	ft_push_largest_to_b(t_stackinfo *a, t_stackinfo *b)
+{
+	t_list	*current;
+	t_index	i;
+
+	ft_init_all(NULL, NULL, &i);
+	current = a->stack;
+	while (current)
+	{
+		if (ft_intcmp(current->content, &i.largest_content) > 0)
+		{
+			i.largest_content = *(int *)current->content;
+			i.largest_index = i.i;
+		}
+		current = current->next;
+		i.i++;
+	}
+	while(ft_intcmp(a->stack->content, &i.largest_content) != 0)
+	{
+		if (i.largest_index == 1)
+			ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
+		else
+			ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+	}
+	ft_exit(NULL, a, b, ft_push(a, b, FALSE) + pf_check);
+}
+*/

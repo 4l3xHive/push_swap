@@ -43,10 +43,18 @@ enum		e_action
 
 typedef struct s_index
 {
-	int		largest_content;
-	int		largest_index;
-	int		i;
+	int			smallest_content;
+	size_t		smallest_index;
+	size_t		i;
+
 }			t_index;
+
+typedef struct s_sort3
+{
+	int first;
+    int second;
+    int third;
+}t_sort3;
 
 typedef struct s_stackinfo
 {
@@ -60,8 +68,8 @@ int			ft_swap(t_stackinfo *info, int swap_a, int swap_both);
 int			ft_rotate(t_stackinfo *info, int reverse, int rotate_a);
 int			ft_push(t_stackinfo *a, t_stackinfo *b, int push_a);
 int			ft_is_stack_sorted(t_list *stack);
-void		ft_sort_3(t_stackinfo *a);
-void		ft_sort_5(t_stackinfo *a, t_stackinfo *b);
+void		ft_sort_3(t_stackinfo *a, t_stackinfo *b);
+void		ft_sort_stack(t_stackinfo *a, t_stackinfo *b);
 // UTILS
 int			ft_intcmp(const void *a, const void *b);
 void		ft_printstack(t_list *stack1, t_list *stack2);
@@ -75,5 +83,5 @@ void		ft_exit(const char *err_msg, t_stackinfo *a, t_stackinfo *b,
 // INITS    t_stackinfo  a = {0} ??
 void		ft_check_args(char **av, t_stackinfo *a);
 void		ft_init_stack_a(t_stackinfo *a);
-void		ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i);
+void		ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i, t_sort3 *c);
 #endif

@@ -13,9 +13,9 @@
 #include "push_swap.h"
 
 /* Init both main structures*/
-void	ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i)
+void	ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i, t_sort3 *c)
 {
-	if (!i)
+	if (!i && !c)
 	{
 		a->nums = NULL;
 		a->stack = NULL;
@@ -27,8 +27,14 @@ void	ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i)
 	if (i)
 	{
 		i->i = 0;
-		i->largest_content = 0;
-		i->largest_index = -1;
+		i->smallest_content = INT_MAX;
+		i->smallest_index = -1;
+	}
+	if (c && a)
+	{
+	 	c->first = *(int *)(a->stack->content);
+    	c->second = *(int *)(a->stack->next->content);
+		c->third = *(int *)(a->stack->next->next->content);
 	}
 }
 
