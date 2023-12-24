@@ -66,20 +66,20 @@ long	ft_atol(const char *str)
 	return (res * neg);
 }
 
-// Checks that if the stack is sorted
+// Checks that if the stack is sorted || unqiue
 int	ft_is_sorted_or_unique(t_list *stack, int check_unique)
 {
 	t_list	*current;
 	t_list	*runner;
 
 	current = stack;
-	while (current != NULL && current->next != NULL)
+	while (current && current->next)
 	{
 		if (!check_unique
 			&& *(int *)current->content > *(int *)current->next->content)
 			return (FALSE);
 		runner = current->next;
-		while (check_unique && runner != NULL)
+		while (check_unique && runner)
 		{
 			if (*(int *)current->content == *(int *)runner->content)
 				return (FALSE);
@@ -91,26 +91,26 @@ int	ft_is_sorted_or_unique(t_list *stack, int check_unique)
 }
 
 // prints bnoth sta
-void	ft_printstack(t_list *a, t_list *b)
+void	ft_printstack(t_stackinfo *a, t_stackinfo *b)
 {
 	t_list *curr1;
 	t_list *curr2;
 
-	curr2 = b;
-	curr1 = a;
+	curr2 = b->stack;
+	curr1 = a->stack;
 	while (curr1 || curr2)
 	{
 		if (curr1)
 		{
-			ft_printf("%d", *(int *)curr1->content);
+			ft_exit(NULL, a, b, ft_printf("%d", *(int *)curr1->content));
 			curr1 = curr1->next;
 		}
 		if (curr2)
 		{
-			ft_printf("      %d", *(int *)curr2->content);
+			ft_exit(NULL, a, b, ft_printf("%d", *(int *)curr1->content));
 			curr2 = curr2->next;
 		}
-		write(1, "\n", 1);
+		ft_exit(NULL, a, b, write(1, "\n", 1));
 	}
-	ft_printf("|a|    |b|\n");
+	ft_exit(NULL, a, b, ft_printf("|a|    |b|\n"));
 }

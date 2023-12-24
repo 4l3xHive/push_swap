@@ -45,6 +45,7 @@ typedef struct s_index
 {
 	int		smallest_content;
 	ssize_t	smallest_index;
+	int		is_sorted;
 	size_t	i;
 
 }			t_index;
@@ -72,7 +73,7 @@ void		ft_sort_3(t_stackinfo *a, t_stackinfo *b);
 void		ft_sort_stack(t_stackinfo *a, t_stackinfo *b);
 // UTILS
 int			ft_intcmp(const void *a, const void *b);
-void		ft_printstack(t_list *stack1, t_list *stack2);
+void		ft_printstack(t_stackinfo *a, t_stackinfo *b);
 int			ft_rotate_val(int reverse, int rotate_a);
 int			ft_print_action(int val);
 int			ft_str_isdigit(const char *str);

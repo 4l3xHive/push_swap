@@ -29,6 +29,7 @@ void	ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i, t_sort3 *c)
 		i->i = 0;
 		i->smallest_content = INT_MAX;
 		i->smallest_index = -1;
+		i->is_sorted = FALSE;
 	}
 	if (c && a)
 	{
@@ -87,11 +88,11 @@ void	ft_init_stack_a(t_stackinfo *a)
 
 /* Need to create diff vals for error checking in printf in upper levels
 works as a callback also if there is pf_callback enabled*/
-void	ft_exit(const char *err_msg, t_stackinfo *a, t_stackinfo *b, int pf)
+void	ft_exit(const char *err_msg, t_stackinfo *a, t_stackinfo *b, int err)
 {
-	if (pf == pf_err || pf == -1)
+	if (err == pf_err || err == -1)
 		err_msg = "Error\n";
-	if (pf == pf_success || pf == pf_success1 || pf == pf_success2)
+	if (err == pf_success || err == pf_success1 || err == pf_success2)
 		return ;
 	ft_freeall(NULL, 0, a, b);
 	if (err_msg)
