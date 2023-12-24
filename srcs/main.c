@@ -17,8 +17,8 @@ static void	ft_init_a(char **av, t_stackinfo *a)
 {
 	ft_check_args(av, a);
 	ft_init_stack_a(a);
-	if (ft_is_stack_sorted(a->stack))
-		ft_exit("ERROR: already sorted!\n", a, NULL, 0);
+	if (ft_is_stack_sorted_and_unique(a->stack, TRUE) == FALSE)
+		ft_exit("Error\n", a, NULL, 0);
 }
 
 static void	ft_start_sorting(t_stackinfo *a, t_stackinfo *b)

@@ -17,6 +17,16 @@ int	ft_intcmp(const void *a, const void *b)
 	return (*(int *)a - *(int *)b);
 }
 
+int	ft_check_valid(const char *str)
+{
+	long	val;
+
+	if (!ft_str_isdigit(str))
+		return (FALSE);
+	val = ft_atol(str);
+	return (val >= INT_MIN && val <= INT_MAX);
+}
+
 int	ft_str_isdigit(const char *str)
 {
 	size_t	i;
@@ -34,17 +44,48 @@ int	ft_str_isdigit(const char *str)
 	return (TRUE);
 }
 
-// Checks that if the stack is sorted
-int	ft_is_stack_sorted(t_list *stack)
+long	ft_atol(const char *str)
 {
-	while (stack->next)
+	long	res;
+	int		neg;
+	size_t	i;
+
+	res = 0;
+	neg = 1;
+	i = 0;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
+		|| str[i] == '\f' || str[i] == '\r')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		if (*(int *)stack->content > *(int *)stack->next->content)
+		if (str[i++] == '-')
+			neg = -1;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+		res = res * 10 + (str[i++] - '0');
+	return (res * neg);
+}
+
+// Checks that if the stack is sorted
+int	ft_is_stack_sorted_and_unique(t_list *stack, int check_duplicate)
+{
+	t_list	*current;
+
+	current = stack;
+	while (current != NULL && current->next != NULL)
+	{
+		if (check_duplicate)
+		{
+			if (*(int *)current->content == *(int *)current->next->content)
+				return (FALSE);
+		}
+		if (*(int *)current->content > *(int *)current->next->content)
 			return (FALSE);
-		stack = stack->next;
+		current = current->next;
 	}
 	return (TRUE);
 }
+
 // prints bnoth sta
 void	ft_printstack(t_list *a, t_list *b)
 {
