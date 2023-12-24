@@ -96,7 +96,7 @@ void	ft_sort_stack(t_stackinfo *a, t_stackinfo *b)
 {
 	size_t	middle_ind;
 
-	while (!ft_is_stack_sorted_and_unique(a->stack, 0) && a->curr_stack_len > 3)
+	while (!ft_is_sorted_or_unique(a->stack, 0) && a->curr_stack_len > 3)
 	{
 		middle_ind = a->curr_stack_len / 2 + 1;
 		ft_push_smallest_to_b(a, b, middle_ind);

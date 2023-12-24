@@ -67,20 +67,24 @@ long	ft_atol(const char *str)
 }
 
 // Checks that if the stack is sorted
-int	ft_is_stack_sorted_and_unique(t_list *stack, int check_duplicate)
+int	ft_is_sorted_or_unique(t_list *stack, int check_unique)
 {
 	t_list	*current;
+	t_list	*runner;
 
 	current = stack;
 	while (current != NULL && current->next != NULL)
 	{
-		if (check_duplicate)
-		{
-			if (*(int *)current->content == *(int *)current->next->content)
-				return (FALSE);
-		}
-		if (*(int *)current->content > *(int *)current->next->content)
+		if (!check_unique
+			&& *(int *)current->content > *(int *)current->next->content)
 			return (FALSE);
+		runner = current->next;
+		while (check_unique && runner != NULL)
+		{
+			if (*(int *)current->content == *(int *)runner->content)
+				return (FALSE);
+			runner = runner->next;
+		}
 		current = current->next;
 	}
 	return (TRUE);

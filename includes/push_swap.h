@@ -67,7 +67,7 @@ typedef struct s_stackinfo
 int			ft_swap(t_stackinfo *info, int swap_a, int swap_both);
 int			ft_rotate(t_stackinfo *info, int reverse, int rotate_a);
 int			ft_push(t_stackinfo *a, t_stackinfo *b, int push_a);
-int			ft_is_stack_sorted_and_unique(t_list *stack, int check_duplicate);
+int			ft_is_sorted_or_unique(t_list *stack, int check_unique);
 void		ft_sort_3(t_stackinfo *a, t_stackinfo *b);
 void		ft_sort_stack(t_stackinfo *a, t_stackinfo *b);
 // UTILS
@@ -77,6 +77,7 @@ int			ft_rotate_val(int reverse, int rotate_a);
 int			ft_print_action(int val);
 int			ft_str_isdigit(const char *str);
 int			ft_check_valid(const char *str);
+long		ft_atol(const char *str);
 // CLEANUP
 void		ft_freeall(char **split, long split_i, t_stackinfo *a,
 				t_stackinfo *b);
