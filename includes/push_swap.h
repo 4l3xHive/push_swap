@@ -23,11 +23,6 @@
 
 enum		e_action
 {
-	pf_err = 404,
-	pf_check = 405,
-	pf_success = 407,
-	pf_success1 = 408,
-	pf_success2 = 409,
 	sa = 1,
 	sb = 2,
 	ss = 4,

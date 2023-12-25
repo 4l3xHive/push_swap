@@ -16,13 +16,13 @@
 static void	ft_check_equals(t_stackinfo *a, t_stackinfo *b, t_sort3 *c)
 {
 	if (c->first == c->second && c->second < c->third)
-		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE));
 	else if (c->first == c->second && c->second > c->third)
-		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE));
 	else if (c->second == c->third && c->first < c->second)
-		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE));
 	else if (c->second == c->third && c->first > c->second)
-		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE));
 }
 
 /* Sorts stack of 3 if not sorted*/
@@ -33,22 +33,22 @@ void	ft_sort_3(t_stackinfo *a, t_stackinfo *b)
 	ft_init_all(a, NULL, NULL, &c);
 	if (c.first > c.second && c.second > c.third)
 	{
-		ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
-		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE));
+		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE));
 	}
 	else if (c.first > c.second && c.first < c.third)
-		ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
+		ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE));
 	else if (c.second > c.first && c.second > c.third && c.first < c.third)
 	{
-		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
-		ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE));
+		ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE));
 	}
 	else if (c.second < c.first && c.second < c.third && c.first > c.third)
-		ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE));
 	else if (c.third > c.first && c.third < c.second)
 	{
-		ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
-		ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE));
+		ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE));
 	}
 	else
 		ft_check_equals(a, b, &c);
@@ -75,15 +75,15 @@ static void	ft_push_smallest_to_b(t_stackinfo *a, t_stackinfo *b, t_index *i,
 		&& i->is_sorted == FALSE)
 	{
 		if (i->smallest_index == 1)
-			ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
+			ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE));
 		else if (i->smallest_index > (ssize_t)middle)
 		{
-			ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+			ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE));
 			i->smallest_index++;
 		}
 		else
 		{
-			ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE) + pf_check);
+			ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE));
 			i->smallest_index--;
 		}
 		if (i->smallest_index > (ssize_t)a->curr_stack_len)
@@ -94,7 +94,7 @@ static void	ft_push_smallest_to_b(t_stackinfo *a, t_stackinfo *b, t_index *i,
 			i->is_sorted = TRUE;
 	}
 	if (i->is_sorted == FALSE)
-		ft_exit(NULL, a, b, ft_push(a, b, FALSE) + pf_check);
+		ft_exit(NULL, a, b, ft_push(a, b, FALSE));
 }
 
 /* Sort stack of 5 */
@@ -103,7 +103,7 @@ void	ft_sort_stack(t_stackinfo *a, t_stackinfo *b)
 	size_t	middle_ind;
 	t_index	i;
 
-	i.is_sorted == FALSE;
+	i.is_sorted = FALSE;
 	while (i.is_sorted == FALSE && a->curr_stack_len > 3)
 	{
 		ft_init_all(NULL, NULL, &i, NULL);
@@ -112,5 +112,6 @@ void	ft_sort_stack(t_stackinfo *a, t_stackinfo *b)
 	}
 	ft_sort_3(a, b);
 	while (b->stack)
-		ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_push(a, b, TRUE));
+	ft_printstack(a, b);
 }

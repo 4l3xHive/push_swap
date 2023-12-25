@@ -90,9 +90,9 @@ void	ft_init_stack_a(t_stackinfo *a)
 works as a callback also if there is pf_callback enabled*/
 void	ft_exit(const char *err_msg, t_stackinfo *a, t_stackinfo *b, int err)
 {
-	if (err == pf_err || err == -1)
+	if (err == -1)
 		err_msg = "Error\n";
-	if (err == pf_success || err == pf_success1 || err == pf_success2)
+	if (err > 0)
 		return ;
 	ft_freeall(NULL, 0, a, b);
 	if (err_msg)
