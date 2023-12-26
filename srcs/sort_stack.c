@@ -103,7 +103,7 @@ void	ft_sort_stack(t_stackinfo *a, t_stackinfo *b)
 	size_t	middle_ind;
 	t_index	i;
 
-	i.is_sorted = FALSE;
+	i.is_sorted = ft_is_sorted_or_unique(a->stack, FALSE);
 	while (i.is_sorted == FALSE && a->curr_stack_len > 3)
 	{
 		ft_init_all(NULL, NULL, &i, NULL);
@@ -113,5 +113,4 @@ void	ft_sort_stack(t_stackinfo *a, t_stackinfo *b)
 	ft_sort_3(a, b);
 	while (b->stack)
 		ft_exit(NULL, a, b, ft_push(a, b, TRUE));
-	ft_printstack(a, b);
 }

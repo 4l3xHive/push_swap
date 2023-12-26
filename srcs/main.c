@@ -37,10 +37,11 @@ int	main(int ac, char **av)
 	t_stackinfo	b;
 
 	ft_init_all(&a, &b, NULL, NULL);
-	if (ac == 2)
+	if (ac >= 2)
 	{
 		ft_init_a(av, &a);
 		ft_start_sorting(&a, &b);
+		ft_printstack(&a, &b);
 		ft_freeall(NULL, 0, &a, &b);
 	}
 	return (0);

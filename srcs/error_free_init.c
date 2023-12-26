@@ -43,27 +43,21 @@ void	ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i, t_sort3 *c)
 void	ft_check_args(char **av, t_stackinfo *a)
 {
 	size_t	i;
-	char	**split_nums;
 
 	i = 0;
-	split_nums = ft_split(av[1], ' ');
-	if (!split_nums)
-		ft_exit("Error\n", a, NULL, 0);
-	while (split_nums[i])
+	while (av[i + 1])
 		i++;
 	a->curr_stack_len = i;
 	a->nums = (int *)malloc(sizeof(int) * i);
 	if (a->nums == NULL)
 		ft_exit("Error\n", a, NULL, 0);
+	printf("here %ld\n", a->curr_stack_len);
 	i = 0;
-	while (split_nums[i] && ft_check_valid(split_nums[i]))
+	while (av[i + 1] && ft_check_valid(av[i + 1]))
 	{
-		a->nums[i] = ft_atoi(split_nums[i]);
+		a->nums[i] = ft_atoi(av[i + 1]);
 		i++;
 	}
-	ft_freeall(split_nums, (long)a->curr_stack_len, NULL, NULL);
-	if (i != a->curr_stack_len)
-		ft_exit("Error\n", a, NULL, 0);
 }
 
 /*Inits the linkedlist stack for a*/
