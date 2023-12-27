@@ -18,13 +18,13 @@ static void	ft_init_a(char **av, t_stackinfo *a)
 	ft_check_args(av, a);
 	ft_init_stack_a(a);
 	if (ft_is_sorted_or_unique(a->stack, TRUE) == FALSE)
-		ft_exit("Error\n", a, NULL, 0);
+		ft_exit(a, NULL, 0);
 }
 
 static void	ft_start_sorting(t_stackinfo *a, t_stackinfo *b)
 {
 	if (a->curr_stack_len == 2)
-		ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE));
+		ft_exit(a, b, ft_swap(a, TRUE, FALSE));
 	else if (a->curr_stack_len == 3)
 		ft_sort_3(a, b);
 	else
@@ -41,7 +41,7 @@ int	main(int ac, char **av)
 	{
 		ft_init_a(av, &a);
 		ft_start_sorting(&a, &b);
-		ft_printstack(&a, &b);
+		// ft_printstack(&a, &b);
 		ft_freeall(NULL, 0, &a, &b);
 	}
 	return (0);

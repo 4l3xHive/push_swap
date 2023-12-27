@@ -50,14 +50,15 @@ void	ft_check_args(char **av, t_stackinfo *a)
 	a->curr_stack_len = i;
 	a->nums = (int *)malloc(sizeof(int) * i);
 	if (a->nums == NULL)
-		ft_exit("Error\n", a, NULL, 0);
-	printf("here %ld\n", a->curr_stack_len);
+		ft_exit(a, NULL, 0);
 	i = 0;
 	while (av[i + 1] && ft_check_valid(av[i + 1]))
 	{
 		a->nums[i] = ft_atoi(av[i + 1]);
 		i++;
 	}
+	if (i != a->curr_stack_len)
+		ft_exit(a, NULL, 0);
 }
 
 /*Inits the linkedlist stack for a*/
@@ -74,7 +75,7 @@ void	ft_init_stack_a(t_stackinfo *a)
 		{
 			temp = ft_lstnew(&a->nums[i++]);
 			if (!temp)
-				ft_exit("Error\n", a, NULL, 0);
+				ft_exit(a, NULL, 0);
 			ft_lstadd_back(&a->stack, temp);
 		}
 	}
@@ -82,16 +83,14 @@ void	ft_init_stack_a(t_stackinfo *a)
 
 /* Need to create diff vals for error checking in printf in upper levels
 works as a callback also if there is pf_callback enabled*/
-void	ft_exit(const char *err_msg, t_stackinfo *a, t_stackinfo *b, int err)
+void	ft_exit(t_stackinfo *a, t_stackinfo *b, int err)
 {
-	if (err == -1)
-		err_msg = "Error\n";
 	if (err > 0)
 		return ;
 	ft_freeall(NULL, 0, a, b);
-	if (err_msg)
+	if (err <= 0)
 	{
-		ft_putstr_fd((char *)err_msg, STDERR_FILENO);
+		ft_putstr_fd("Error\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
 	exit(EXIT_SUCCESS);

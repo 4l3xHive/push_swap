@@ -102,15 +102,15 @@ void	ft_printstack(t_stackinfo *a, t_stackinfo *b)
 	{
 		if (curr1)
 		{
-			ft_exit(NULL, a, b, ft_printf("%d", *(int *)curr1->content));
+			ft_exit(a, b, ft_printf("%d", *(int *)curr1->content));
 			curr1 = curr1->next;
 		}
 		if (curr2)
 		{
-			ft_exit(NULL, a, b, ft_printf("%d", *(int *)curr1->content));
+			ft_exit(a, b, ft_printf("%d", *(int *)curr1->content));
 			curr2 = curr2->next;
 		}
-		ft_exit(NULL, a, b, write(1, "\n", 1));
+		ft_exit(a, b, write(1, "\n", 1));
 	}
-	ft_exit(NULL, a, b, ft_printf("|a|    |b|\n"));
+	ft_exit(a, b, ft_printf("|a|    |b|\n"));
 }

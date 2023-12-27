@@ -77,8 +77,7 @@ long		ft_atol(const char *str);
 // CLEANUP
 void		ft_freeall(char **split, long split_i, t_stackinfo *a,
 				t_stackinfo *b);
-void		ft_exit(const char *err_msg, t_stackinfo *a, t_stackinfo *b,
-				int pf);
+void		ft_exit(t_stackinfo *a, t_stackinfo *b, int pf);
 // INITS    t_stackinfo  a = {0} ??
 void		ft_check_args(char **av, t_stackinfo *a);
 void		ft_init_stack_a(t_stackinfo *a);
