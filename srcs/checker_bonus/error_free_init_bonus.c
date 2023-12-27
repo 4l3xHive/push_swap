@@ -13,9 +13,9 @@
 #include "checker_bonus.h"
 
 /* Init both main structures*/
-void	ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i, t_sort3 *c)
+void	ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i)
 {
-	if (!i && !c)
+	if (!i)
 	{
 		a->nums = NULL;
 		a->stack = NULL;
@@ -30,12 +30,6 @@ void	ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i, t_sort3 *c)
 		i->smallest_content = INT_MAX;
 		i->smallest_index = 0;
 		i->is_sorted = FALSE;
-	}
-	if (c && a)
-	{
-		c->first = *(int *)(a->stack->content);
-		c->second = *(int *)(a->stack->next->content);
-		c->third = *(int *)(a->stack->next->next->content);
 	}
 }
 

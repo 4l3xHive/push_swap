@@ -7,10 +7,10 @@ M_SRC_FILES =	main.c \
 			sort_stack.c \
 			utils.c \
 
-B_SRCS_FILES = 	main.c \
-				actions.c \
-				error_free_init.c \
-				utils.c \
+B_SRCS_FILES = 	main_bonus.c \
+				actions_bonus.c \
+				error_free_init_bonus.c \
+				utils_bonus.c \
 
 SRC_DIR = srcs/push_swap/
 BONUS_DIR = srcs/checker_bonus/
