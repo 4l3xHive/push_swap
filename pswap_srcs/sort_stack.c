@@ -20,6 +20,12 @@ static void	ft_sort3_extrachecks(t_stackinfo *a, t_stackinfo *b, t_sort3 *c)
 		ft_exit(a, b, ft_swap(a, TRUE, FALSE));
 		ft_exit(a, b, ft_rotate(a, FALSE, TRUE));
 	}
+	else if (c->second > c->first && c->second > c->third
+		&& c->first < c->third)
+	{
+		ft_exit(a, b, ft_rotate(a, TRUE, TRUE));
+		ft_exit(a, b, ft_swap(a, TRUE, FALSE));
+	}
 	else if (c->first == c->second && c->second < c->third)
 		ft_exit(a, b, ft_rotate(a, TRUE, TRUE));
 	else if (c->first == c->second && c->second > c->third)
@@ -36,7 +42,9 @@ void	ft_sort_3(t_stackinfo *a, t_stackinfo *b)
 	t_sort3	c;
 
 	ft_init_all(a, NULL, NULL, &c);
-	if (c.first > c.second && c.second > c.third)
+	if (c.first > c.second && c.first < c.third && c.second < c.third)
+		ft_exit(a, b, ft_swap(a, TRUE, FALSE));
+	else if (c.first > c.second && c.second > c.third)
 	{
 		ft_exit(a, b, ft_swap(a, TRUE, FALSE));
 		ft_exit(a, b, ft_rotate(a, TRUE, TRUE));
@@ -45,11 +53,6 @@ void	ft_sort_3(t_stackinfo *a, t_stackinfo *b)
 		ft_exit(a, b, ft_rotate(a, TRUE, TRUE));
 	else if (c.first > c.second && c.first < c.third)
 		ft_exit(a, b, ft_swap(a, TRUE, FALSE));
-	else if (c.second > c.first && c.second > c.third && c.first < c.third)
-	{
-		ft_exit(a, b, ft_rotate(a, TRUE, TRUE));
-		ft_exit(a, b, ft_swap(a, TRUE, FALSE));
-	}
 	else if (c.second < c.first && c.second < c.third && c.first > c.third)
 		ft_exit(a, b, ft_rotate(a, FALSE, TRUE));
 	else
