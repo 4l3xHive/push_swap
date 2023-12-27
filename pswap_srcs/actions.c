@@ -58,39 +58,50 @@ int	ft_push(t_stackinfo *a, t_stackinfo *b, int push_a)
 	return (ft_print_action(action));
 }
 
-// Rotates the stack either way
-int	ft_rotate(t_stackinfo *info, int reverse, int rotate_a)
+static void	ft_shift_contents(t_stackinfo *info, int reverse, t_rotate *r)
 {
-	t_list	*current;
-	void	*tmp_c;
-	t_list	*prev;
-
-	current = ft_lstlast(info->stack);
-	tmp_c = current->content;
 	if (reverse)
 	{
-		while (current != info->stack)
+		r->current = ft_lstlast(info->stack);
+		r->tmp_c = r->current->content;
+		while (r->current != info->stack)
 		{
-			prev = info->stack;
-			while (prev->next != current)
-				prev = prev->next;
-			current->content = prev->content;
-			current = prev;
+			r->prev = info->stack;
+			while (r->prev->next != r->current)
+				r->prev = r->prev->next;
+			r->current->content = r->prev->content;
+			r->current = r->prev;
 		}
-		info->stack->content = tmp_c;
+		info->stack->content = r->tmp_c;
 	}
 	else
 	{
-		tmp_c = info->stack->content;
-		current = info->stack;
-		while (current->next != NULL)
+		r->current = info->stack;
+		r->tmp_c = r->current->content;
+		while (r->current->next != NULL)
 		{
-			current->content = current->next->content;
-			current = current->next;
+			r->current->content = r->current->next->content;
+			r->current = r->current->next;
 		}
-		current->content = tmp_c;
+		r->current->content = r->tmp_c;
 	}
-	return (ft_print_action(ft_rotate_val(reverse, rotate_a)));
+}
+
+int	ft_rotate(t_stackinfo *info, int reverse, int rotate_a)
+{
+	t_rotate	r;
+	int			action;
+
+	ft_shift_contents(info, reverse, &r);
+	if (!reverse && rotate_a)
+		action = ra;
+	else if (reverse && rotate_a)
+		action = rra;
+	else if (!reverse && !rotate_a)
+		action = rb;
+	else if (reverse && !rotate_a)
+		action = rrb;
+	return (ft_print_action(action));
 }
 
 int	ft_print_action(int val)
@@ -118,17 +129,4 @@ int	ft_print_action(int val)
 	else if (val & rrr)
 		return (ft_printf("rrr\n"));
 	return (ft_printf("\n"));
-}
-
-int	ft_rotate_val(int reverse, int rotate_a)
-{
-	if (!reverse && rotate_a)
-		return (ra);
-	else if (reverse && rotate_a)
-		return (rra);
-	else if (!reverse && !rotate_a)
-		return (rb);
-	else if (reverse && !rotate_a)
-		return (rrb);
-	return (0);
 }

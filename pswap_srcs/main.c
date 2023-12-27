@@ -24,20 +24,30 @@ static void	ft_start_sorting(t_stackinfo *a, t_stackinfo *b)
 		ft_sort_stack(a, b);
 }
 
+static void	ft_init_a(t_stackinfo *a, char **av)
+{
+	t_index	i;
+	char	**arg_nums;
+
+	arg_nums = NULL;
+	if (av[1] && !av[2] && ft_strlen(av[1]) == 0)
+		ft_exit(a, NULL, 0);
+	ft_init_all(NULL, NULL, &i, NULL);
+	ft_check_and_convert_args(av, a, &i, arg_nums);
+	ft_init_stack_a(a, &i);
+}
+
 int	main(int ac, char **av)
 {
-	t_stackinfo a;
-	t_stackinfo b;
+	t_stackinfo	a;
+	t_stackinfo	b;
 
 	ft_init_all(&a, &b, NULL, NULL);
 	if (ac >= 2)
 	{
-		// ft_check_and_convert_args(av, &a);
-		// printf("HELLO\n\n");
-		ft_check_args(av, &a);
-		ft_init_stack_a(&a);
+		ft_init_a(&a, av);
 		ft_start_sorting(&a, &b);
 		ft_freeall(NULL, 0, &a, &b);
-		return (0);
 	}
+	return (0);
 }

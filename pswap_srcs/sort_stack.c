@@ -13,9 +13,14 @@
 #include "push_swap.h"
 
 /* Works with equal values on the stack also*/
-static void	ft_check_equals(t_stackinfo *a, t_stackinfo *b, t_sort3 *c)
+static void	ft_sort3_extrachecks(t_stackinfo *a, t_stackinfo *b, t_sort3 *c)
 {
-	if (c->first == c->second && c->second < c->third)
+	if (c->third > c->first && c->third < c->second)
+	{
+		ft_exit(a, b, ft_swap(a, TRUE, FALSE));
+		ft_exit(a, b, ft_rotate(a, FALSE, TRUE));
+	}
+	else if (c->first == c->second && c->second < c->third)
 		ft_exit(a, b, ft_rotate(a, TRUE, TRUE));
 	else if (c->first == c->second && c->second > c->third)
 		ft_exit(a, b, ft_rotate(a, TRUE, TRUE));
@@ -36,6 +41,8 @@ void	ft_sort_3(t_stackinfo *a, t_stackinfo *b)
 		ft_exit(a, b, ft_swap(a, TRUE, FALSE));
 		ft_exit(a, b, ft_rotate(a, TRUE, TRUE));
 	}
+	else if (c.first > c.third && c.second > c.third && c.second > c.first)
+		ft_exit(a, b, ft_rotate(a, TRUE, TRUE));
 	else if (c.first > c.second && c.first < c.third)
 		ft_exit(a, b, ft_swap(a, TRUE, FALSE));
 	else if (c.second > c.first && c.second > c.third && c.first < c.third)
@@ -45,32 +52,14 @@ void	ft_sort_3(t_stackinfo *a, t_stackinfo *b)
 	}
 	else if (c.second < c.first && c.second < c.third && c.first > c.third)
 		ft_exit(a, b, ft_rotate(a, FALSE, TRUE));
-	else if (c.third > c.first && c.third < c.second)
-	{
-		ft_exit(a, b, ft_swap(a, TRUE, FALSE));
-		ft_exit(a, b, ft_rotate(a, FALSE, TRUE));
-	}
 	else
-		ft_check_equals(a, b, &c);
+		ft_sort3_extrachecks(a, b, &c);
 }
 
-/*Pushesh the smallest content node to b*/
-static void	ft_push_smallest_to_b(t_stackinfo *a, t_stackinfo *b, t_index *i,
+/* Finds the smallest for push_smallest to b*/
+static void	ft_find_smallest(t_stackinfo *a, t_stackinfo *b, t_index *i,
 		size_t middle)
 {
-	t_list	*current;
-
-	current = a->stack;
-	while (current)
-	{
-		if (ft_intcmp(current->content, &i->smallest_content) < 0)
-		{
-			i->smallest_content = *(int *)current->content;
-			i->smallest_index = i->i;
-		}
-		current = current->next;
-		i->i++;
-	}
 	while (ft_intcmp(a->stack->content, &i->smallest_content) != 0
 		&& i->is_sorted == FALSE)
 	{
@@ -93,6 +82,26 @@ static void	ft_push_smallest_to_b(t_stackinfo *a, t_stackinfo *b, t_index *i,
 		if (ft_is_sorted_or_unique(a->stack, FALSE))
 			i->is_sorted = TRUE;
 	}
+}
+
+/*Pushesh the smallest content node to b*/
+static void	ft_push_smallest_to_b(t_stackinfo *a, t_stackinfo *b, t_index *i,
+		size_t middle)
+{
+	t_list	*current;
+
+	current = a->stack;
+	while (current)
+	{
+		if (ft_intcmp(current->content, &i->smallest_content) < 0)
+		{
+			i->smallest_content = *(int *)current->content;
+			i->smallest_index = i->i;
+		}
+		current = current->next;
+		i->i++;
+	}
+	ft_find_smallest(a, b, i, middle);
 	if (i->is_sorted == FALSE)
 		ft_exit(a, b, ft_push(a, b, FALSE));
 }
@@ -104,6 +113,7 @@ void	ft_sort_stack(t_stackinfo *a, t_stackinfo *b)
 	t_index	i;
 
 	i.is_sorted = ft_is_sorted_or_unique(a->stack, FALSE);
+	i.smallest_index = -1;
 	while (i.is_sorted == FALSE && a->curr_stack_len > 3)
 	{
 		ft_init_all(NULL, NULL, &i, NULL);

@@ -28,7 +28,7 @@ void	ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i, t_sort3 *c)
 	{
 		i->i = 0;
 		i->smallest_content = INT_MAX;
-		i->smallest_index = -1;
+		i->smallest_index = 0;
 		i->is_sorted = FALSE;
 	}
 	if (c && a)
@@ -39,12 +39,9 @@ void	ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i, t_sort3 *c)
 	}
 }
 
-void	ft_check_and_convert_args(char **av, t_stackinfo *a)
+void	ft_check_and_convert_args(char **av, t_stackinfo *a, t_index *i,
+		char **nums)
 {
-	char	**nums;
-	size_t	i;
-
-	i = 0;
 	if (av[1] && av[2])
 		nums = av + 1;
 	else
@@ -53,57 +50,35 @@ void	ft_check_and_convert_args(char **av, t_stackinfo *a)
 		if (!nums)
 			ft_exit(a, NULL, 0);
 	}
-	while (nums[i])
-		i++;
-	a->curr_stack_len = i;
-	a->nums = (int *)malloc(sizeof(int) * i);
+	while (nums[i->i])
+		i->i++;
+	a->curr_stack_len = i->i;
+	a->nums = (int *)malloc(sizeof(int) * i->i);
 	if (a->nums == NULL)
 		ft_exit(a, NULL, 0);
-	i = 0;
-	while (nums[i] && ft_check_valid(nums[i]))
+	i->i = 0;
+	while (nums[i->i])
 	{
-		a->nums[i] = ft_atoi(nums[i]);
-		i++;
+		if (ft_check_valid(nums[i->i]))
+			a->nums[i->smallest_index++] = ft_atoi(nums[i->i]);
+		i->i++;
 	}
-	if (av[1] && av[2])
+	if (av[1] && av[2] == NULL)
 		ft_freeall(nums, (long)a->curr_stack_len, NULL, NULL);
-	if (i != a->curr_stack_len)
-		ft_exit(a, NULL, 0);
-}
-
-/* Converts arguments to ints*/
-void	ft_check_args(char **av, t_stackinfo *a)
-{
-	size_t	i;
-
-	i = 0;
-	while (av[i + 1])
-		i++;
-	a->curr_stack_len = i;
-	a->nums = (int *)malloc(sizeof(int) * i);
-	if (a->nums == NULL)
-		ft_exit(a, NULL, 0);
-	i = 0;
-	while (av[i + 1] && ft_check_valid(av[i + 1]))
-	{
-		a->nums[i] = ft_atoi(av[i + 1]);
-		i++;
-	}
-	if (i != a->curr_stack_len)
+	if ((size_t)i->smallest_index != a->curr_stack_len)
 		ft_exit(a, NULL, 0);
 }
 
 /*Inits the linkedlist stack for a*/
-void	ft_init_stack_a(t_stackinfo *a)
+void	ft_init_stack_a(t_stackinfo *a, t_index *i)
 {
-	size_t	i;
 	t_list	*temp;
 
-	i = 0;
+	i->i = 0;
 	temp = NULL;
-	while (i < a->curr_stack_len)
+	while (i->i < a->curr_stack_len)
 	{
-		temp = ft_lstnew(&a->nums[i++]);
+		temp = ft_lstnew(&a->nums[i->i++]);
 		if (!temp)
 			ft_exit(a, NULL, 0);
 		ft_lstadd_back(&a->stack, temp);

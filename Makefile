@@ -1,5 +1,5 @@
 M_NAME = push_swap
-B_NAME = checker
+B_NAME = checker_srcs
 LIBS = ./libftprintf/libftprintf.a  ./libftprintf/libft/libft.a
 M_SRC_FILES =	main.c \
 			actions.c \
@@ -12,8 +12,8 @@ B_SRCS_FILES = 	main.c \
 				error_free_init .c \
 				sort_stack.c \
 
-SRC_DIR = srcs/
-BONUS_DIR = bonus/
+SRC_DIR = pswap_srcs/
+BONUS_DIR = checker/
 M_SRCS = $(addprefix $(SRC_DIR), $(M_SRC_FILES))
 B_SRCS = $(addprefix $(BONUS_DIR), $(B_SRC_FILES))
 M_OBJS = ${M_SRCS:.c=.o}

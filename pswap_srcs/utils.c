@@ -21,7 +21,7 @@ int	ft_check_valid(const char *str)
 {
 	long	val;
 
-	if (!ft_str_isdigit(str))
+	if (ft_str_isdigit(str) == FALSE)
 		return (FALSE);
 	val = ft_atol(str);
 	return (val >= INT_MIN && val <= INT_MAX);
@@ -34,7 +34,7 @@ int	ft_str_isdigit(const char *str)
 	i = 0;
 	if (str[i] == '-')
 		i++;
-	if (str[i] == '\0')
+	if (str[i] == '\0' || ft_isdigit(str[i]) == FALSE)
 		return (FALSE);
 	while (str[i])
 	{
@@ -88,29 +88,4 @@ int	ft_is_sorted_or_unique(t_list *stack, int check_unique)
 		current = current->next;
 	}
 	return (TRUE);
-}
-
-// prints bnoth sta
-void	ft_printstack(t_stackinfo *a, t_stackinfo *b)
-{
-	t_list *curr1;
-	t_list *curr2;
-
-	curr2 = b->stack;
-	curr1 = a->stack;
-	while (curr1 || curr2)
-	{
-		if (curr1)
-		{
-			ft_exit(a, b, ft_printf("%d", *(int *)curr1->content));
-			curr1 = curr1->next;
-		}
-		if (curr2)
-		{
-			ft_exit(a, b, ft_printf("%d", *(int *)curr1->content));
-			curr2 = curr2->next;
-		}
-		ft_exit(a, b, write(1, "\n", 1));
-	}
-	ft_exit(a, b, ft_printf("|a|    |b|\n"));
 }

@@ -36,6 +36,13 @@ enum		e_action
 	rrr = 1024,
 };
 
+typedef struct s_rotate
+{
+	t_list	*current;
+	t_list	*prev;
+	void	*tmp_c;
+}			t_rotate;
+
 typedef struct s_index
 {
 	int		smallest_content;
@@ -80,7 +87,9 @@ void		ft_freeall(char **split, long split_i, t_stackinfo *a,
 void		ft_exit(t_stackinfo *a, t_stackinfo *b, int pf);
 // INITS    t_stackinfo  a = {0} ??
 void		ft_check_args(char **av, t_stackinfo *a);
-void		ft_check_and_convert_args(char **av, t_stackinfo *a);
-void		ft_init_stack_a(t_stackinfo *a);
+
+void		ft_check_and_convert_args(char **av, t_stackinfo *a, t_index *i,
+				char **nums);
+void		ft_init_stack_a(t_stackinfo *a, t_index *i);
 void		ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i, t_sort3 *c);
 #endif
