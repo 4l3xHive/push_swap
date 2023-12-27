@@ -1,6 +1,6 @@
 CFLAGS = -Wall -Wextra -Werror
 NAME = libft.a
-BONUS_LINKED_FLAG = .bonus_linked
+INCLUDES = -I ./get_next_line -I ./ft_printf
 SRCS_FILES = ft_memset \
 		ft_bzero \
 		ft_memcpy \
@@ -46,24 +46,45 @@ BONUS_FILES = 	ft_lstnew_bonus \
 	  		ft_lstiter_bonus \
 	  		ft_lstmap_bonus
 
+PRINTF_FILES = 	ft_m_printf \
+                ft_m_put_uint \
+                ft_m_putchar \
+                ft_m_puthex \
+                ft_m_putnbr \
+                ft_m_putpointer \
+                ft_m_putstr \
+
+GNL_FILES = get_next_line_bonus \
+			get_next_line_utils_bonus
+
+# ft_printf
+PRINTF_DIR = ./ft_printf/
+PRINTF_SRCS = $(addprefix $(PRINTF_DIR), $(addsuffix .c, $(PRINTF_FILES)))
+PRINTF_OBJS = $(addprefix $(PRINTF_DIR), $(addsuffix .o, $(PRINTF_FILES)))
+
+# gnl
+GNL_DIR = ./get_next_line/
+GNL_SRCS = $(addprefix $(GNL_DIR), $(addsuffix .c, $(GNL_FILES)))
+GNL_OBJS = $(addprefix $(GNL_DIR), $(addsuffix .o, $(GNL_FILES)))
+
+# libft
 SRCS_DIR = ./
 SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRCS_FILES)))
 BONUS_SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(BONUS_FILES)))
-
 OBJS_DIR = ./
 OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRCS_FILES)))
 BONUS_OBJ = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(BONUS_FILES)))
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(BONUS_OBJ)
-	@ar rcs $@ $^ 
+$(NAME): $(OBJS) $(BONUS_OBJ) $(GNL_OBJS) $(PRINTF_OBJS)
+	@ar rcs $@ $^
 
 %.o: %.c
-	@gcc $(CFLAGS) -c $< -o $@
+	@gcc $(CFLAGS) -c $< -o $@ $(INCLUDES)
 
 clean:
-	@rm -f $(OBJS) $(BONUS_OBJ) $(BONUS_LINKED_FLAG)
+	@rm -f $(OBJS) $(BONUS_OBJ) $(GNL_OBJS) $(PRINTF_OBJS)
 
 fclean: clean
 	@rm -f $(NAME)

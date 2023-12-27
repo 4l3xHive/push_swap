@@ -36,7 +36,7 @@ void	ft_printstack(t_stackinfo *a, t_stackinfo *b)
 	ft_exit(a, b, ft_printf("|a|    |b|\n"));
 }
 
-static void	ft_start_sorting(t_stackinfo *a, t_stackinfo *b)
+static void	ft_start_listening(t_stackinfo *a, t_stackinfo *b)
 {
 	if (ft_is_sorted_or_unique(a->stack, TRUE) == FALSE)
 		ft_exit(a, NULL, 0);
@@ -70,7 +70,7 @@ int	main(int ac, char **av)
 	if (ac >= 2)
 	{
 		ft_init_a(&a, av);
-		ft_start_sorting(&a, &b);
+		ft_start_listening(&a, &b);
 		ft_freeall(NULL, 0, &a, &b);
 	}
 	return (0);

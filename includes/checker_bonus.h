@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   checker_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apyykone <apyykone@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/13 12:42:35 by apyykone          #+#    #+#             */
-/*   Updated: 2023/12/27 23:40:05 by apyykone         ###   ########.fr       */
+/*   Created: 2023/01/26 14:40:36 by bsoubaig          #+#    #+#             */
+/*   Updated: 2023/01/26 19:59:00 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef CHECKER_BONUS_H
+# define CHECKER_BONUS_H
+
 # define TRUE 1
 # define FALSE 0
 
@@ -66,16 +67,13 @@ typedef struct s_stackinfo
 }			t_stackinfo;
 
 // MAIN ACTIONS
-int			ft_swap(t_stackinfo *info, int swap_a, int swap_both);
-int			ft_rotate(t_stackinfo *info, int reverse, int rotate_a);
+int			ft_swap(t_stackinfo *info);
+int			ft_rotate(t_stackinfo *info, int reverse);
 int			ft_push(t_stackinfo *a, t_stackinfo *b, int push_a);
 int			ft_is_sorted_or_unique(t_list *stack, int check_unique);
-void		ft_sort_3(t_stackinfo *a, t_stackinfo *b);
-void		ft_sort_stack(t_stackinfo *a, t_stackinfo *b);
+
 // UTILS
-int			ft_intcmp(const void *a, const void *b);
-void		ft_printstack(t_stackinfo *a, t_stackinfo *b);
-int			ft_print_action(int val);
+int			ft_strcmp(const char *s1, const char *s2);
 int			ft_str_isdigit(const char *str);
 int			ft_check_valid(const char *str);
 long		ft_atol(const char *str);
