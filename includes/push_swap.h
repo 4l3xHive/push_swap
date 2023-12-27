@@ -80,6 +80,7 @@ void		ft_freeall(char **split, long split_i, t_stackinfo *a,
 void		ft_exit(t_stackinfo *a, t_stackinfo *b, int pf);
 // INITS    t_stackinfo  a = {0} ??
 void		ft_check_args(char **av, t_stackinfo *a);
+void		ft_check_and_convert_args(char **av, t_stackinfo *a);
 void		ft_init_stack_a(t_stackinfo *a);
 void		ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i, t_sort3 *c);
 #endif

@@ -12,17 +12,10 @@
 
 #include "push_swap.h"
 
-/* Init a stack with given arguments */
-static void	ft_init_a(char **av, t_stackinfo *a)
-{
-	ft_check_args(av, a);
-	ft_init_stack_a(a);
-	if (ft_is_sorted_or_unique(a->stack, TRUE) == FALSE)
-		ft_exit(a, NULL, 0);
-}
-
 static void	ft_start_sorting(t_stackinfo *a, t_stackinfo *b)
 {
+	if (ft_is_sorted_or_unique(a->stack, TRUE) == FALSE)
+		ft_exit(a, NULL, 0);
 	if (a->curr_stack_len == 2)
 		ft_exit(a, b, ft_swap(a, TRUE, FALSE));
 	else if (a->curr_stack_len == 3)
@@ -33,16 +26,18 @@ static void	ft_start_sorting(t_stackinfo *a, t_stackinfo *b)
 
 int	main(int ac, char **av)
 {
-	t_stackinfo	a;
-	t_stackinfo	b;
+	t_stackinfo a;
+	t_stackinfo b;
 
 	ft_init_all(&a, &b, NULL, NULL);
 	if (ac >= 2)
 	{
-		ft_init_a(av, &a);
+		// ft_check_and_convert_args(av, &a);
+		// printf("HELLO\n\n");
+		ft_check_args(av, &a);
+		ft_init_stack_a(&a);
 		ft_start_sorting(&a, &b);
-		// ft_printstack(&a, &b);
 		ft_freeall(NULL, 0, &a, &b);
+		return (0);
 	}
-	return (0);
 }
