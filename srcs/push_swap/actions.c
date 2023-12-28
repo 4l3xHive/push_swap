@@ -101,6 +101,8 @@ int	ft_rotate(t_stackinfo *info, int reverse, int rotate_a)
 		action = rb;
 	else if (reverse && !rotate_a)
 		action = rrb;
+	else 
+		action = 0;
 	return (ft_print_action(action));
 }
 

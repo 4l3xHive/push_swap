@@ -12,30 +12,33 @@
 
 #include "push_swap.h"
 
-/**
- * @brief Function used to move to the top of the stack a number.
- *
- * @param stack			pointer to the stack
- * @param c 			the pointed stack name (a or b)
- * @param number 		the number in the stack to move
- */
-static void	ft_insert_int_to_top(t_stack *stack, char c, int number)
+static void ft_insert_int_to_top(t_stackinfo *a, t_stackinfo *b, int to_insert, int insert_a)
 {
-	int	index;
+	t_list	*current;
+	t_index	i;
 
-	index = ft_get_index_of_int(stack, number);
-	if (index == -1)
-		return ;
-	if (index <= stack->size / 2)
+	if (insert_a == TRUE)
 	{
-		while (stack->stack[0] != number)
-			ft_do_rotate(stack, c);
+		current = a->stack;
+		i.middle_index = a->curr_stack_len /2;
 	}
 	else
 	{
-		while (stack->stack[0] != number)
-			ft_do_reverse_rotate(stack, c);
+		current = b->stack;
+		i.middle_index = b->curr_stack_len /2;
 	}
+	ft_init_all(NULL, NULL, &i, NULL);
+	while (current)
+	{
+		if (ft_intcmp(current->content, &to_insert) == 0)
+		{
+			i.found_content = *(int *)current->content;
+			i.found_index = i.i;
+		}
+		current = current->next;
+		i.i++;
+	}
+	ft_exec_int_to_top(a, b, &i, insert_a);
 }
 
 /**
@@ -47,13 +50,13 @@ static void	ft_insert_int_to_top(t_stack *stack, char c, int number)
  * @param first			the first number to push
  * @param second		the second number to push
  */
-static void	ft_insert_and_push(t_stack *stack_a, t_stack *stack_b, int first,
+static void	ft_insert_and_push(t_stackinfo *a, t_stackinfo *b, int first,
 		int second)
 {
-	ft_insert_int_to_top(stack_b, 'b', first);
-	ft_do_pa(stack_a, stack_b);
-	ft_insert_int_to_top(stack_b, 'b', second);
-	ft_do_pa(stack_a, stack_b);
+	ft_insert_int_to_top(a, b, first, FALSE);
+	ft_exit(a, b, ft_push(a, b, TRUE));
+	ft_insert_int_to_top(b, second, FALSE);
+	ft_exit(a, b, ft_push(a, b, TRUE));
 }
 
 /**
@@ -65,19 +68,19 @@ static void	ft_insert_and_push(t_stack *stack_a, t_stack *stack_b, int first,
  * @param stack_a 		pointer to the stack a
  * @param stack_b 		pointer to the stack b
  */
-static void	ft_push_b_to_a(t_stack *stack_a, t_stack *stack_b)
+static void	ft_push_b_to_a(t_stackinfo *a, t_stackinfo *b)
 {
 	int	first;
 	int	second;
 	int	first_index;
 	int	second_index;
 
-	while (stack_b->size)
+	while (b->curr_stack_len)
 	{
-		first = ft_find_max_int(stack_b);
-		second = ft_find_next_max_int(stack_b, first);
-		first_index = ft_get_index_of_int(stack_b, first);
-		second_index = ft_get_index_of_int(stack_b, second);
+		first = ft_find_max_int(b);
+		second = ft_find_next_max_int(b, first);
+		first_index = ft_get_index_of_int(b, first);
+		second_index = ft_get_index_of_int(b, second);
 		if (first_index > stack_b->size / 2)
 			first_index = stack_b->size - first_index;
 		if (second_index > stack_b->size / 2)
@@ -99,31 +102,31 @@ static void	ft_push_b_to_a(t_stack *stack_a, t_stack *stack_b)
  * @param stack_b 		pointer to the stack b
  * @param chunk_size 	the size of a chunk
  */
-void	ft_chunk_sort(t_stack *stack_a, t_stack *stack_b, int chunk_size)
+void	ft_chunk_sort(t_stackinfo *a, t_stackinfo *b, int chunk_size)
 {
 	int	index;
 	int	min_int;
 	int	times;
+	t_index i;
 
-	while (stack_a->size)
+	while (a->curr_stack_len)
 	{
 		times = 0;
-		min_int = ft_find_min_int(stack_a);
+		min_int = ft_find_min_int(a);
 		while (times++ < chunk_size)
 		{
-			min_int = ft_find_next_min_int(stack_a, min_int);
+			min_int = ft_find_next_min_int(a, min_int);
 			if (times == chunk_size / 2)
-				stack_a->middle = min_int;
+				stack_a->middle_index = min_int;
 		}
 		times = 0;
 		while (times++ < chunk_size)
 		{
-			index = ft_get_min_int_index(stack_a, min_int);
-			ft_insert_int_to_top(stack_a, 'a', stack_a->stack[index]);
-			ft_do_pb(stack_a, stack_b);
-			if (stack_b->stack[0] < stack_a->middle)
-				ft_do_rotate(stack_b, 'b');
+			ft_min_to_top(a, b, &i, TRUE);
+			ft_exit(a, b, ft_push(a, b, FALSE));
+			if (*(int *)b->stack->content < a->stack)
+				ft_do_rotate(b, 'b');
 		}
 	}
-	ft_push_b_to_a(stack_a, stack_b);
+	ft_push_b_to_a(a, b);
 }

@@ -59,28 +59,33 @@ void	ft_sort_3(t_stackinfo *a, t_stackinfo *b)
 }
 
 /* Finds the smallest for push_smallest to b*/
-static void	ft_find_smallest(t_stackinfo *a, t_stackinfo *b, t_index *i)
+void	ft_exec_int_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i, int is_a)
 {
-	while (ft_intcmp(a->stack->content, &i->smallest_content) != 0
+	t_stackinfo *current;
+	if (is_a)
+		current = a;
+	else
+		current = b;
+	while (ft_intcmp(current->stack->content, &i->found_content) != 0
 		&& i->is_sorted == FALSE)
 	{
-		if (i->smallest_index == 1)
-			ft_exit(a, b, ft_swap(a, TRUE, FALSE));
-		else if (i->smallest_index > (ssize_t)i->middle)
+		if (i->found_index == 1)
+			ft_exit(a, b, ft_swap(current, is_a, FALSE));
+		else if (i->found_index > (ssize_t)i->middle_index)
 		{
-			ft_exit(a, b, ft_rotate(a, TRUE, TRUE));
-			i->smallest_index++;
+			ft_exit(a, b, ft_rotate(current, TRUE, is_a));
+			i->found_index++;
 		}
 		else
 		{
-			ft_exit(a, b, ft_rotate(a, FALSE, TRUE));
-			i->smallest_index--;
+			ft_exit(a, b, ft_rotate(current, FALSE, is_a));
+			i->found_index--;
 		}
-		if (i->smallest_index > (ssize_t)a->curr_stack_len)
-			i->smallest_index = 0;
-		if (i->smallest_index < 0)
-			i->smallest_index = (ssize_t)a->curr_stack_len - 1;
-		if (ft_is_sorted_or_unique(a->stack, FALSE))
+		if (i->found_index > (ssize_t)current->curr_stack_len)
+			i->found_index = 0;
+		if (i->found_index < 0)
+			i->found_index = (ssize_t)current->curr_stack_len - 1;
+		if (ft_is_sorted_or_unique(current->stack, FALSE))
 			i->is_sorted = TRUE;
 	}
 }
@@ -102,15 +107,15 @@ void	ft_min_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i, int is_a)
 		current = b->stack;
 	while (current)
 	{
-		if (ft_intcmp(current->content, &i->smallest_content) < 0)
+		if (ft_intcmp(current->content, &i->found_content) < 0)
 		{
-			i->smallest_content = *(int *)current->content;
-			i->smallest_index = i->i;
+			i->found_content = *(int *)current->content;
+			i->found_index = i->i;
 		}
 		current = current->next;
 		i->i++;
 	}
-	ft_find_smallest(a, b, i);
+	ft_exec_int_to_top(a, b, i, is_a);
 }
 
 /**
@@ -123,11 +128,11 @@ void	ft_insertion_sort(t_stackinfo *a, t_stackinfo *b)
 	t_index	i;
 
 	i.is_sorted = ft_is_sorted_or_unique(a->stack, FALSE);
-	i.smallest_index = -1;
+	i.found_index = -1;
 	while (i.is_sorted == FALSE && a->curr_stack_len > 3)
 	{
 		ft_init_all(NULL, NULL, &i, NULL);
-		i.middle = a->curr_stack_len / 2 + 1;
+		i.middle_index = a->curr_stack_len / 2 + 1;
 		ft_min_to_top(a, b, &i, TRUE);
 		if (i.is_sorted == FALSE)
 			ft_exit(a, b, ft_push(a, b, FALSE));

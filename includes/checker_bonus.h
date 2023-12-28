@@ -45,8 +45,8 @@ typedef struct s_rotate
 
 typedef struct s_index
 {
-	int		smallest_content;
-	ssize_t	smallest_index;
+	int		found_content;
+	ssize_t	found_index;
 	int		is_sorted;
 	size_t	i;
 

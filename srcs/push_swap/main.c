@@ -44,10 +44,10 @@ static void	ft_start_sorting(t_stackinfo *a, t_stackinfo *b)
 		ft_exit(a, b, ft_swap(a, TRUE, FALSE));
 	else if (a->curr_stack_len == 3)
 		ft_sort_3(a, b);
-	else if (a->curr_stack_len < 100)
+	else if (a->curr_stack_len < 50)
 		ft_insertion_sort(a, b);
 	else
-		ft_quickfart_sort(a, b);
+		ft_chunk_sort(a, b);
 }
 
 static void	ft_init_a(t_stackinfo *a, char **av)
