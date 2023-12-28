@@ -30,6 +30,7 @@ void	ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i, t_sort3 *c)
 		i->smallest_content = INT_MAX;
 		i->smallest_index = 0;
 		i->is_sorted = FALSE;
+		i->middle = 0;
 	}
 	if (c && a)
 	{

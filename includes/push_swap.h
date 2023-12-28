@@ -48,7 +48,7 @@ typedef struct s_index
 	ssize_t	smallest_index;
 	int		is_sorted;
 	size_t	i;
-
+	int		middle;
 }			t_index;
 
 typedef struct s_sort3
@@ -70,8 +70,12 @@ int			ft_swap(t_stackinfo *info, int swap_a, int swap_both);
 int			ft_rotate(t_stackinfo *info, int reverse, int rotate_a);
 int			ft_push(t_stackinfo *a, t_stackinfo *b, int push_a);
 int			ft_is_sorted_or_unique(t_list *stack, int check_unique);
+
+// SORTING
+void		ft_min_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i, int is_a);
 void		ft_sort_3(t_stackinfo *a, t_stackinfo *b);
-void		ft_sort_stack(t_stackinfo *a, t_stackinfo *b);
+void		ft_insertion_sort(t_stackinfo *a, t_stackinfo *b);
+
 // UTILS
 int			ft_intcmp(const void *a, const void *b);
 void		ft_printstack(t_stackinfo *a, t_stackinfo *b);

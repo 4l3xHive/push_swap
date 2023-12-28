@@ -36,7 +36,7 @@ void	ft_printstack(t_stackinfo *a, t_stackinfo *b)
 	ft_exit(a, b, ft_printf("|a|    |b|\n"));
 }
 
-static void	ft_start_listening(t_stackinfo *a, t_stackinfo *b)
+static void	ft_start_sorting(t_stackinfo *a, t_stackinfo *b)
 {
 	if (ft_is_sorted_or_unique(a->stack, TRUE) == FALSE)
 		ft_exit(a, NULL, 0);
@@ -44,8 +44,10 @@ static void	ft_start_listening(t_stackinfo *a, t_stackinfo *b)
 		ft_exit(a, b, ft_swap(a, TRUE, FALSE));
 	else if (a->curr_stack_len == 3)
 		ft_sort_3(a, b);
+	else if (a->curr_stack_len < 100)
+		ft_insertion_sort(a, b);
 	else
-		ft_sort_stack(a, b);
+		ft_quickfart_sort(a, b);
 }
 
 static void	ft_init_a(t_stackinfo *a, char **av)
@@ -70,7 +72,7 @@ int	main(int ac, char **av)
 	if (ac >= 2)
 	{
 		ft_init_a(&a, av);
-		ft_start_listening(&a, &b);
+		ft_start_sorting(&a, &b);
 		ft_freeall(NULL, 0, &a, &b);
 	}
 	return (0);
