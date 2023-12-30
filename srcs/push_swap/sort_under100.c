@@ -61,7 +61,8 @@ void	ft_sort_3(t_stackinfo *a, t_stackinfo *b)
 /* Finds the smallest for push_smallest to b*/
 void	ft_exec_int_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i, int is_a)
 {
-	t_stackinfo *current;
+	t_stackinfo	*current;
+
 	if (is_a)
 		current = a;
 	else

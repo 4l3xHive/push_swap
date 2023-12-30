@@ -5,6 +5,7 @@ M_SRC_FILES =	main.c \
 			actions.c \
 			error_free_init.c \
 			sort_under100.c \
+			sort_over100.c  \
 			utils.c \
 
 B_SRCS_FILES = 	main_bonus.c \

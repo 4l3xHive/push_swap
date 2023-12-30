@@ -12,7 +12,8 @@
 
 #include "push_swap.h"
 
-static void ft_insert_int_to_top(t_stackinfo *a, t_stackinfo *b, int to_insert, int insert_a)
+static void	ft_insert_int_to_top(t_stackinfo *a, t_stackinfo *b, int to_insert,
+		int insert_a)
 {
 	t_list	*current;
 	t_index	i;
@@ -20,12 +21,12 @@ static void ft_insert_int_to_top(t_stackinfo *a, t_stackinfo *b, int to_insert, 
 	if (insert_a == TRUE)
 	{
 		current = a->stack;
-		i.middle_index = a->curr_stack_len /2;
+		i.middle_index = a->curr_stack_len / 2;
 	}
 	else
 	{
 		current = b->stack;
-		i.middle_index = b->curr_stack_len /2;
+		i.middle_index = b->curr_stack_len / 2;
 	}
 	ft_init_all(NULL, NULL, &i, NULL);
 	while (current)
@@ -55,8 +56,56 @@ static void	ft_insert_and_push(t_stackinfo *a, t_stackinfo *b, int first,
 {
 	ft_insert_int_to_top(a, b, first, FALSE);
 	ft_exit(a, b, ft_push(a, b, TRUE));
-	ft_insert_int_to_top(b, second, FALSE);
+	ft_insert_int_to_top(a, b, second, FALSE);
 	ft_exit(a, b, ft_push(a, b, TRUE));
+}
+
+void	ft_find_max_int(t_stackinfo *s, t_index *max_i)
+{
+	int		max;
+	t_list	*current;
+	int		current_value;
+
+	if (!s || !s->stack)
+		return (0);
+	max = *(int *)s->stack->content;
+	current = s->stack->next;
+	while (current)
+	{
+		current_value = *(int *)current->content;
+		if (current_value > max)
+		{
+			max = current_value;
+			max_i->found_index = max_i->i;
+		}
+		max_i->i++;
+		current = current->next;
+	}
+	max_i->found_content = max;
+}
+
+void	ft_find_next_max_int(t_stackinfo *s, int current_max, t_index *max_i2)
+{
+	int		next_max;
+	t_list	*current;
+	int		current_value;
+
+	if (!s || !s->stack)
+		return (0);
+	next_max = INT_MIN;
+	current = s->stack;
+	while (current)
+	{
+		current_value = *(int *)current->content;
+		if (current_value > next_max && current_value < current_max)
+		{
+			next_max = current_value;
+			max_i2->found_index = max_i2->i;
+		}
+		current = current->next;
+		max_i2->i++;
+	}
+	max_i2->found_content = next_max;
 }
 
 /**
@@ -70,27 +119,25 @@ static void	ft_insert_and_push(t_stackinfo *a, t_stackinfo *b, int first,
  */
 static void	ft_push_b_to_a(t_stackinfo *a, t_stackinfo *b)
 {
-	int	first;
-	int	second;
-	int	first_index;
-	int	second_index;
+	t_index	max_i;
+	t_index	max_i2;
 
+	ft_init_all(NULL, NULL, &max_i, NULL);
+	ft_init_all(NULL, NULL, &max_i2, NULL);
 	while (b->curr_stack_len)
 	{
-		first = ft_find_max_int(b);
-		second = ft_find_next_max_int(b, first);
-		first_index = ft_get_index_of_int(b, first);
-		second_index = ft_get_index_of_int(b, second);
-		if (first_index > stack_b->size / 2)
-			first_index = stack_b->size - first_index;
-		if (second_index > stack_b->size / 2)
-			second_index = stack_b->size - second_index;
-		if (first_index < second_index)
-			ft_insert_and_push(stack_a, stack_b, first, second);
+		ft_find_max_int(b, &max_i);
+		ft_find_next_max_int(b, max_i.found_content, &max_i2);
+		if (max_i.found_index > b->curr_stack_len / 2)
+			max_i.found_index = b->curr_stack_len - max_i.found_index;
+		if (max_i2.found_index > b->curr_stack_len / 2)
+			max_i2.found_index = b->curr_stack_len - max_i2.found_index;
+		if (max_i.found_index < max_i2.found_index)
+			ft_insert_and_push(a, b, max_i.found_content, max_i2.found_content);
 		else
-			ft_insert_and_push(stack_a, stack_b, second, first);
-		if (stack_a->stack[0] > stack_a->stack[1])
-			ft_do_swap(stack_a, 'a');
+			ft_insert_and_push(a, b, max_i2.found_content, max_i.found_content);
+		if (ft_intcmp(a->stack->content, a->stack->next->content))
+			ft_exit(a, b, ft_swap(a, TRUE, FALSE));
 	}
 }
 
@@ -104,28 +151,30 @@ static void	ft_push_b_to_a(t_stackinfo *a, t_stackinfo *b)
  */
 void	ft_chunk_sort(t_stackinfo *a, t_stackinfo *b, int chunk_size)
 {
-	int	index;
-	int	min_int;
-	int	times;
-	t_index i;
+	int		index;
+	int		min_int;
+	int		times;
+	t_index	i;
 
+	ft_init_all(NULL, NULL, &i, NULL);
 	while (a->curr_stack_len)
 	{
+		i.middle_index = a->curr_stack_len / 2;
 		times = 0;
 		min_int = ft_find_min_int(a);
 		while (times++ < chunk_size)
 		{
 			min_int = ft_find_next_min_int(a, min_int);
 			if (times == chunk_size / 2)
-				stack_a->middle_index = min_int;
+				i.middle_index = min_int;
 		}
 		times = 0;
 		while (times++ < chunk_size)
 		{
 			ft_min_to_top(a, b, &i, TRUE);
 			ft_exit(a, b, ft_push(a, b, FALSE));
-			if (*(int *)b->stack->content < a->stack)
-				ft_do_rotate(b, 'b');
+			if (*(int *)b->stack->content < *(int *)a->stack->content)
+				ft_exit(a, b, ft_rotate(b, FALSE, FALSE));
 		}
 	}
 	ft_push_b_to_a(a, b);

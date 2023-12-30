@@ -75,7 +75,9 @@ int			ft_is_sorted_or_unique(t_list *stack, int check_unique);
 void		ft_min_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i, int is_a);
 void		ft_sort_3(t_stackinfo *a, t_stackinfo *b);
 void		ft_insertion_sort(t_stackinfo *a, t_stackinfo *b);
-void		ft_exec_int_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i, int is_a);
+void		ft_exec_int_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i,
+				int is_a);
+void		ft_chunk_sort(t_stackinfo *a, t_stackinfo *b, int chunk_size);
 // UTILS
 int			ft_intcmp(const void *a, const void *b);
 void		ft_printstack(t_stackinfo *a, t_stackinfo *b);
