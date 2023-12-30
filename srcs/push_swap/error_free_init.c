@@ -28,7 +28,7 @@ void	ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i, t_sort3 *c)
 	{
 		i->i = 0;
 		i->found_content = INT_MAX;
-		i->found_index = 0;
+		i->found_index = -1;
 		i->is_sorted = FALSE;
 		i->middle_index = 0;
 	}
@@ -66,7 +66,7 @@ void	ft_check_and_convert_args(char **av, t_stackinfo *a, t_index *i,
 	}
 	if (av[1] && av[2] == NULL)
 		ft_freeall(nums, (long)a->curr_stack_len, NULL, NULL);
-	if ((size_t)i->found_index != a->curr_stack_len)
+	if ((size_t)i->found_index + 1 != a->curr_stack_len)
 		ft_exit(a, NULL, 0);
 }
 

@@ -61,6 +61,7 @@ static void	ft_init_a(t_stackinfo *a, char **av)
 	ft_init_all(NULL, NULL, &i, NULL);
 	ft_check_and_convert_args(av, a, &i, arg_nums);
 	ft_init_stack_a(a, &i);
+	
 }
 
 int	main(int ac, char **av)
