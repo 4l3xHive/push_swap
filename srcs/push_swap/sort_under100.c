@@ -67,8 +67,7 @@ void	ft_exec_int_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i, int is_a)
 		current = a;
 	else
 		current = b;
-	while (ft_intcmp(current->stack->content, &i->found_content) != 0
-		&& i->is_sorted == FALSE)
+	while (ft_intcmp(current->stack->content, &i->found_content) != 0)
 	{
 		if (i->found_index == 1)
 			ft_exit(a, b, ft_swap(current, is_a, FALSE));
@@ -110,6 +109,7 @@ void	ft_min_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i, int is_a)
 	{
 		if (ft_intcmp(current->content, &i->found_content) < 0)
 		{
+
 			i->found_content = *(int *)current->content;
 			i->found_index = i->i;
 		}

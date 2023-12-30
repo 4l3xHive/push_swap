@@ -47,7 +47,7 @@ static void	ft_start_sorting(t_stackinfo *a, t_stackinfo *b)
 	else if (a->curr_stack_len < 50)
 		ft_insertion_sort(a, b);
 	else
-		ft_chunk_sort(a, b, 18);
+		ft_sort_big(a, b);
 }
 
 static void	ft_init_a(t_stackinfo *a, char **av)
