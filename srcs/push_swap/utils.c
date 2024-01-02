@@ -12,6 +12,11 @@
 
 #include "push_swap.h"
 
+/**
+ * @brief Compares the first integer to the second.
+ * @param a pointer to the first integer
+ * @param b pointer to the second integer
+ */
 int	ft_intcmp(const void *a, const void *b)
 {
 	int	int_a;
@@ -27,17 +32,7 @@ int	ft_intcmp(const void *a, const void *b)
 		return (0);
 }
 
-int	ft_check_valid_int(const char *str)
-{
-	long	val;
-
-	if (ft_str_isdigit(str) == FALSE)
-		return (FALSE);
-	val = ft_atol(str);
-	return (val >= INT_MIN && val <= INT_MAX);
-}
-
-int	ft_str_isdigit(const char *str)
+static int	ft_str_isdigit(const char *str)
 {
 	size_t	i;
 
@@ -54,7 +49,7 @@ int	ft_str_isdigit(const char *str)
 	return (TRUE);
 }
 
-long	ft_atol(const char *str)
+static long	ft_atol(const char *str)
 {
 	long	res;
 	int		neg;
@@ -76,7 +71,26 @@ long	ft_atol(const char *str)
 	return (res * neg);
 }
 
-// Checks that if the stack is sorted || unqiue
+/**
+ * @brief Checks if the given string is a valid integer.
+ * @param str pointer to a string
+ */
+int	ft_check_valid_int(const char *str)
+{
+	long	val;
+
+	if (ft_str_isdigit(str) == FALSE)
+		return (FALSE);
+	val = ft_atol(str);
+	return (val >= INT_MIN && val <= INT_MAX);
+}
+
+/**
+ * @brief Checks if the stack is sorted or unique.
+ * @param stack pointer to a stack
+ * @param check_unique TRUE checks if the stack is unique.
+ *  FALSE, checks if stacks is sorted.
+ */
 int	ft_is_sorted_or_unique(t_list *stack, int check_unique)
 {
 	t_list	*current;

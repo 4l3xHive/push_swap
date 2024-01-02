@@ -33,7 +33,7 @@ CHECKER = ./push_swap $(ARG) | ./checker_Mac $(ARG)
 endif
 
 all:	$(M_NAME)
-	@echo "\033[0;32mpush_swap successfully compiled!\e[0m"
+	@echo "\033[0;32m🤟 Push Swap successfully compiled! 🤟\e[0m"
 	@echo "\033[0;35mTo test the program, run 'make test size=n' (n is amount of test nums)\e[0m"
 
 
@@ -46,7 +46,7 @@ bonus : $(B_NAME)
 $(B_NAME) : $(B_OBJS)
 	@make -C libft -s
 	@$(CC) $(CFLAGS) $(B_OBJS) $(LIBS) -o $(B_NAME) ${INCLUDE}
-	@printf "\033[0;32m Checker succesfully compiled!\n\e[0m"
+	@printf "\033[0;32m 🤟 Checker succesfully compiled! 🤟\n\e[0m"
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@ ${INCLUDE}
