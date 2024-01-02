@@ -41,7 +41,7 @@ typedef struct s_rotate
 	t_list	*current;
 	t_list	*prev;
 	void	*tmp_c;
-}			t_rotate;
+}			t_helper;
 
 typedef struct s_index
 {

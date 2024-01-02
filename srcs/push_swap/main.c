@@ -36,6 +36,21 @@ void	ft_printstack(t_stackinfo *a, t_stackinfo *b)
 	ft_exit(a, b, ft_printf("|a|    |b|\n"));
 }
 
+/* Need to create diff vals for error checking in printf in upper levels
+works as a callback also if there is pf_callback enabled*/
+void	ft_exit(t_stackinfo *a, t_stackinfo *b, int err)
+{
+	if (err > 0)
+		return ;
+	ft_freeall(NULL, 0, a, b);
+	if (err <= 0)
+	{
+		ft_putstr_fd("Error\n", STDERR_FILENO);
+		exit(EXIT_FAILURE);
+	}
+	exit(EXIT_SUCCESS);
+}
+
 static void	ft_start_sorting(t_stackinfo *a, t_stackinfo *b)
 {
 	if (ft_is_sorted_or_unique(a->stack, TRUE) == FALSE)
@@ -47,7 +62,7 @@ static void	ft_start_sorting(t_stackinfo *a, t_stackinfo *b)
 	else if (a->curr_stack_len < 50)
 		ft_insertion_sort(a, b);
 	else
-		ft_sort_big(a, b);
+		ft_radix_sort(a, b);
 }
 
 static void	ft_init_a(t_stackinfo *a, char **av)
@@ -61,7 +76,6 @@ static void	ft_init_a(t_stackinfo *a, char **av)
 	ft_init_all(NULL, NULL, &i, NULL);
 	ft_check_and_convert_args(av, a, &i, arg_nums);
 	ft_init_stack_a(a, &i);
-	
 }
 
 int	main(int ac, char **av)

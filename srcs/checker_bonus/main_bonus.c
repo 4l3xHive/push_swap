@@ -14,18 +14,7 @@
 
 static void	ft_handle_action(char *command, t_stackinfo *a, t_stackinfo *b)
 {
-	if (ft_strcmp(command, "sa\n") == 0)
-		ft_swap(a);
-	else if (ft_strcmp(command, "sb\n") == 0)
-		ft_swap(b);
-	else if (ft_strcmp(command, "ss\n") == 0)
-	{
-		ft_swap(a);
-		ft_swap(b);
-	}
-	else if (ft_strcmp(command, "pa\n") == 0)
-		ft_push(a, b, TRUE);
-	else if (ft_strcmp(command, "pb\n") == 0)
+	if (ft_strcmp(command, "pb\n") == 0)
 		ft_push(a, b, FALSE);
 	else if (ft_strcmp(command, "ra\n") == 0)
 		ft_rotate(a, FALSE);
@@ -56,7 +45,19 @@ static void	ft_start_listening(t_stackinfo *a, t_stackinfo *b)
 		command = get_next_line(0);
 		if (!command)
 			break ;
-		ft_handle_action(command, a, b);
+		if (ft_strcmp(command, "sa\n") == 0)
+			ft_swap(a);
+		else if (ft_strcmp(command, "sb\n") == 0)
+			ft_swap(b);
+		else if (ft_strcmp(command, "ss\n") == 0)
+		{
+			ft_swap(a);
+			ft_swap(b);
+		}
+		else if (ft_strcmp(command, "pa\n") == 0)
+			ft_push(a, b, TRUE);
+		else
+			ft_handle_action(command, a, b);
 	}
 	if (!ft_is_sorted_or_unique(a->stack, FALSE) || b->curr_stack_len > 0)
 		ft_exit(a, b, ft_printf("\x1B[31mKO\n\x1B[0m"));

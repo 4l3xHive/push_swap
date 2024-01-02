@@ -35,12 +35,13 @@ enum		e_action
 	rrr = 1024,
 };
 
-typedef struct s_rotate
+typedef struct s_helper
 {
 	t_list	*current;
 	t_list	*prev;
 	void	*tmp_c;
-}			t_rotate;
+	int		tmp_idx;
+}			t_helper;
 
 typedef struct s_index
 {
@@ -48,6 +49,7 @@ typedef struct s_index
 	ssize_t	found_index;
 	int		is_sorted;
 	size_t	i;
+	size_t	j;
 	int		middle_index;
 }			t_index;
 
@@ -72,12 +74,10 @@ int			ft_push(t_stackinfo *a, t_stackinfo *b, int push_a);
 int			ft_is_sorted_or_unique(t_list *stack, int check_unique);
 
 // SORTING
-void		ft_min_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i, int is_a);
 void		ft_sort_3(t_stackinfo *a, t_stackinfo *b);
 void		ft_insertion_sort(t_stackinfo *a, t_stackinfo *b);
-void		ft_exec_int_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i,
-				int is_a);
-void	ft_sort_big(t_stackinfo *a, t_stackinfo *b);
+void		ft_radix_sort(t_stackinfo *a, t_stackinfo *b);
+void		ft_sort_big(t_stackinfo *a, t_stackinfo *b);
 // UTILS
 int			ft_intcmp(const void *a, const void *b);
 void		ft_printstack(t_stackinfo *a, t_stackinfo *b);

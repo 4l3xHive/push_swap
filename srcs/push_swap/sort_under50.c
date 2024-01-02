@@ -59,27 +59,24 @@ void	ft_sort_3(t_stackinfo *a, t_stackinfo *b)
 }
 
 /* Finds the smallest for push_smallest to b*/
-void	ft_exec_int_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i, int is_a)
+static void	ft_exec_int_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i,
+		int is_a)
 {
 	t_stackinfo	*current;
 
-	if (is_a)
-		current = a;
-	else
+	current = a;
+	if (!is_a)
 		current = b;
 	while (ft_intcmp(current->stack->content, &i->found_content) != 0)
 	{
 		if (i->found_index == 1)
 			ft_exit(a, b, ft_swap(current, is_a, FALSE));
-		else if (i->found_index > (ssize_t)i->middle_index)
-		{
+		else if (i->found_index++ > (ssize_t)i->middle_index)
 			ft_exit(a, b, ft_rotate(current, TRUE, is_a));
-			i->found_index++;
-		}
 		else
 		{
 			ft_exit(a, b, ft_rotate(current, FALSE, is_a));
-			i->found_index--;
+			i->found_index -= 2;
 		}
 		if (i->found_index > (ssize_t)current->curr_stack_len)
 			i->found_index = 0;
@@ -97,7 +94,7 @@ void	ft_exec_int_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i, int is_a)
  * 	@param i pointer to index struct
  * 	@param is_a is the stack a or b
  */
-void	ft_min_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i, int is_a)
+static void	ft_min_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i, int is_a)
 {
 	t_list	*current;
 
@@ -109,7 +106,6 @@ void	ft_min_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i, int is_a)
 	{
 		if (ft_intcmp(current->content, &i->found_content) < 0)
 		{
-
 			i->found_content = *(int *)current->content;
 			i->found_index = i->i;
 		}
@@ -129,12 +125,12 @@ void	ft_insertion_sort(t_stackinfo *a, t_stackinfo *b)
 	t_index	i;
 
 	i.is_sorted = ft_is_sorted_or_unique(a->stack, FALSE);
-	i.found_index = -1;
 	while (i.is_sorted == FALSE && a->curr_stack_len > 3)
 	{
 		ft_init_all(NULL, NULL, &i, NULL);
 		i.middle_index = a->curr_stack_len / 2 + 1;
 		ft_min_to_top(a, b, &i, TRUE);
+		// ft_printstack(a, b);
 		if (i.is_sorted == FALSE)
 			ft_exit(a, b, ft_push(a, b, FALSE));
 	}

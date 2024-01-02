@@ -15,15 +15,18 @@
 // Swaps the first 2 of the stack
 int	ft_swap(t_stackinfo *info, int swap_a, int swap_both)
 {
-	void	*temp;
-	t_list	*stack;
+	t_helper	temp;
+	t_list		*stack;
 
 	stack = info->stack;
 	if (stack->next != NULL)
 	{
-		temp = stack->content;
+		temp.tmp_c = stack->content;
+		temp.tmp_idx = stack->index;
 		stack->content = stack->next->content;
-		stack->next->content = temp;
+		stack->index = stack->next->index;
+		stack->next->index = temp.tmp_idx;
+		stack->next->content = temp.tmp_c;
 		if (swap_a)
 			return (ft_print_action(sa));
 		if (swap_both)
@@ -58,52 +61,52 @@ int	ft_push(t_stackinfo *a, t_stackinfo *b, int push_a)
 	return (ft_print_action(action));
 }
 
-static void	ft_shift_contents(t_stackinfo *info, int reverse, t_rotate *r)
+static void	ft_reverse_shift(t_stackinfo *info, t_helper *r)
 {
-	if (reverse)
+	r->current = ft_lstlast(info->stack);
+	r->tmp_c = r->current->content;
+	r->tmp_idx = r->current->index;
+	while (r->current != info->stack)
 	{
-		r->current = ft_lstlast(info->stack);
-		r->tmp_c = r->current->content;
-		while (r->current != info->stack)
-		{
-			r->prev = info->stack;
-			while (r->prev->next != r->current)
-				r->prev = r->prev->next;
-			r->current->content = r->prev->content;
-			r->current = r->prev;
-		}
-		info->stack->content = r->tmp_c;
+		r->prev = info->stack;
+		while (r->prev->next != r->current)
+			r->prev = r->prev->next;
+		r->current->content = r->prev->content;
+		r->current->index = r->prev->index;
+		r->current = r->prev;
 	}
-	else
-	{
-		r->current = info->stack;
-		r->tmp_c = r->current->content;
-		while (r->current->next != NULL)
-		{
-			r->current->content = r->current->next->content;
-			r->current = r->current->next;
-		}
-		r->current->content = r->tmp_c;
-	}
+	info->stack->content = r->tmp_c;
+	info->stack->index = r->tmp_idx;
 }
 
 int	ft_rotate(t_stackinfo *info, int reverse, int rotate_a)
 {
-	t_rotate	r;
-	int			action;
+	t_helper	r;
 
-	ft_shift_contents(info, reverse, &r);
-	if (!reverse && rotate_a)
-		action = ra;
-	else if (reverse && rotate_a)
-		action = rra;
+	if (reverse)
+		ft_reverse_shift(info, &r);
+	else
+	{
+		r.current = info->stack;
+		r.tmp_c = r.current->content;
+		r.tmp_idx = r.current->index;
+		while (r.current->next != NULL)
+		{
+			r.current->content = r.current->next->content;
+			r.current->index = r.current->next->index;
+			r.current = r.current->next;
+		}
+		r.current->content = r.tmp_c;
+		r.current->index = r.tmp_idx;
+	}
+	r.tmp_idx = ra;
+	if (reverse && rotate_a)
+		r.tmp_idx = rra;
 	else if (!reverse && !rotate_a)
-		action = rb;
+		r.tmp_idx = rb;
 	else if (reverse && !rotate_a)
-		action = rrb;
-	else 
-		action = 0;
-	return (ft_print_action(action));
+		r.tmp_idx = rrb;
+	return (ft_print_action(r.tmp_idx));
 }
 
 int	ft_print_action(int val)

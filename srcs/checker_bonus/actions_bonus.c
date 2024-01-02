@@ -49,7 +49,7 @@ int	ft_push(t_stackinfo *a, t_stackinfo *b, int push_a)
 	return (0);
 }
 
-static void	ft_shift_contents(t_stackinfo *info, int reverse, t_rotate *r)
+static void	ft_shift_contents(t_stackinfo *info, int reverse, t_helper *r)
 {
 	if (reverse)
 	{
@@ -80,7 +80,7 @@ static void	ft_shift_contents(t_stackinfo *info, int reverse, t_rotate *r)
 
 int	ft_rotate(t_stackinfo *info, int reverse)
 {
-	t_rotate	r;
+	t_helper	r;
 
 	ft_shift_contents(info, reverse, &r);
 	return (0);

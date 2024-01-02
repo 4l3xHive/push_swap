@@ -61,13 +61,41 @@ void	ft_check_and_convert_args(char **av, t_stackinfo *a, t_index *i,
 	while (nums[i->i])
 	{
 		if (ft_check_valid(nums[i->i]))
-			a->nums[i->found_index++] = ft_atoi(nums[i->i]);
+			a->nums[i->middle_index++] = ft_atoi(nums[i->i]);
 		i->i++;
 	}
 	if (av[1] && av[2] == NULL)
 		ft_freeall(nums, (long)a->curr_stack_len, NULL, NULL);
-	if ((size_t)i->found_index + 1 != a->curr_stack_len)
+	if ((size_t)i->middle_index != a->curr_stack_len)
 		ft_exit(a, NULL, 0);
+}
+
+void	create_index(t_stackinfo *a, t_index *i, t_list *current)
+{
+	current = a->stack;
+	while (i->i < a->curr_stack_len)
+	{
+		i->found_index = 0;
+		i->found_content = a->nums[i->i];
+		i->j = 0;
+		while (i->j < a->curr_stack_len)
+		{
+			if (i->found_content > a->nums[i->j])
+				i->found_index++;
+			i->j++;
+		}
+		while (current)
+		{
+			if (*(int *)current->content == i->found_content)
+			{
+				current->index = i->found_index;
+				break ;
+			}
+			current = current->next;
+		}
+		current = a->stack;
+		i->i++;
+	}
 }
 
 /*Inits the linkedlist stack for a*/
@@ -84,29 +112,16 @@ void	ft_init_stack_a(t_stackinfo *a, t_index *i)
 			ft_exit(a, NULL, 0);
 		ft_lstadd_back(&a->stack, temp);
 	}
+	ft_init_all(NULL, NULL, i, NULL);
+	create_index(a, i, temp);
 }
 
-/* Need to create diff vals for error checking in printf in upper levels
-works as a callback also if there is pf_callback enabled*/
-void	ft_exit(t_stackinfo *a, t_stackinfo *b, int err)
-{
-	if (err > 0)
-		return ;
-	ft_freeall(NULL, 0, a, b);
-	if (err <= 0)
-	{
-		ft_putstr_fd("Error\n", STDERR_FILENO);
-		exit(EXIT_FAILURE);
-	}
-	exit(EXIT_SUCCESS);
-}
-
-void	ft_freeall(char **split, long split_i, t_stackinfo *a, t_stackinfo *b)
+void	ft_freeall(char **split, long s_i, t_stackinfo *a, t_stackinfo *b)
 {
 	if (split)
 	{
-		while (split_i >= 0)
-			free(split[split_i--]);
+		while (s_i >= 0)
+			free(split[s_i--]);
 		free(split);
 	}
 	if (a)

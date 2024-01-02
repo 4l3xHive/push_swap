@@ -51,49 +51,52 @@ static void	ft_insert_and_push(t_stackinfo *a, t_stackinfo *b, int first,
 	ft_exit(a, b, ft_push(a, b, TRUE));
 }
 
-
 /**
  * @brief Finds the max or min content from the stack & stores it into t_index.
  *
  * @param s				Pointer to the stack.
- * @param i				Pointer to the struct where we store the index and content found.
+
+					* @param i				Pointer to the struct where we store the index and content found.
  * @param find_max		Determines that are finding max or min.
  */
-void ft_find_extreme_int(t_stackinfo *s, t_index *i, int find_max)
+void	ft_find_extreme_int(t_stackinfo *s, t_index *i, int find_max)
 {
-    int extreme;
-    t_list *current;
-    int current_value;
+	int		extreme;
+	t_list	*current;
+	int		current_value;
 
-    if (find_max)
-        extreme = *(int *)s->stack->content;
+	if (find_max)
+		extreme = *(int *)s->stack->content;
 	else
-        extreme = INT_MAX;
-
-    current = s->stack->next;
-    while (current)
+		extreme = INT_MAX;
+	current = s->stack->next;
+	while (current)
 	{
-        current_value = *(int *)current->content;
-        if ((find_max && current_value > extreme) ||
-            (!find_max && current_value < extreme))
+		current_value = *(int *)current->content;
+		if ((find_max && current_value > extreme) || (!find_max
+				&& current_value < extreme))
 		{
-            extreme = current_value;
-            i->found_index = i->i;
-        }
-        i->i++;
-        current = current->next;
-    }
-    i->found_content = extreme;
+			extreme = current_value;
+			i->found_index = i->i;
+		}
+		i->i++;
+		current = current->next;
+	}
+	i->found_content = extreme;
 }
 
 /**
  * @brief Finds the next smallest or next biggest from current_exterme value
  * @param s					Pointer to stack where to find
  * @param current_extreme	Value from what we find the next
- * @param i 				Is structure where we store the index and value that we found.
- * @param find_max 			Determines that do we need to find next from the max or min.
+
+					* @param i 				Is structure where we store the index and value that we found.
+
+				* @param find_max 			Determines that do we need to find next from the max or min.
  */
-int	ft_find_next_extreme_int(t_stackinfo *s, int current_extreme, t_index *i, int find_max) {
+int	ft_find_next_extreme_int(t_stackinfo *s, int current_extreme, t_index *i,
+		int find_max)
+{
 	int		next_extreme;
 	t_list	*current;
 	int		current_value;
@@ -105,10 +108,13 @@ int	ft_find_next_extreme_int(t_stackinfo *s, int current_extreme, t_index *i, in
 	else
 		next_extreme = INT_MAX;
 	current = s->stack;
-	while (current) {
+	while (current)
+	{
 		current_value = *(int *)current->content;
-		if ((find_max && current_value > next_extreme && current_value < current_extreme) ||
-		    (!find_max && current_value < next_extreme && current_value > current_extreme))
+		if ((find_max && current_value > next_extreme
+				&& current_value < current_extreme) || (!find_max
+				&& current_value < next_extreme
+				&& current_value > current_extreme))
 		{
 			next_extreme = current_value;
 			i->found_index = i->i;
@@ -119,7 +125,6 @@ int	ft_find_next_extreme_int(t_stackinfo *s, int current_extreme, t_index *i, in
 	i->found_content = next_extreme;
 	return (0);
 }
-
 
 /**
  * @brief Function used to push everything from the stack b, to
@@ -144,7 +149,8 @@ static void	ft_push_b_to_a(t_stackinfo *a, t_stackinfo *b)
 		if (max_i.found_index > (ssize_t)b->curr_stack_len / 2)
 			max_i.found_index = (ssize_t)b->curr_stack_len - max_i.found_index;
 		if (max_i2.found_index > (ssize_t)b->curr_stack_len / 2)
-			max_i2.found_index = (ssize_t)b->curr_stack_len - max_i2.found_index;
+			max_i2.found_index = (ssize_t)b->curr_stack_len
+				- max_i2.found_index;
 		if (max_i.found_index < max_i2.found_index)
 			ft_insert_and_push(a, b, max_i.found_content, max_i2.found_content);
 		else
@@ -166,7 +172,7 @@ void	ft_chunk_sort(t_stackinfo *a, t_stackinfo *b, int chunk_size)
 {
 	int		times;
 	t_index	i;
-	t_index min_i;
+	t_index	min_i;
 
 	ft_init_all(NULL, NULL, &i, NULL);
 	while (a->curr_stack_len)
@@ -187,8 +193,98 @@ void	ft_chunk_sort(t_stackinfo *a, t_stackinfo *b, int chunk_size)
 			ft_exit(a, b, ft_push(a, b, FALSE));
 			if (*(int *)b->stack->content < *(int *)a->stack->content)
 				ft_exit(a, b, ft_rotate(b, FALSE, FALSE));
-
 		}
 	}
 	ft_push_b_to_a(a, b);
+}
+
+// NEXT OLD
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_big.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 14:23:15 by gusousa           #+#    #+#             */
+/*   Updated: 2022/11/17 09:26:07 by gusousa          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+void	radix_my_b(t_stackinfo *a, t_stackinfo *b, int msb)
+{
+	size_t	i;
+
+	// int	size_list_b;
+	i = 0;
+	b->curr_stack_len = ft_lstsize(b->stack);
+	while (i++ < b->curr_stack_len && !ft_is_sorted_or_unique(a->stack, FALSE))
+	{
+		if (*(int *)b->stack->content & (1u << msb))
+			ft_exit(a, b, ft_push(a, b, TRUE));
+		// pa(list_a, list_b);
+		else
+			ft_exit(a, b, ft_rotate(b, FALSE, FALSE));
+		// rb(list_b);
+	}
+}
+
+void	radix_my_a(t_stackinfo *a, t_stackinfo *b, int msb)
+{
+	size_t	i;
+
+	// int	size_list_a;
+	i = 0;
+	a->curr_stack_len = ft_lstsize(a->stack);
+	while (i++ < a->curr_stack_len && !ft_is_sorted_or_unique(a->stack, FALSE))
+	{
+		if (*(int *)a->stack->content & (1u << msb))
+			ft_exit(a, b, ft_rotate(a, FALSE, TRUE));
+		// ra(list_a);
+		else
+			ft_exit(a, b, ft_push(a, b, FALSE));
+		// pb(list_a, list_b);
+	}
+}
+
+int	get_msb(t_list *list_a)
+{
+	int	msb;
+	int	biggest;
+
+	biggest = INT_MIN;
+	while (list_a)
+	{
+		if (biggest < *(int *)list_a->content)
+			biggest = *(int *)list_a->content;
+		list_a = list_a->next;
+	}
+	msb = 0;
+	while (biggest)
+	{
+		biggest = biggest >> 1;
+		msb++;
+	}
+	return (msb);
+}
+
+void	ft_sort_big(t_stackinfo *a, t_stackinfo *b)
+{
+	int pos_msb;
+	int cont;
+
+	pos_msb = get_msb(a->stack);
+	cont = pos_msb;
+	while (cont)
+	{
+		radix_my_a(a, b, pos_msb - cont);
+		cont--;
+		radix_my_b(a, b, pos_msb - cont);
+	}
+	while (b->stack)
+		ft_exit(a, b, ft_push(a, b, TRUE));
+	ft_printstack(a, b);
 }

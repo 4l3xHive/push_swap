@@ -14,7 +14,17 @@
 
 int	ft_intcmp(const void *a, const void *b)
 {
-	return (*(int *)a - *(int *)b);
+	int	int_a;
+	int	int_b;
+
+	int_a = *(int *)a;
+	int_b = *(int *)b;
+	if (int_a < int_b)
+		return (-1);
+	else if (int_a > int_b)
+		return (1);
+	else
+		return (0);
 }
 
 int	ft_check_valid(const char *str)

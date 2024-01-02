@@ -1,6 +1,7 @@
 CFLAGS = -Wall -Wextra -Werror
 NAME = libft.a
 INCLUDES = -I ./get_next_line -I ./ft_printf
+
 SRCS_FILES = ft_memset \
 		ft_bzero \
 		ft_memcpy \
@@ -79,8 +80,10 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(BONUS_OBJ) $(GNL_OBJS) $(PRINTF_OBJS)
 	@ar rcs $@ $^
+	@printf "\033[0;32mLibrary $(NAME) created. 📖\033[0m\n"
 
 %.o: %.c
+	@printf "\033[0;33mCompiling  $< 🔨\033[0m\n"
 	@gcc $(CFLAGS) -c $< -o $@ $(INCLUDES)
 
 clean:

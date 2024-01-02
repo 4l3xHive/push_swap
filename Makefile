@@ -3,9 +3,9 @@ B_NAME = checker
 LIBS = ./libft/libft.a
 M_SRC_FILES =	main.c \
 			actions.c \
-			error_free_init.c \
-			sort_under100.c \
-			sort_over100.c  \
+			free_init.c \
+			sort_under50.c \
+			sort_over50.c  \
 			utils.c \
 
 B_SRCS_FILES = 	main_bonus.c \
@@ -23,33 +23,50 @@ CC			= cc
 CFLAGS		= -g -Wall -Werror -Wextra
 INCLUDE = -I./includes -I. -Ilibft 
 RM = rm -rf
+# For test:
+OS = $(shell uname)
+size ?= 10
+ifeq ($(OS),Linux)
+CHECKER = valgrind ./push_swap $(ARG) | ./checker_linux $(ARG)
+else
+CHECKER = ./push_swap $(ARG) | ./checker_Mac $(ARG)
+endif
 
 all:	$(M_NAME)
+	@echo "\033[0;32mpush_swap successfully compiled!\e[0m"
+	@echo "\033[0;35mTo test the program, run 'make test size=n' (n is amount of test nums)\e[0m"
+
 
 $(M_NAME) : $(M_OBJS)
 	@make -C libft
 	@$(CC) $(CFLAGS) $(M_OBJS) $(LIBS) -o $(M_NAME) ${INCLUDE}
-	@printf "\033[0;32mpush_swap succesfully compiled!\n\e[0m"
 
 bonus : $(B_NAME)
 
 $(B_NAME) : $(B_OBJS)
-	@make -C libft
+	@make -C libft -s
 	@$(CC) $(CFLAGS) $(B_OBJS) $(LIBS) -o $(B_NAME) ${INCLUDE}
 	@printf "\033[0;32m Checker succesfully compiled!\n\e[0m"
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@ ${INCLUDE}
 
+test:
+	@$(eval ARG = $(shell seq -1000 1000 | shuf -n $(size)))
+	@echo "\033[35mChecker result:\033[0m"
+	$(CHECKER)
+	@echo "\033[35mInstructions count:\033[0m"
+	@./push_swap $(ARG) | wc -l
+
 clean :
-		@make clean -C libft
+		@make clean -C libft -s
 		@${RM} ${M_OBJS}
 		@${RM} ${B_OBJS}
 
 fclean : clean
-		@make fclean -C libft
+		@make fclean -C libft -s
 		@${RM} ${M_NAME} ${B_NAME} 
-		@printf "\033[0;31m Succesfully cleaned the project!\n\e[0m"
+		@printf "\033[0;31m Succesfully cleaned the push_swap project!\n\e[0m"
 
 re : fclean all
 
