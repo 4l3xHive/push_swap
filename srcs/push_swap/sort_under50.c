@@ -35,7 +35,11 @@ static void	ft_sort3_extrachecks(t_stackinfo *a, t_stackinfo *b, t_sort3 *c)
 		ft_exit(a, b, ft_rotate(a, TRUE, TRUE));
 }
 
-/* Sorts stack of 3 if not sorted*/
+/**
+ * @brief Brute Sort stack of 3
+ * 	@param a pointer to a stack info
+ * 	@param b pointer to b stack info
+ */
 void	ft_sort_3(t_stackinfo *a, t_stackinfo *b)
 {
 	t_sort3	c;
@@ -58,7 +62,13 @@ void	ft_sort_3(t_stackinfo *a, t_stackinfo *b)
 		ft_sort3_extrachecks(a, b, &c);
 }
 
-/* Finds the smallest for push_smallest to b*/
+/**
+ * @brief Puts the found index to top of the stack
+ * 	@param a pointer to a stack info
+ * 	@param b pointer to b stack info
+ * 	@param i pointer to index struct
+ * 	@param is_a is the stack a or b
+ */
 static void	ft_exec_int_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i,
 		int is_a)
 {
@@ -116,7 +126,7 @@ static void	ft_min_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i, int is_a)
 }
 
 /**
- * @brief Sort stack under 100 with insertionsort
+ * @brief Sort stack under 50 with insertionsort
  * 	push smallest from a to b until its sorted or len 3
  * 	@param a pointer to a stack info
  * 	@param b pointer to b stack info*					**/
@@ -130,7 +140,6 @@ void	ft_insertion_sort(t_stackinfo *a, t_stackinfo *b)
 		ft_init_all(NULL, NULL, &i, NULL);
 		i.middle_index = a->curr_stack_len / 2 + 1;
 		ft_min_to_top(a, b, &i, TRUE);
-		// ft_printstack(a, b);
 		if (i.is_sorted == FALSE)
 			ft_exit(a, b, ft_push(a, b, FALSE));
 	}

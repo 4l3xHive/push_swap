@@ -68,7 +68,7 @@ int			ft_is_sorted_or_unique(t_list *stack, int check_unique);
 // UTILS
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_str_isdigit(const char *str);
-int			ft_check_valid(const char *str);
+int			ft_check_valid_int(const char *str);
 long		ft_atol(const char *str);
 // CLEANUP
 void		ft_freeall(char **split, long split_i, t_stackinfo *a,

@@ -12,7 +12,13 @@
 
 #include "push_swap.h"
 
-/* Init both main structures*/
+/**
+ * @brief Init function for initializing structs, able to init only one also
+ * 	@param a pointer to a stack info
+ * 	@param b pointer to b stack info
+ * 	@param i pointer to an index
+ * 	@param c pointer to a sort3 struct
+ */
 void	ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i, t_sort3 *c)
 {
 	if (!i && !c)
@@ -40,6 +46,13 @@ void	ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i, t_sort3 *c)
 	}
 }
 
+/**
+ * @brief Checks if the given arguments are a valid integers.
+ * 	@param av argument vector
+ * 	@param a pointer to a stack info
+ * 	@param i pointer to an index
+ * 	@param nums pointer to a string array
+ */
 void	ft_check_and_convert_args(char **av, t_stackinfo *a, t_index *i,
 		char **nums)
 {
@@ -60,7 +73,7 @@ void	ft_check_and_convert_args(char **av, t_stackinfo *a, t_index *i,
 	i->i = 0;
 	while (nums[i->i])
 	{
-		if (ft_check_valid(nums[i->i]))
+		if (ft_check_valid_int(nums[i->i]))
 			a->nums[i->middle_index++] = ft_atoi(nums[i->i]);
 		i->i++;
 	}
@@ -70,7 +83,7 @@ void	ft_check_and_convert_args(char **av, t_stackinfo *a, t_index *i,
 		ft_exit(a, NULL, 0);
 }
 
-void	create_index(t_stackinfo *a, t_index *i, t_list *current)
+static void	create_index(t_stackinfo *a, t_index *i, t_list *current)
 {
 	current = a->stack;
 	while (i->i < a->curr_stack_len)
@@ -98,7 +111,12 @@ void	create_index(t_stackinfo *a, t_index *i, t_list *current)
 	}
 }
 
-/*Inits the linkedlist stack for a*/
+/**
+* @brief Initializes stack a with the given arguments and
+		creates indexes for each node.
+ * 	@param a pointer to a stack info
+ * 	@param i pointer to an index
+ */
 void	ft_init_stack_a(t_stackinfo *a, t_index *i)
 {
 	t_list	*temp;
@@ -116,6 +134,13 @@ void	ft_init_stack_a(t_stackinfo *a, t_index *i)
 	create_index(a, i, temp);
 }
 
+/**
+ * @brief Frees all allocated memory or some of it depending on the arguments.
+ * 	@param split pointer to a string array
+ * 	@param s_i max index for the string array
+ * 	@param a pointer to a stack info
+ * 	@param b pointer to b stack info
+ */
 void	ft_freeall(char **split, long s_i, t_stackinfo *a, t_stackinfo *b)
 {
 	if (split)

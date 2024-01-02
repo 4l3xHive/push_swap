@@ -77,21 +77,18 @@ int			ft_is_sorted_or_unique(t_list *stack, int check_unique);
 void		ft_sort_3(t_stackinfo *a, t_stackinfo *b);
 void		ft_insertion_sort(t_stackinfo *a, t_stackinfo *b);
 void		ft_radix_sort(t_stackinfo *a, t_stackinfo *b);
-void		ft_sort_big(t_stackinfo *a, t_stackinfo *b);
 // UTILS
 int			ft_intcmp(const void *a, const void *b);
 void		ft_printstack(t_stackinfo *a, t_stackinfo *b);
 int			ft_print_action(int val);
 int			ft_str_isdigit(const char *str);
-int			ft_check_valid(const char *str);
+int			ft_check_valid_int(const char *str);
 long		ft_atol(const char *str);
 // CLEANUP
 void		ft_freeall(char **split, long split_i, t_stackinfo *a,
 				t_stackinfo *b);
 void		ft_exit(t_stackinfo *a, t_stackinfo *b, int pf);
-// INITS    t_stackinfo  a = {0} ??
-void		ft_check_args(char **av, t_stackinfo *a);
-
+// INITS
 void		ft_check_and_convert_args(char **av, t_stackinfo *a, t_index *i,
 				char **nums);
 void		ft_init_stack_a(t_stackinfo *a, t_index *i);

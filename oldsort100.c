@@ -1,14 +1,414 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   sort_over100.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: apyykone <apyykone@student.hive.fi>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/28 03:06:07 by apyykone          #+#    #+#             */
-/*   Updated: 2023/12/28 03:06:08 by apyykone         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+void	ft_printstack(t_stackinfo *a, t_stackinfo *b)
+{
+	t_list	*curr1;
+	t_list	*curr2;
+
+	curr2 = b->stack;
+	curr1 = a->stack;
+	while (curr1 || curr2)
+	{
+		if (curr1)
+		{
+			ft_exit(a, b, ft_printf("%d", *(int *)curr1->content));
+			curr1 = curr1->next;
+		}
+		if (curr2)
+		{
+			ft_exit(a, b, ft_printf("%d", *(int *)curr1->content));
+			curr2 = curr2->next;
+		}
+		ft_exit(a, b, write(1, "\n", 1));
+	}
+	ft_exit(a, b, ft_printf("|a|    |b|\n"));
+}
+#include "push_swap.h"
+
+// SORT IF THERE IS 3 NUMBERS
+void	ft_sort_3(t_stackinfo *a)
+{
+	t_list	*first;
+	t_list	*second;
+	t_list	*third;
+
+	first = a->stack;
+	second = first->next;
+	third = first->next->next;
+	if (ft_intcmp(first->content, second->content) && ft_intcmp(third->content,
+			second->content) && ft_intcmp(third->content, first->content))
+		ft_exit(NULL, a, NULL, ft_swap(first, TRUE, FALSE) + pf_check);
+	if (ft_intcmp(first->content, second->content) && ft_intcmp(second->content,
+			third->content) && ft_intcmp(first->content, third->content))
+	{
+		ft_exit(NULL, a, NULL, ft_swap(first, TRUE, FALSE) + pf_check);
+		ft_exit(NULL, a, NULL, ft_rotate(first, TRUE, TRUE) + pf_check);
+	}
+	if (ft_intcmp(first->content, second->content) && ft_intcmp(third->content,
+			second->content) && ft_intcmp(first->content, third->content))
+		ft_rotate(first, FALSE, TRUE);
+	if (ft_intcmp(first->content, second->content) && ft_intcmp(second->content,
+			third->content) && ft_intcmp(first->content, third->content))
+	{
+		ft_exit(NULL, a, NULL, ft_swap(first, TRUE, FALSE) + pf_check);
+		ft_exit(NULL, a, NULL, ft_rotate(first, FALSE, TRUE) + pf_check);
+	}
+	if (ft_intcmp(first->content, second->content) && ft_intcmp(second->content,
+			third->content) && ft_intcmp(first->content, third->content))
+		ft_exit(NULL, a, NULL, ft_rotate(first, TRUE, TRUE) + pf_check);
+}
+
+// Rotates stack 2times in choosed direction
+void	ft_rotate_stack_radix(t_stackinfo *a, t_stackinfo *b, int rotate_a,
+		int rev)
+{
+	if (rotate_a)
+	{
+		ft_exit(NULL, a, b, ft_rotate(a->stack, rev, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(a->stack, rev, TRUE) + pf_check);
+	}
+	else
+	{
+		ft_exit(NULL, a, b, ft_rotate(b->stack, rev, FALSE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(b->stack, rev, FALSE) + pf_check);
+	}
+}
+
+void	first_stack(t_stackinfo *a, t_stackinfo *b)
+{
+	t_list	*a_s;
+	t_list	*b_s;
+
+	a_s = a->stack;
+	b_s = b->stack;
+	if (ft_intcmp(a_s->content, b_s->content))
+		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
+	else if (ft_intcmp(b_s->content, a_s->content) && ft_intcmp(b_s->content,
+			a_s->next->content))
+	{
+		ft_exit(NULL, a, b, ft_rotate(a_s, FALSE, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(a_s, TRUE, TRUE) + pf_check);
+	}
+	else if ((ft_intcmp(b_s->content, a_s->next->content))
+		&& ft_intcmp(b_s->content, a_s->next->next->content))
+	{
+		ft_exit(NULL, a, b, ft_rotate(a_s, TRUE, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
+		ft_rotate_stack_radix(a, b, TRUE, TRUE);
+	}
+	else if (ft_intcmp(b_s->content, a_s->next->next->content))
+	{
+		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(a_s, FALSE, TRUE) + pf_check);
+	}
+}
+
+void	second_stack(t_stackinfo *a, t_stackinfo *b)
+{
+	t_list	*a_s;
+	t_list	*b_s;
+
+	a_s = a->stack;
+	b_s = b->stack;
+	if (ft_intcmp(a_s->content, b_s->content))
+		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
+	else if ((ft_intcmp(b_s->content, a_s->content))
+		&& (ft_intcmp(a_s->next->content, b_s->content)))
+	{
+		ft_exit(NULL, a, b, ft_rotate(a_s, FALSE, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(a_s, TRUE, TRUE) + pf_check);
+	}
+	else if ((ft_intcmp(b_s->content, a_s->next->content))
+		&& (ft_intcmp(a_s->next->next->content, b_s->content)))
+	{
+		ft_exit(NULL, a, b, ft_rotate(a_s, FALSE, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_swap(a_s, TRUE, FALSE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(a_s, TRUE, TRUE) + pf_check);
+	}
+	else if (ft_intcmp(a_s->next->next->content, b_s->content)
+		&& (ft_intcmp(b_s->content, a_s->next->next->next->content)))
+	{
+		ft_exit(NULL, a, b, ft_rotate(a_s, TRUE, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
+		ft_rotate_stack_radix(a, b, TRUE, FALSE);
+	}
+	else if (ft_intcmp(b_s->content, a_s->next->next->next->content))
+	{
+		ft_exit(NULL, a, b, ft_push(a, b, &a_s, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(a_s, FALSE, TRUE) + pf_check);
+	}
+}
+void	ft_sort_5(t_stackinfo *a, t_stackinfo *b)
+{
+	ft_push(a, b, NULL, FALSE);
+	ft_push(a, b, NULL, FALSE);
+	ft_sort_3(a);
+	// ft_printstack(a->stack, b->stack);
+	while (b->curr_stack_len != 0)
+	{
+		if (a->curr_stack_len == 3)
+			first_stack(a, b);
+		else if (a->curr_stack_len == 4)
+			second_stack(a, b);
+	}
+}
+
+int	ft_rotate(t_list *stack, int reverse, int rotate_a)
+{
+	t_list	*tail;
+	t_list	*head;
+	void	*tmp_c;
+
+	tail = stack;
+	if (reverse)
+	{
+		head = ft_lstlast(tail);
+		tmp_c = head->content;
+		head->content = tail->content;
+		tail->content = tmp_c;
+		tail = tail->next;
+	}
+	head = tail->next;
+	while (head)
+	{
+		tmp_c = tail->content;
+		tail->content = head->content;
+		head->content = tmp_c;
+		head = head->next;
+		tail = tail->next;
+	}
+	return (ft_print_action(ft_rotate_val(reverse, rotate_a)));
+}
+
+void	first_stack(t_stackinfo *a, t_stackinfo *b)
+{
+	if (ft_intcmp(a->stack->content, b->stack->content))
+		ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
+	else if (ft_intcmp(b->stack->content, a->stack->content)
+		&& ft_intcmp(b->stack->content, a->stack->next->content))
+	{
+		ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+	}
+	else if ((ft_intcmp(b->stack->content, a->stack->next->content))
+		&& ft_intcmp(b->stack->content, a->stack->next->next->content))
+	{
+		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
+		ft_rotate_stack_radix(a, b, TRUE, TRUE);
+	}
+	else if (ft_intcmp(b->stack->content, a->stack->next->next->content))
+	{
+		ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE) + pf_check);
+	}
+}
+
+void	second_stack(t_stackinfo *a, t_stackinfo *b)
+{
+	if (ft_intcmp(a->stack->content, b->stack->content))
+		ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
+	else if ((ft_intcmp(b->stack->content, a->stack->content))
+		&& (ft_intcmp(a->stack->next->content, b->stack->content)))
+	{
+		ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+	}
+	else if ((ft_intcmp(b->stack->content, a->stack->next->content))
+		&& (ft_intcmp(a->stack->next->next->content, b->stack->content)))
+	{
+		ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+	}
+	else if (ft_intcmp(a->stack->next->next->content, b->stack->content)
+		&& (ft_intcmp(b->stack->content, a->stack->next->next->next->content)))
+	{
+		ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
+		ft_rotate_stack_radix(a, b, TRUE, FALSE);
+	}
+	else if (ft_intcmp(b->stack->content, a->stack->next->next->next->content))
+	{
+		ft_exit(NULL, a, b, ft_push(a, b, TRUE) + pf_check);
+		ft_exit(NULL, a, b, ft_rotate(a, FALSE, TRUE) + pf_check);
+	}
+}
+
+void	ft_push_smallest_to_b(t_stackinfo *a, t_stackinfo *b)
+{
+	t_list	*current;
+	t_index	i;
+
+	ft_init_all(NULL, NULL, &i);
+	current = a->stack;
+	while (current)
+	{
+		if (ft_intcmp(&i.smallest_content, current->content))
+		{
+			i.smallest_content = *(int *)current->content;
+			i.smallest_index = i.i;
+		}
+		current = current->next;
+		i.i++;
+	}
+	while (ft_intcmp(a->stack->content, &i.smallest_content) != 0)
+	{
+		if (i.smallest_index == 1)
+			ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
+		else if (i.smallest_index == 2)
+		{
+			ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+			ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
+		}
+		else
+			ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+	}
+	ft_exit(NULL, a, b, ft_push(a, b, FALSE) + pf_check);
+}
+
+/*
+void	ft_push_largest_to_b(t_stackinfo *a, t_stackinfo *b)
+{
+	t_list	*current;
+	t_index	i;
+
+	ft_init_all(NULL, NULL, &i);
+	current = a->stack;
+	while (current)
+	{
+		if (ft_intcmp(current->content, &i.largest_content) > 0)
+		{
+			i.largest_content = *(int *)current->content;
+			i.largest_index = i.i;
+		}
+		current = current->next;
+		i.i++;
+	}
+	while(ft_intcmp(a->stack->content, &i.largest_content) != 0)
+	{
+		if (i.largest_index == 1)
+			ft_exit(NULL, a, b, ft_swap(a, TRUE, FALSE) + pf_check);
+		else
+			ft_exit(NULL, a, b, ft_rotate(a, TRUE, TRUE) + pf_check);
+	}
+	ft_exit(NULL, a, b, ft_push(a, b, FALSE) + pf_check);
+}
+*/
+void	sort_a_section_of_the_stack(long *array, int *stack_size)
+{
+	long	i;
+	long	j;
+	long	temporary;
+
+	i = 0;
+	j = 0;
+	while (i < stack_size[0])
+	{
+		j = i + 1;
+		while (j < stack_size[0])
+		{
+			if (array[i] > array[j])
+			{
+				temporary = array[i];
+				array[i] = array[j];
+				array[j] = temporary;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void	swap_stack_a_first_time(long *copy, long *copy_swap_stack_a,
+		long *stack_a, int *numbers_in_stack_a)
+{
+	int	i;
+
+	i = 0;
+	while (i < numbers_in_stack_a[0])
+	{
+		copy[i] = stack_a[i];
+		copy_swap_stack_a[i] = stack_a[i];
+		i++;
+	}
+}
+
+void	swap_stack_a_second_time(long *copy, long *copy_swap_stack_a,
+		long *stack_a, int *numbers_in_stack_a)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < numbers_in_stack_a[1])
+	{
+		j = 0;
+		while (j < numbers_in_stack_a[0])
+		{
+			if (copy_swap_stack_a[i] == copy[j])
+				stack_a[i] = j;
+			j++;
+		}
+		++i;
+	}
+}
+
+void	swap_stack_a_third_time(long *stack_a, long *stack_b,
+		int *numbers_in_stack_a, int *numbers_in_stack_b)
+{
+	int	maximum_number;
+	int	maximum_bits;
+	int	loop_through[2];
+
+	maximum_number = numbers_in_stack_a[1] - 1;
+	maximum_bits = 0;
+	loop_through[0] = 0;
+	loop_through[1] = 0;
+	while ((maximum_number >> maximum_bits) != 0)
+		++maximum_bits;
+	while (loop_through[0] < maximum_bits)
+	{
+		loop_through[1] = 0;
+		while (loop_through[1] < numbers_in_stack_a[0])
+		{
+			if (((stack_a[0] >> loop_through[0]) & 1) == 1)
+				rotate_stack_a(stack_a, numbers_in_stack_a);
+			else
+				push_stack_b(stack_a, stack_b, numbers_in_stack_a,
+					numbers_in_stack_b);
+			++loop_through[1];
+		}
+		while (*numbers_in_stack_b != 0)
+			push_stack_a(stack_a, stack_b, numbers_in_stack_a,
+				numbers_in_stack_b);
+		++loop_through[0];
+	}
+}
+
+void	sort_beyond_3_and_5_numbers(long *stack_a, long *stack_b,
+		int *numbers_in_stack_a, int *numbers_in_stack_b)
+{
+	long	*copy;
+	long	*copy_swap_stack_a;
+
+	copy = (long *)malloc(numbers_in_stack_a[0] * sizeof(long));
+	copy_swap_stack_a = (long *)malloc(numbers_in_stack_a[0] * sizeof(long));
+	swap_stack_a_first_time(copy, copy_swap_stack_a, stack_a,
+		numbers_in_stack_a);
+	sort_a_section_of_the_stack(copy, numbers_in_stack_a);
+	swap_stack_a_second_time(copy, copy_swap_stack_a, stack_a,
+		numbers_in_stack_a);
+	free(copy);
+	free(copy_swap_stack_a);
+	swap_stack_a_third_time(stack_a, stack_b, numbers_in_stack_a,
+		numbers_in_stack_b);
+}
 
 #include "push_swap.h"
 
@@ -197,20 +597,6 @@ void	ft_chunk_sort(t_stackinfo *a, t_stackinfo *b, int chunk_size)
 	}
 	ft_push_b_to_a(a, b);
 }
-
-// NEXT OLD
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   sort_big.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gusousa <gusousa@student.42.rio>           +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 14:23:15 by gusousa           #+#    #+#             */
-/*   Updated: 2022/11/17 09:26:07 by gusousa          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "push_swap.h"
 

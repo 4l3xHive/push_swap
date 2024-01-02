@@ -99,14 +99,13 @@ int	ft_rotate(t_stackinfo *info, int reverse, int rotate_a)
 		r.current->content = r.tmp_c;
 		r.current->index = r.tmp_idx;
 	}
-	r.tmp_idx = ra;
 	if (reverse && rotate_a)
-		r.tmp_idx = rra;
+		return (ft_print_action(rra));
 	else if (!reverse && !rotate_a)
-		r.tmp_idx = rb;
+		return (ft_print_action(rb));
 	else if (reverse && !rotate_a)
-		r.tmp_idx = rrb;
-	return (ft_print_action(r.tmp_idx));
+		return (ft_print_action(rrb));
+	return (ft_print_action(ra));
 }
 
 int	ft_print_action(int val)

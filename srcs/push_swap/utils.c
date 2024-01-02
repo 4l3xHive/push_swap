@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_actions.c                                    :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apyykone <apyykone@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 01:47:36 by apyykone          #+#    #+#             */
-/*   Updated: 2023/12/18 01:47:37 by apyykone         ###   ########.fr       */
+/*   Updated: 2024/01/02 04:22:03 by apyykone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_intcmp(const void *a, const void *b)
 		return (0);
 }
 
-int	ft_check_valid(const char *str)
+int	ft_check_valid_int(const char *str)
 {
 	long	val;
 

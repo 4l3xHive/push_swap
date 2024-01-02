@@ -31,6 +31,11 @@ static void	radix_sort_stack_b(t_stackinfo *a, t_stackinfo *b, int bit_size,
 			ft_exit(a, b, ft_push(a, b, TRUE));
 }
 
+/**
+ * @brief Radix sort algorithm for sorting stack of 50 or more numbers.
+ * 	@param a pointer to a stack info
+ * 	@param b pointer to b stack info
+ */
 void	ft_radix_sort(t_stackinfo *a, t_stackinfo *b)
 {
 	int	j;

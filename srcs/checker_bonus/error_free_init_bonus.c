@@ -53,7 +53,7 @@ void	ft_check_and_convert_args(char **av, t_stackinfo *a, t_index *i,
 	i->i = 0;
 	while (nums[i->i])
 	{
-		if (ft_check_valid(nums[i->i]))
+		if (ft_check_valid_int(nums[i->i]))
 			a->nums[i->found_index++] = ft_atoi(nums[i->i]);
 		i->i++;
 	}

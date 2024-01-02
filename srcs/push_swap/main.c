@@ -12,32 +12,12 @@
 
 #include "push_swap.h"
 
-void	ft_printstack(t_stackinfo *a, t_stackinfo *b)
-{
-	t_list	*curr1;
-	t_list	*curr2;
-
-	curr2 = b->stack;
-	curr1 = a->stack;
-	while (curr1 || curr2)
-	{
-		if (curr1)
-		{
-			ft_exit(a, b, ft_printf("%d", *(int *)curr1->content));
-			curr1 = curr1->next;
-		}
-		if (curr2)
-		{
-			ft_exit(a, b, ft_printf("%d", *(int *)curr1->content));
-			curr2 = curr2->next;
-		}
-		ft_exit(a, b, write(1, "\n", 1));
-	}
-	ft_exit(a, b, ft_printf("|a|    |b|\n"));
-}
-
-/* Need to create diff vals for error checking in printf in upper levels
-works as a callback also if there is pf_callback enabled*/
+/**
+ * @brief Exit function for handeling exiting in case of error.
+ * @param a pointer to a stack info
+ * @param b pointer to b stack info
+ * @param err Error code used for callback for checking errorcodes.
+ */
 void	ft_exit(t_stackinfo *a, t_stackinfo *b, int err)
 {
 	if (err > 0)

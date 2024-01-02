@@ -22,7 +22,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)*s1 - (unsigned char)*s2);
 }
 
-int	ft_check_valid(const char *str)
+int	ft_check_valid_int(const char *str)
 {
 	long	val;
 
