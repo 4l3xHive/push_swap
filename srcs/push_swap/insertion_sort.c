@@ -66,10 +66,10 @@ void	ft_sort_3(t_stackinfo *a, t_stackinfo *b)
  * @brief Puts the found index to top of the stack
  * 	@param a pointer to a stack info
  * 	@param b pointer to b stack info
- * 	@param i pointer to index struct
+ * 	@param i pointer to index struct that has the found index and content
  * 	@param is_a is the stack a or b
  */
-static void	ft_exec_int_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i,
+static void	ft_exec_found_i_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i,
 		int is_a)
 {
 	t_stackinfo	*current;
@@ -98,23 +98,33 @@ static void	ft_exec_int_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i,
 }
 
 /**
- * @brief Puts the smallest content node to top of the stack
- * 	@param a pointer to a stack info
- * 	@param b pointer to b stack info
- * 	@param i pointer to index struct
- * 	@param is_a is the stack a or b
+
+	* @brief Finds the index and the content of the smallest or biggest number in the stack pass only a or b,
+	NULL the other one!
+ * 	@param a pointer to a stack info || NULL
+ * 	@param b pointer to b stack info || NULL
+ * 	@param i pointer to index struct that has the found index and content
+ * 	@param find_min Determines that we are looking for the smallest or biggest
  */
-static void	ft_min_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i, int is_a)
+void	ft_find_minmax_to_i_(t_stackinfo *a, t_stackinfo *b, t_index *i,
+		int find_min)
 {
 	t_list	*current;
 
-	if (is_a == TRUE)
+	if (find_min == TRUE)
+		i->found_content = INT_MAX;
+	else
+		i->found_content = INT_MIN;
+	if (a)
 		current = a->stack;
 	else
 		current = b->stack;
+	i->i = 0;
 	while (current)
 	{
-		if (ft_intcmp(current->content, &i->found_content) < 0)
+		if ((find_min == TRUE && ft_intcmp(current->content,
+					&i->found_content) < 0) || (find_min == FALSE
+				&& ft_intcmp(current->content, &i->found_content) > 0))
 		{
 			i->found_content = *(int *)current->content;
 			i->found_index = i->i;
@@ -122,7 +132,6 @@ static void	ft_min_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i, int is_a)
 		current = current->next;
 		i->i++;
 	}
-	ft_exec_int_to_top(a, b, i, is_a);
 }
 
 /**
@@ -139,7 +148,8 @@ void	ft_insertion_sort(t_stackinfo *a, t_stackinfo *b)
 	{
 		ft_init_all(NULL, NULL, &i, NULL);
 		i.middle_index = a->curr_stack_len / 2 + 1;
-		ft_min_to_top(a, b, &i, TRUE);
+		ft_find_minmax_to_i_(a, b, &i, TRUE);
+		ft_exec_found_i_to_top(a, b, &i, TRUE);
 		if (i.is_sorted == FALSE)
 			ft_exit(a, b, ft_push(a, b, FALSE));
 	}

@@ -4,8 +4,8 @@ LIBS = ./libft/libft.a
 M_SRC_FILES =	main.c \
 			actions.c \
 			free_init.c \
-			sort_under50.c \
-			sort_over50.c  \
+			insertion_sort.c \
+			radix_sort.c  \
 			utils.c \
 
 B_SRCS_FILES = 	main_bonus.c \

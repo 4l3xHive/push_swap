@@ -79,6 +79,8 @@ void		ft_radix_sort(t_stackinfo *a, t_stackinfo *b);
 // UTILS
 int			ft_intcmp(const void *a, const void *b);
 int			ft_check_valid_int(const char *str);
+void		ft_find_minmax_to_i_(t_stackinfo *a, t_stackinfo *b, t_index *i,
+				int find_min);
 // CLEANUP
 void		ft_freeall(char **split, long split_i, t_stackinfo *a,
 				t_stackinfo *b);
