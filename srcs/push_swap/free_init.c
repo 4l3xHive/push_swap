@@ -19,17 +19,8 @@
  * 	@param i pointer to an index
  * 	@param c pointer to a sort3 struct
  */
-void	ft_init_all(t_stackinfo *a, t_stackinfo *b, t_index *i, t_sort3 *c)
+void	ft_init_helpers(t_stackinfo *a, t_index *i, t_sort3 *c)
 {
-	if (!i && !c)
-	{
-		a->nums = NULL;
-		a->stack = NULL;
-		a->curr_stack_len = 0;
-		b->stack = NULL;
-		b->nums = NULL;
-		b->curr_stack_len = 0;
-	}
 	if (i)
 	{
 		i->i = 0;
@@ -130,7 +121,7 @@ void	ft_init_stack_a(t_stackinfo *a, t_index *i)
 			ft_exit(a, NULL, 0);
 		ft_lstadd_back(&a->stack, temp);
 	}
-	ft_init_all(NULL, NULL, i, NULL);
+	ft_init_helpers(NULL, i, NULL);
 	create_index(a, i, temp);
 }
 

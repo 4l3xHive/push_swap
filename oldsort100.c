@@ -244,7 +244,7 @@ void	ft_push_smallest_to_b(t_stackinfo *a, t_stackinfo *b)
 	t_list	*current;
 	t_index	i;
 
-	ft_init_all(NULL, NULL, &i);
+	ft_init_helpers(NULL, NULL, &i);
 	current = a->stack;
 	while (current)
 	{
@@ -428,7 +428,7 @@ static void	ft_insert_int_to_top(t_stackinfo *a, t_stackinfo *b, int to_insert,
 		current = b->stack;
 		i.middle_index = b->curr_stack_len / 2;
 	}
-	ft_init_all(NULL, NULL, &i, NULL);
+	ft_init_helpers(NULL, NULL, &i, NULL);
 	while (current)
 	{
 		if (ft_intcmp(current->content, &to_insert) == 0)
@@ -540,8 +540,8 @@ static void	ft_push_b_to_a(t_stackinfo *a, t_stackinfo *b)
 	t_index	max_i;
 	t_index	max_i2;
 
-	ft_init_all(NULL, NULL, &max_i, NULL);
-	ft_init_all(NULL, NULL, &max_i2, NULL);
+	ft_init_helpers(NULL, NULL, &max_i, NULL);
+	ft_init_helpers(NULL, NULL, &max_i2, NULL);
 	while (b->curr_stack_len)
 	{
 		ft_find_extreme_int(b, &max_i, TRUE);
@@ -574,7 +574,7 @@ void	ft_chunk_sort(t_stackinfo *a, t_stackinfo *b, int chunk_size)
 	t_index	i;
 	t_index	min_i;
 
-	ft_init_all(NULL, NULL, &i, NULL);
+	ft_init_helpers(NULL, NULL, &i, NULL);
 	while (a->curr_stack_len)
 	{
 		i.middle_index = a->curr_stack_len / 2;

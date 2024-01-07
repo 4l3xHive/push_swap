@@ -44,7 +44,7 @@ void	ft_sort_3(t_stackinfo *a, t_stackinfo *b)
 {
 	t_sort3	c;
 
-	ft_init_all(a, NULL, NULL, &c);
+	ft_init_helpers(a, NULL, &c);
 	if (c.first > c.second && c.first < c.third && c.second < c.third)
 		ft_exit(a, b, ft_swap(a, TRUE, FALSE));
 	else if (c.first > c.second && c.second > c.third)
@@ -146,8 +146,8 @@ void	ft_insertion_sort(t_stackinfo *a, t_stackinfo *b)
 	i.is_sorted = ft_is_sorted_or_unique(a->stack, FALSE);
 	while (i.is_sorted == FALSE && a->curr_stack_len > 3)
 	{
-		ft_init_all(NULL, NULL, &i, NULL);
-		i.middle_index = a->curr_stack_len / 2 + 1;
+		ft_init_helpers(NULL, &i, NULL);
+		i.middle_index = a->curr_stack_len / 2;
 		ft_find_minmax_to_i_(a, b, &i, TRUE);
 		ft_exec_found_i_to_top(a, b, &i, TRUE);
 		if (i.is_sorted == FALSE)
