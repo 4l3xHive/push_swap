@@ -40,17 +40,17 @@ void	ft_radix_sort(t_stackinfo *a, t_stackinfo *b)
 {
 	int	j;
 	int	bit_size;
-	int	size;
+	int	a_len;
 
 	bit_size = 0;
-	size = a->curr_stack_len;
-	while (size > 1 && ++bit_size)
-		size /= 2;
+	a_len = a->curr_stack_len;
+	while (a_len > 1 && ++bit_size)
+		a_len /= 2;
 	j = -1;
 	while (++j <= bit_size)
 	{
-		size = a->curr_stack_len;
-		while (size-- && !ft_is_sorted_or_unique(a->stack, FALSE))
+		a_len = a->curr_stack_len;
+		while (a_len-- && !ft_is_sorted_or_unique(a->stack, FALSE))
 		{
 			if (((a->stack->index >> j) & 1) == 0)
 				ft_exit(a, b, ft_push(a, b, FALSE));

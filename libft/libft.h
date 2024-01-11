@@ -30,6 +30,7 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+long				ft_atol(const char *str);
 int					ft_isalnum(int c);
 int					ft_isprint(int c);
 int					ft_isdigit(int c);

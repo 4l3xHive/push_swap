@@ -98,9 +98,8 @@ static void	ft_exec_found_i_to_top(t_stackinfo *a, t_stackinfo *b, t_index *i,
 }
 
 /**
-
-	* @brief Finds the index and the content of the smallest or biggest number in the stack pass only a or b,
-	NULL the other one!
+* @brief Finds the index and the content of the smallest
+	or biggest number in the stack pass only a or b,NULL the other one!
  * 	@param a pointer to a stack info || NULL
  * 	@param b pointer to b stack info || NULL
  * 	@param i pointer to index struct that has the found index and content

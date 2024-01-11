@@ -32,8 +32,13 @@ int	ft_intcmp(const void *a, const void *b)
 		return (0);
 }
 
-static int	ft_str_isdigit(const char *str)
+/**
+ * @brief Checks if the given string is a valid integer.
+ * @param str pointer to a string
+ */
+int	ft_check_valid_int(const char *str)
 {
+	long	val;
 	size_t	i;
 
 	i = 0;
@@ -46,41 +51,6 @@ static int	ft_str_isdigit(const char *str)
 		if (ft_isdigit(str[i++]) == FALSE)
 			return (FALSE);
 	}
-	return (TRUE);
-}
-
-static long	ft_atol(const char *str)
-{
-	long	res;
-	int		neg;
-	size_t	i;
-
-	res = 0;
-	neg = 1;
-	i = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
-		|| str[i] == '\f' || str[i] == '\r')
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i++] == '-')
-			neg = -1;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-		res = res * 10 + (str[i++] - '0');
-	return (res * neg);
-}
-
-/**
- * @brief Checks if the given string is a valid integer.
- * @param str pointer to a string
- */
-int	ft_check_valid_int(const char *str)
-{
-	long	val;
-
-	if (ft_str_isdigit(str) == FALSE)
-		return (FALSE);
 	val = ft_atol(str);
 	return (val >= INT_MIN && val <= INT_MAX);
 }
