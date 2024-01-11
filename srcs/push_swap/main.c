@@ -36,7 +36,10 @@ static void	ft_start_sorting(t_stackinfo *a, t_stackinfo *b)
 	if (ft_is_sorted_or_unique(a->stack, TRUE) == FALSE)
 		ft_exit(a, NULL, 0);
 	if (a->curr_stack_len == 2)
-		ft_exit(a, b, ft_swap(a, TRUE, FALSE));
+	{
+		if (ft_is_sorted_or_unique(a->stack, FALSE) == FALSE)
+			ft_exit(a, b, ft_swap(a, TRUE, FALSE));
+	}
 	else if (a->curr_stack_len == 3)
 		ft_sort_3(a, b);
 	else if (a->curr_stack_len < 50)
@@ -51,7 +54,7 @@ static void	ft_init_a(t_stackinfo *a, char **av)
 	char	**arg_nums;
 
 	arg_nums = NULL;
-	if (av[1] && !av[2] && ft_strlen(av[1]) == 0)
+	if (av[1] && !av[2] && ft_strlen(av[1]) < 2)
 		ft_exit(a, NULL, 0);
 	ft_init_helpers(NULL, &i, NULL);
 	ft_check_and_convert_args(av, a, &i, arg_nums);
