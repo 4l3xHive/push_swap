@@ -35,3 +35,10 @@ After applying a series of instructions, Stack A should be sorted:
 ## Contribution
 This project is part of the curriculum at 42 School. Contributions and feedback are welcome to improve the algorithm and documentation.
 
+
+# Best Visual checker !
+
+https://github.com/o-reo/push_swap_visualizer
+
+# Best info for radixsort
+https://medium.com/nerd-for-tech/push-swap-tutorial-fa746e6aba1e
