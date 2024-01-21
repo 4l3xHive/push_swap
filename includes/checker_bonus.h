@@ -59,24 +59,18 @@ typedef struct s_stackinfo
 	int		*nums;
 }			t_stackinfo;
 
-// MAIN ACTIONS
 int			ft_swap(t_stackinfo *info);
 int			ft_rotate(t_stackinfo *info, int reverse);
 int			ft_push(t_stackinfo *a, t_stackinfo *b, int push_a);
 int			ft_is_sorted_or_unique(t_list *stack, int check_unique);
-
-// UTILS
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_str_isdigit(const char *str);
 int			ft_check_valid_int(const char *str);
 long		ft_atol(const char *str);
-// CLEANUP
 void		ft_freeall(char **split, long split_i, t_stackinfo *a,
 				t_stackinfo *b);
 void		ft_exit(t_stackinfo *a, t_stackinfo *b, int pf);
-// INITS    t_stackinfo  a = {0} ??
 void		ft_check_args(char **av, t_stackinfo *a);
-
 void		ft_check_and_convert_args(char **av, t_stackinfo *a, t_index *i,
 				char **nums);
 void		ft_init_stack_a(t_stackinfo *a, t_index *i);
