@@ -23,7 +23,7 @@ void	ft_exit(t_stackinfo *a, t_stackinfo *b, int err)
 	if (err > 0)
 		return ;
 	ft_freeall(NULL, 0, a, b);
-	if (err <= 0)
+	if (err < 0)
 	{
 		ft_putstr_fd("Error\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
@@ -33,8 +33,10 @@ void	ft_exit(t_stackinfo *a, t_stackinfo *b, int err)
 
 static void	ft_start_sorting(t_stackinfo *a, t_stackinfo *b)
 {
+	if (a->curr_stack_len == 1)
+		ft_exit(a, b, 0);
 	if (ft_is_sorted_or_unique(a->stack, TRUE) == FALSE)
-		ft_exit(a, NULL, 0);
+		ft_exit(a, NULL, -1);
 	if (a->curr_stack_len == 2)
 	{
 		if (ft_is_sorted_or_unique(a->stack, FALSE) == FALSE)
@@ -54,8 +56,6 @@ static void	ft_init_a(t_stackinfo *a, char **av)
 	char	**arg_nums;
 
 	arg_nums = NULL;
-	if (av[1] && !av[2] && ft_strlen(av[1]) < 2)
-		ft_exit(a, NULL, 0);
 	ft_init_helpers(NULL, &i, NULL);
 	ft_check_and_convert_args(av, a, &i, arg_nums);
 	ft_init_stack_a(a, &i);

@@ -27,8 +27,10 @@ static void	radix_sort_stack_b(t_stackinfo *a, t_stackinfo *b, int bit_size,
 			ft_exit(a, b, ft_push(a, b, TRUE));
 	}
 	if (ft_is_sorted_or_unique(a->stack, FALSE))
+	{
 		while (b->stack)
 			ft_exit(a, b, ft_push(a, b, TRUE));
+	}
 }
 
 /**

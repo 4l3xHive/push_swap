@@ -53,14 +53,14 @@ void	ft_check_and_convert_args(char **av, t_stackinfo *a, t_index *i,
 	{
 		nums = ft_split(av[1], ' ');
 		if (!nums)
-			ft_exit(a, NULL, 0);
+			ft_exit(a, NULL, -1);
 	}
 	while (nums[i->i])
 		i->i++;
 	a->curr_stack_len = i->i;
 	a->nums = (int *)malloc(sizeof(int) * i->i);
 	if (a->nums == NULL)
-		ft_exit(a, NULL, 0);
+		ft_exit(a, NULL, -1);
 	i->i = 0;
 	while (nums[i->i])
 	{
@@ -71,7 +71,7 @@ void	ft_check_and_convert_args(char **av, t_stackinfo *a, t_index *i,
 	if (av[1] && av[2] == NULL)
 		ft_freeall(nums, (long)a->curr_stack_len, NULL, NULL);
 	if ((size_t)i->middle_index != a->curr_stack_len)
-		ft_exit(a, NULL, 0);
+		ft_exit(a, NULL, -1);
 }
 
 static void	create_index(t_stackinfo *a, t_index *i, t_list *current)
@@ -118,7 +118,7 @@ void	ft_init_stack_a(t_stackinfo *a, t_index *i)
 	{
 		temp = ft_lstnew(&a->nums[i->i++]);
 		if (!temp)
-			ft_exit(a, NULL, 0);
+			ft_exit(a, NULL, -1);
 		ft_lstadd_back(&a->stack, temp);
 	}
 	ft_init_helpers(NULL, i, NULL);
