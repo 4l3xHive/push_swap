@@ -70,7 +70,7 @@ void	ft_check_and_convert_args(char **av, t_stackinfo *a, t_index *i,
 	}
 	if (av[1] && av[2] == NULL)
 		ft_freeall(nums, (long)a->curr_stack_len, NULL, NULL);
-	if ((size_t)i->middle_index != a->curr_stack_len)
+	if ((size_t)i->middle_index != a->curr_stack_len || a->curr_stack_len == 0)
 		ft_exit(a, NULL, -1);
 }
 
